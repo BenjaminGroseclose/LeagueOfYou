@@ -1,5 +1,8 @@
 package bgroseclose.leagueofyou.Activites;
 
+import android.support.design.widget.NavigationView;
+import android.support.v4.view.GravityCompat;
+import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
@@ -15,6 +18,8 @@ import bgroseclose.leagueofyou.R;
 public class LoginActivity extends AppCompatActivity implements LoginPresenter.View {
 
     private LoginPresenter presenter;
+    private DrawerLayout drawer;
+    private NavigationView navigationView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -23,6 +28,7 @@ public class LoginActivity extends AppCompatActivity implements LoginPresenter.V
 
         presenter = new LoginPresenter(this);
         initToolbar();
+        initDrawer();
 
     }
 
@@ -38,6 +44,25 @@ public class LoginActivity extends AppCompatActivity implements LoginPresenter.V
             }
         });
     }
+
+    private void initDrawer() {
+        drawer = findViewById(R.id.drawer_login_activity);
+        navigationView = findViewById(R.id.login_drawer);
+        setupDrawerContent(navigationView);
+
+    }
+
+    private void setupDrawerContent(NavigationView navigationView) {
+        navigationView.setNavigationItemSelectedListener(
+                new NavigationView.OnNavigationItemSelectedListener() {
+                    @Override
+                    public boolean onNavigationItemSelected(MenuItem menuItem) {
+                        presenter.drawerItemSelected(menuItem.getItemId());
+                        return true;
+                    }
+                });
+    }
+
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -57,6 +82,7 @@ public class LoginActivity extends AppCompatActivity implements LoginPresenter.V
 
     @Override
     public void openDrawer() {
+        drawer.openDrawer(GravityCompat.START);
         Toast.makeText(this, "opening Drawer", Toast.LENGTH_SHORT).show();
     }
 }
