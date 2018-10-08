@@ -1,6 +1,9 @@
 package bgroseclose.leagueofyou.Activites;
 
 import android.support.design.widget.NavigationView;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.AppCompatActivity;
@@ -12,6 +15,8 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Toast;
 
+import bgroseclose.leagueofyou.Fragments.LoginFragment;
+import bgroseclose.leagueofyou.Fragments.NewAccountFragment;
 import bgroseclose.leagueofyou.Presenters.LoginPresenter;
 import bgroseclose.leagueofyou.R;
 
@@ -36,6 +41,7 @@ public class LoginActivity extends AppCompatActivity implements LoginPresenter.V
         Toolbar toolbar = findViewById(R.id.main_toolbar);
         setSupportActionBar(toolbar);
 
+        toolbar.setTitle("");
         toolbar.setNavigationIcon(R.drawable.ic_drawer);
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
@@ -63,6 +69,16 @@ public class LoginActivity extends AppCompatActivity implements LoginPresenter.V
                 });
     }
 
+    private void openFragment(Fragment fragmentClass) {
+        Fragment fragment = fragmentClass;
+
+        if(fragment != null) {
+            FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
+            fragmentTransaction.replace(R.id.login_frame_layout, fragment);
+            fragmentTransaction.commit();
+        }
+        drawer.closeDrawers();
+    }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -84,5 +100,15 @@ public class LoginActivity extends AppCompatActivity implements LoginPresenter.V
     public void openDrawer() {
         drawer.openDrawer(GravityCompat.START);
         Toast.makeText(this, "opening Drawer", Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void openLoginFragment() {
+        openFragment(new LoginFragment());
+    }
+
+    @Override
+    public void openNewAccountFragment() {
+        openFragment(new NewAccountFragment());
     }
 }

@@ -1,9 +1,7 @@
 package bgroseclose.leagueofyou.Presenters;
 
-import android.util.Log;
-import android.widget.Toast;
+import android.support.v4.app.Fragment;
 
-import bgroseclose.leagueofyou.Activites.LoginActivity;
 import bgroseclose.leagueofyou.R;
 
 public class LoginPresenter {
@@ -16,9 +14,9 @@ public class LoginPresenter {
 
     public void drawerItemSelected(int id) {
         if(id == R.id.drawer_login_menu) {
-
+            view.openLoginFragment();
         } else if (id == R.id.drawer_new_account_menu) {
-
+            view.openNewAccountFragment();
         }
     }
 
