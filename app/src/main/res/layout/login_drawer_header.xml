@@ -1,72 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="280dp"
-    android:layout_height="wrap_content"
-    android:background="@color/colorPrimary"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    android:layout_height="wrap_content">
 
-    <RelativeLayout
-        android:id="@+id/nav_drawer_profile_info_relative"
+    <ImageView
+        android:id="@+id/login_drawer_image_view"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content">
-
-        <de.hdodenhof.circleimageview.CircleImageView
-            android:id="@+id/nav_drawer_profile_pic"
-            android:layout_width="96dp"
-            android:layout_height="96dp"
-            android:src="@mipmap/ic_launcher"
-            android:layout_marginTop="8dp"
-            android:layout_marginLeft="8dp"
-            android:layout_marginRight="5dp"
-            android:layout_marginBottom="15dp"
-            app:civ_border_width="2dp"
-            app:civ_border_color="@color/colorPrimaryDark" />
-
-        <TextView
-            android:id="@+id/nav_drawer_summoner_name"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginRight="10dp"
-            android:layout_marginLeft="8dp"
-            android:layout_marginTop="15dp"
-            android:layout_toRightOf="@id/nav_drawer_profile_pic"
-            android:fontFamily="@font/anonymous_pro_bold"
-            android:text="Summoner Name"
-            android:textSize="20sp" />
-
-        <TextView
-            android:id="@+id/nav_drawer_summoner_lvl"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:layout_alignLeft="@id/nav_drawer_summoner_name"
-            android:layout_below="@id/nav_drawer_summoner_name"
-            android:text="Lvl 101"
-            android:fontFamily="@font/anonymous_pro_bold"
-            android:textSize="16sp" />
-
-        <ImageView
-            android:id="@+id/nav_drawer_rank_icon"
-            android:layout_width="20dp"
-            android:layout_height="20dp"
-            android:layout_below="@id/nav_drawer_summoner_lvl"
-            android:layout_toRightOf="@id/nav_drawer_profile_pic"
-            android:layout_marginTop="8dp"
-            android:layout_marginLeft="8dp"
-            android:src="@mipmap/ic_launcher_round"/>
-
-        <TextView
-            android:id="@+id/nav_drawer_rank_name"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/nav_drawer_summoner_lvl"
-            android:layout_toRightOf="@id/nav_drawer_rank_icon"
-            android:layout_marginTop="8dp"
-            android:layout_marginLeft="8dp"
-            android:text="Silver II"
-            android:textSize="16sp"
-            android:fontFamily="@font/anonymous_pro_bold" />
-
-    </RelativeLayout>
+        android:layout_height="wrap_content"
+        android:src="@drawable/jhin_wall_paper"/>
 
 </android.support.constraint.ConstraintLayout>

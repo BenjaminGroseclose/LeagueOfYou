@@ -1,8 +1,6 @@
 package bgroseclose.leagueofyou.Activites;
 
 import android.support.design.widget.NavigationView;
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
@@ -34,14 +32,23 @@ public class LoginActivity extends AppCompatActivity implements LoginPresenter.V
         presenter = new LoginPresenter(this);
         initToolbar();
         initDrawer();
+        initLoginFragment();
 
+    }
+
+    private void initLoginFragment() {
+        if (findViewById(R.id.login_fragment_container) != null) {
+            FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
+            fragmentTransaction.add(R.id.login_fragment_container, new LoginFragment());
+            fragmentTransaction.commit();
+        }
     }
 
     private void initToolbar() {
         Toolbar toolbar = findViewById(R.id.main_toolbar);
         setSupportActionBar(toolbar);
+        getSupportActionBar().setDisplayShowTitleEnabled(false);
 
-        toolbar.setTitle("");
         toolbar.setNavigationIcon(R.drawable.ic_drawer);
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
@@ -69,17 +76,6 @@ public class LoginActivity extends AppCompatActivity implements LoginPresenter.V
                 });
     }
 
-    private void openFragment(Fragment fragmentClass) {
-        Fragment fragment = fragmentClass;
-
-        if(fragment != null) {
-            FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
-            fragmentTransaction.replace(R.id.login_frame_layout, fragment);
-            fragmentTransaction.commit();
-        }
-        drawer.closeDrawers();
-    }
-
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = getMenuInflater();
@@ -88,9 +84,18 @@ public class LoginActivity extends AppCompatActivity implements LoginPresenter.V
     }
 
     @Override
+    public void onBackPressed() {
+        if(drawer.isDrawerOpen(GravityCompat.START)) {
+            drawer.closeDrawer(GravityCompat.START);
+        } else {
+            super.onBackPressed();
+        }
+    }
+
+    @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
-        if(id == R.id.info) {
+        if (id == R.id.info) {
             Toast.makeText(this, "opening Info", Toast.LENGTH_SHORT).show();
         }
         return true;
@@ -104,11 +109,21 @@ public class LoginActivity extends AppCompatActivity implements LoginPresenter.V
 
     @Override
     public void openLoginFragment() {
-        openFragment(new LoginFragment());
+        FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
+        fragmentTransaction.replace(R.id.login_fragment_container, new LoginFragment());
+        fragmentTransaction.addToBackStack(null);
+        fragmentTransaction.commit();
+
+        drawer.closeDrawers();
     }
 
     @Override
     public void openNewAccountFragment() {
-        openFragment(new NewAccountFragment());
+        FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
+        fragmentTransaction.replace(R.id.login_fragment_container, new NewAccountFragment());
+        fragmentTransaction.addToBackStack(null);
+        fragmentTransaction.commit();
+
+        drawer.closeDrawers();
     }
 }
