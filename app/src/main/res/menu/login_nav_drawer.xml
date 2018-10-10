@@ -14,4 +14,10 @@
         android:title="Create New Account"
         app:showAsAction="ifRoom"/>
 
+    <item
+        android:id="@+id/drawer_support_menu"
+        android:icon="@drawable/ic_support"
+        android:title="Support"
+        app:showAsAction="ifRoom"/>
+
 </menu>

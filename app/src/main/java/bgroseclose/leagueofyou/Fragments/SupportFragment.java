@@ -8,19 +8,12 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import bgroseclose.leagueofyou.Presenters.LoginFragmentPresenter;
 import bgroseclose.leagueofyou.R;
 
-public class LoginFragment extends Fragment implements LoginFragmentPresenter.View {
-
-    private LoginFragmentPresenter presenter;
-
+public class SupportFragment extends Fragment {
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View rootView = inflater.inflate(R.layout.fragment_login, container, false);
-        presenter = new LoginFragmentPresenter(this);
-
-        return rootView;
+        return inflater.inflate(R.layout.fragment_support, container, false);
     }
 }

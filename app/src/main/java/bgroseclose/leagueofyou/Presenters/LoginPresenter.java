@@ -17,13 +17,15 @@ public class LoginPresenter {
             view.openLoginFragment();
         } else if (id == R.id.drawer_new_account_menu) {
             view.openNewAccountFragment();
+        } else if (id == R.id.drawer_support_menu) {
+            view.openSupportFragment();
         }
     }
 
     public interface View {
-        void openDrawer();
         void openLoginFragment();
         void openNewAccountFragment();
+        void openSupportFragment();
     }
 
 }
