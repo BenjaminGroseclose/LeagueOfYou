@@ -8,7 +8,22 @@ public class LoginFragmentPresenter {
         this.view = view;
     }
 
-    public interface View {
+    public void loginUser(String username, String password) {
+        if(!username.isEmpty() && !password.isEmpty()) {
+            attemptLogin();
+        } else {
+            view.blankUsernameOrPassword();
+        }
+    }
 
+    // todo: may return boolean here.
+    private void attemptLogin() {
+
+    }
+
+    public interface View {
+        void blankUsernameOrPassword();
+        void loginSuccess();
+        void loginFailed();
     }
 }
