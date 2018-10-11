@@ -44,15 +44,35 @@
             android:layout_margin="8dp"
             android:fontFamily="@font/advent_pro_bold"/>
 
+        <TextView
+            android:id="@+id/login_save_username_textview"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/login_password"
+            android:layout_marginTop="8dp"
+            android:layout_marginBottom="8dp"
+            android:layout_toLeftOf="@id/login_save_username_toggle"
+            android:layout_marginRight="45dp"
+            android:textSize="18sp"
+            android:textColor="@android:color/white"
+            android:text="Save Username?"/>
+
+        <Switch
+            android:id="@+id/login_save_username_toggle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/login_password"
+            android:layout_alignRight="@id/login_password"
+            android:layout_margin="8dp"/>
         <Button
             android:id="@+id/login_button"
             android:layout_width="match_parent"
             android:layout_height="50dp"
             android:background="@drawable/login_button"
-            android:layout_below="@id/login_password"
+            android:layout_below="@id/login_save_username_textview"
             android:layout_marginLeft="8dp"
             android:layout_marginRight="8dp"
-            android:layout_marginTop="45dp"
+            android:layout_marginTop="30dp"
             android:text="@string/login"
             android:textSize="18sp"
             android:textColor="@color/colorPrimaryDark"
