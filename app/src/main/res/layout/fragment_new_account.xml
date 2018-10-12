@@ -84,10 +84,21 @@
             android:textColor="@color/colorAccent"
             android:inputType="textPassword"/>
 
-        <Button
+        <EditText
+            android:id="@+id/new_account_age"
             android:layout_width="match_parent"
             android:layout_height="50dp"
+            android:hint="@string/date_of_birth"
             android:layout_below="@id/new_account_password_confirm"
+            android:inputType="date"
+            android:layout_margin="8dp"
+            android:layout_centerHorizontal="true"/>
+
+        <Button
+            android:id="@+id/create_new_account"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_below="@id/new_account_age"
             android:layout_margin="8dp"
             android:background="@drawable/login_button"
             android:fontFamily="@font/advent_pro_bold"
