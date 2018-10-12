@@ -4,11 +4,11 @@ import android.support.v4.app.Fragment;
 
 import bgroseclose.leagueofyou.R;
 
-public class LoginPresenter {
+public class LoginActivityPresenter {
 
     private View view;
 
-    public LoginPresenter(View view) {
+    public LoginActivityPresenter(View view) {
         this.view = view;
     }
 

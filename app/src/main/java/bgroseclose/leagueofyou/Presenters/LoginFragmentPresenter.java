@@ -8,21 +8,31 @@ public class LoginFragmentPresenter {
         this.view = view;
     }
 
-    public void loginUser(String username, String password) {
+    public void loginUser(String username, String password, boolean isSaveUsernameToggled) {
+        // no need to auth login here. Firebase Auth will do it automatically.
         if(!username.isEmpty() && !password.isEmpty()) {
-            attemptLogin();
+            if(attemptLogin()) {
+                view.loginSuccess();
+                if(isSaveUsernameToggled)
+                    view.saveUsername(username);
+            } else {
+                view.loginFailed();
+            }
+
         } else {
-            view.blankUsernameOrPassword();
+            view.invalidUsernameOrPassword();
         }
     }
 
     // todo: may return boolean here.
-    private void attemptLogin() {
+    private boolean attemptLogin() {
 
+        return false;
     }
 
     public interface View {
-        void blankUsernameOrPassword();
+        void invalidUsernameOrPassword();
+        void saveUsername(String username);
         void loginSuccess();
         void loginFailed();
     }
