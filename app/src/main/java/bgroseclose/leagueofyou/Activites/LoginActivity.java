@@ -2,6 +2,7 @@ package bgroseclose.leagueofyou.Activites;
 
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
@@ -17,12 +18,12 @@ import android.widget.Toast;
 import bgroseclose.leagueofyou.Fragments.LoginFragment;
 import bgroseclose.leagueofyou.Fragments.NewAccountFragment;
 import bgroseclose.leagueofyou.Fragments.SupportFragment;
-import bgroseclose.leagueofyou.Presenters.LoginPresenter;
+import bgroseclose.leagueofyou.Presenters.LoginActivityPresenter;
 import bgroseclose.leagueofyou.R;
 
-public class LoginActivity extends AppCompatActivity implements LoginPresenter.View {
+public class LoginActivity extends AppCompatActivity implements LoginActivityPresenter.View {
 
-    private LoginPresenter presenter;
+    private LoginActivityPresenter presenter;
     private DrawerLayout drawer;
     private NavigationView navigationView;
     private Fragment existingFragment;
@@ -33,7 +34,7 @@ public class LoginActivity extends AppCompatActivity implements LoginPresenter.V
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
-        presenter = new LoginPresenter(this);
+        presenter = new LoginActivityPresenter(this);
         initDrawerAndToolbar();
         initLoginFragment();
 
@@ -91,16 +92,26 @@ public class LoginActivity extends AppCompatActivity implements LoginPresenter.V
     public void onBackPressed() {
         if(drawer.isDrawerOpen(GravityCompat.START)) {
             drawer.closeDrawer(GravityCompat.START);
+        } else if(getSupportFragmentManager().getBackStackEntryCount() == 1) {
+            finish();
         } else {
-            super.onBackPressed();
+            onBackPressed();
         }
+
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
         if (id == R.id.info) {
-            //todo should we have this info icon.. what will it do?
+            Fragment currentFragment = getSupportFragmentManager().findFragmentById(R.id.login_fragment_container);
+            if(currentFragment instanceof  LoginFragment) {
+                Toast.makeText(this, "Login Fragment", Toast.LENGTH_SHORT).show();
+            } else if(currentFragment instanceof NewAccountFragment) {
+                Toast.makeText(this, "New Account Fragment", Toast.LENGTH_SHORT).show();
+            } else if(currentFragment instanceof SupportFragment) {
+                Toast.makeText(this, "Support Fragment", Toast.LENGTH_SHORT).show();
+            }
         }
         return true;
     }

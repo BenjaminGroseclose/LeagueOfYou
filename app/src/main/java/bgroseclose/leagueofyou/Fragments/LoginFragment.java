@@ -1,5 +1,7 @@
 package bgroseclose.leagueofyou.Fragments;
 
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -30,17 +32,21 @@ public class LoginFragment extends Fragment implements LoginFragmentPresenter.Vi
         presenter = new LoginFragmentPresenter(this);
 
         initViews(rootView);
-
+        getSharedPref();
         mLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 username = mUsernameEditText.getText().toString();
                 password = mPasswordEditText.getText().toString();
-                presenter.loginUser(username, password);
+                presenter.loginUser(username, password, mSaveUsernameToggle.isChecked());
             }
         });
 
         return rootView;
+    }
+
+    private void getSharedPref() {
+
     }
 
     private void initViews(View rootView) {
@@ -50,8 +56,10 @@ public class LoginFragment extends Fragment implements LoginFragmentPresenter.Vi
         mLogin = rootView.findViewById(R.id.login_button);
     }
 
+
+
     @Override
-    public void blankUsernameOrPassword() {
+    public void invalidUsernameOrPassword() {
         
     }
 
@@ -63,5 +71,13 @@ public class LoginFragment extends Fragment implements LoginFragmentPresenter.Vi
     @Override
     public void loginFailed() {
 
+    }
+
+    @Override
+    public void saveUsername(String username) {
+        SharedPreferences.Editor prefs = getActivity().getPreferences(Context.MODE_PRIVATE).edit();
+        prefs.putBoolean(getString(R.string.save_username_toggle), true);
+        prefs.putString(getString(R.string.save_username), username);
+        prefs.apply();
     }
 }
