@@ -9,6 +9,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 
 import bgroseclose.leagueofyou.Models.NewAccount;
 import bgroseclose.leagueofyou.Presenters.NewAccountPresenter;
@@ -21,9 +22,10 @@ public class NewAccountFragment extends Fragment implements NewAccountPresenter.
     private EditText mPassword;
     private EditText mConfirmPassword;
     private Button mCreateNewAccount;
+    private TextView mDateOfBirth;
     private NewAccountPresenter presenter;
+    String summonersName, username, password, confirmPasword, dateOfBirth;
 
-    //todo: implement Calendar Dialgo for Date of Birth!
 
     @Nullable
     @Override
@@ -44,8 +46,25 @@ public class NewAccountFragment extends Fragment implements NewAccountPresenter.
     }
 
     private NewAccount setNewAccount() {
+        NewAccount account = null;
+        if(isInputValid() && passwordMatch()) {
+            account = new NewAccount(summonersName, username, password, dateOfBirth);
+        }
+        return account;
+    }
 
-        return new NewAccount();
+    private boolean passwordMatch() {
+        return password.equals(confirmPasword);
+    }
+
+    private boolean isInputValid() {
+        return (
+                !(summonersName = mSummoners.getText().toString()).isEmpty() &&
+                !(username = mUsername.getText().toString()).isEmpty() &&
+                !(password = mPassword.getText().toString()).isEmpty() &&
+                !(confirmPasword = mConfirmPassword.getText().toString()).isEmpty() &&
+                !(dateOfBirth = mDateOfBirth.getText().toString()).isEmpty()
+                );
     }
 
     private void initView(View view) {
@@ -54,6 +73,7 @@ public class NewAccountFragment extends Fragment implements NewAccountPresenter.
         mPassword = view.findViewById(R.id.new_account_password);
         mConfirmPassword = view.findViewById(R.id.new_account_password_confirm);
         mCreateNewAccount = view.findViewById(R.id.create_new_account);
+        mDateOfBirth = view.findViewById(R.id.new_account_dob);
     }
 
 }
