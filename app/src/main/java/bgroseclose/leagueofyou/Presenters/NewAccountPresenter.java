@@ -17,9 +17,17 @@ public class NewAccountPresenter {
 
     public void createNewAccount(NewAccount account) {
         if(account != null) {
+            if(
+                    validateUsername(account.getUsername()) &&
+                    validatePassword(account.getPassword()) &&
+                    validateSummoner(account.getSummonerName()) &&
+                    validateDateOfBirth(account.getDateOfBirth())
+                    ) {
+                // todo: successful created account. Process with Firebase auth.
+            }
 
         } else {
-            //todo: something went wrong.
+            //todo: something went wrong. Server error
         }
     }
 
@@ -43,8 +51,17 @@ public class NewAccountPresenter {
         }
     }
 
-    private boolean validateSummoner() {
-        //todo: implement an api call here.
+    private boolean validateSummoner(String summonersName) {
+        //todo: implement an api call here and that that summoner doesn't already exist.
+        if(checkSummoner()) {
+            return true;
+        } else {
+            view.invalidSummonersName();
+            return false;
+        }
+    }
+
+    private boolean checkSummoner() {
         return false;
     }
 
@@ -54,13 +71,16 @@ public class NewAccountPresenter {
         if(dateOfBirth.after(cal)) {
             return true;
         } else {
+            view.invalidDateOfBirth();
             return false;
         }
     }
 
     public interface View {
+        void invalidSummonersName();
         void invalidUsername();
         void invalidPassword();
+        void invalidDateOfBirth();
     }
 
 }

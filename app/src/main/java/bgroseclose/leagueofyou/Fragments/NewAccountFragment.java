@@ -1,5 +1,6 @@
 package bgroseclose.leagueofyou.Fragments;
 
+import android.app.AlertDialog;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -76,4 +77,44 @@ public class NewAccountFragment extends Fragment implements NewAccountPresenter.
         mDateOfBirth = view.findViewById(R.id.new_account_dob);
     }
 
+    private void displayAlertDialog(String title, String message) {
+        AlertDialog.Builder dialog = new AlertDialog.Builder(getContext());
+        dialog.setTitle(title)
+                .setMessage(message)
+                .setIcon(R.drawable.ic_alert);
+        dialog.create();
+        dialog.show();
+    }
+
+    @Override
+    public void invalidSummonersName() {
+        displayAlertDialog(
+                getString(R.string.summoners_invalid_title),
+                getString(R.string.summoners_invalid_message)
+        );
+    }
+
+    @Override
+    public void invalidUsername() {
+        displayAlertDialog(
+                getString(R.string.username_invalid_title),
+                getString(R.string.username_invalid_message)
+        );
+    }
+
+    @Override
+    public void invalidPassword() {
+        displayAlertDialog(
+                getString(R.string.password_invalid_title),
+                getString(R.string.password_invalid_message)
+        );
+    }
+
+    @Override
+    public void invalidDateOfBirth() {
+        displayAlertDialog(
+                getString(R.string.dob_invalid_title),
+                getString(R.string.dob_invalid_message)
+        );
+    }
 }
