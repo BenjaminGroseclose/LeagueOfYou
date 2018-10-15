@@ -1,5 +1,7 @@
 package bgroseclose.leagueofyou.Fragments;
 
+import android.app.AlertDialog;
+import android.app.ProgressDialog;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -24,6 +26,7 @@ public class NewAccountFragment extends Fragment implements NewAccountPresenter.
     private Button mCreateNewAccount;
     private TextView mDateOfBirth;
     private NewAccountPresenter presenter;
+    private ProgressDialog progressDialog;
     String summonersName, username, password, confirmPasword, dateOfBirth;
 
 
@@ -38,7 +41,7 @@ public class NewAccountFragment extends Fragment implements NewAccountPresenter.
         mCreateNewAccount.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                presenter.createNewAccount(setNewAccount());
+                presenter.newAccount(setNewAccount());
             }
         });
 
@@ -76,4 +79,57 @@ public class NewAccountFragment extends Fragment implements NewAccountPresenter.
         mDateOfBirth = view.findViewById(R.id.new_account_dob);
     }
 
+    private void displayAlertDialog(String title, String message) {
+        AlertDialog.Builder dialog = new AlertDialog.Builder(getContext());
+        dialog.setTitle(title)
+                .setMessage(message)
+                .setIcon(R.drawable.ic_alert)
+                .setNeutralButton(getString(R.string.ok), null);
+        dialog.create();
+        dialog.show();
+    }
+
+    @Override
+    public void progressDialog(boolean toDisplay) {
+        progressDialog = new ProgressDialog(getContext());
+        if(toDisplay) {
+            progressDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
+            progressDialog.setMessage(getString(R.string.progress_account_message));
+            progressDialog.show();
+        } else {
+            progressDialog.dismiss();
+        }
+    }
+
+    @Override
+    public void invalidSummonersName() {
+        displayAlertDialog(
+                getString(R.string.summoners_invalid_title),
+                getString(R.string.summoners_invalid_message)
+        );
+    }
+
+    @Override
+    public void invalidUsername() {
+        displayAlertDialog(
+                getString(R.string.username_invalid_title),
+                getString(R.string.username_invalid_message)
+        );
+    }
+
+    @Override
+    public void invalidPassword() {
+        displayAlertDialog(
+                getString(R.string.password_invalid_title),
+                getString(R.string.password_invalid_message)
+        );
+    }
+
+    @Override
+    public void invalidDateOfBirth() {
+        displayAlertDialog(
+                getString(R.string.dob_invalid_title),
+                getString(R.string.dob_invalid_message)
+        );
+    }
 }

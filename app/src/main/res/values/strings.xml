@@ -1,5 +1,6 @@
 <resources>
     <string name="app_name">LeagueOfYou</string>
+    <string name="ok">Ok</string>
 
     <!-- login activity -->
     <string name="drawer_open">Open</string>
@@ -20,6 +21,19 @@
     <string name="password_confirm">Confirm Password</string>
     <string name="create_new_account">Create New Account</string>
     <string name="date_of_birth">Date of Birth:</string>
+
+    <!-- new account alert dialog -->
+    <string name="username_invalid_title">Username Invalid</string>
+    <string name="username_invalid_message">Your username must be an email.</string>
+    <string name="password_invalid_title">Password Invalid</string>
+    <string name="password_invalid_message">Your password must contain at least 1 number, 1 uppercase letter, 1 lowercase letter, and at least 7 total characters.</string>
+    <string name="dob_invalid_title">Date of Birth Invalid</string>
+    <string name="dob_invalid_message">Your date of birth can not be in the future.</string>
+    <string name="summoners_invalid_title">Summoners Name Invalid</string>
+    <string name="summoners_invalid_message">We were not able to find the summoners name. Please try again.</string>
+    <string name="summoners_exists_title">Account Already Exists</string>
+    <string name="summoners_exists_message">It appears that this summoner already has an account. </string>
+    <string name="progress_account_message">Creating New Account</string>
 
     <!-- support fragment -->
     <string name="support">Support</string>
