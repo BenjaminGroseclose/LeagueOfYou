@@ -1,38 +1,38 @@
 package bgroseclose.leagueofyou.Presenters;
 
+import android.util.Log;
 import android.util.Patterns;
 
 import java.util.Calendar;
 import java.util.regex.Pattern;
 
 import bgroseclose.leagueofyou.Models.NewAccount;
+import bgroseclose.leagueofyou.Models.SummonerInfo;
+import bgroseclose.leagueofyou.Retrofit.RiotClient;
+import bgroseclose.leagueofyou.Retrofit.ServiceGenerator;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class NewAccountPresenter {
 
+    private static final String TAG = "NewAccountPresenter";
+
+    private boolean isSummonersNameValid;
     private View view;
+    private NewAccount account;
 
     public NewAccountPresenter(View view) {
         this.view = view;
     }
 
-    public void createNewAccount(NewAccount account) {
-        if(account != null) {
-            if(
-                    validateUsername(account.getUsername()) &&
-                    validatePassword(account.getPassword()) &&
-                    validateSummoner(account.getSummonerName()) &&
-                    validateDateOfBirth(account.getDateOfBirth())
-                    ) {
-                // todo: successful created account. Process with Firebase auth.
-            }
-
-        } else {
-            //todo: something went wrong. Server error
-        }
+    public void newAccount(NewAccount account) {
+        this.account = account;
+        startCreateAccount();
     }
 
     private boolean validateUsername(String username) {
-        if(!Patterns.EMAIL_ADDRESS.matcher(username).matches()) {
+        if (Patterns.EMAIL_ADDRESS.matcher(username).matches()) {
             return true;
         } else {
             view.invalidUsername();
@@ -43,7 +43,7 @@ public class NewAccountPresenter {
     private boolean validatePassword(String password) {
         final String PASSWORD_PATTERN = "^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z]).{5,}";
         Pattern pattern = Pattern.compile(PASSWORD_PATTERN);
-        if(pattern.matcher(password).matches()) {
+        if (pattern.matcher(password).matches()) {
             return true;
         } else {
             view.invalidPassword();
@@ -51,24 +51,48 @@ public class NewAccountPresenter {
         }
     }
 
-    private boolean validateSummoner(String summonersName) {
-        //todo: implement an api call here and that that summoner doesn't already exist.
-        if(checkSummoner()) {
-            return true;
-        } else {
-            view.invalidSummonersName();
-            return false;
+    private void startCreateAccount() {
+        RiotClient client = ServiceGenerator.createService(RiotClient.class);
+        Call<SummonerInfo> call = client.getSummonersInfo();
+        view.progressDialog(true);
+
+        call.enqueue(new Callback<SummonerInfo>() {
+            @Override
+            public void onResponse(Call<SummonerInfo> call, Response<SummonerInfo> response) {
+                view.progressDialog(false);
+                SummonerInfo info = response.body();
+                if (info != null) {
+                    createNewAccount();
+                } else {
+                    view.invalidSummonersName();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<SummonerInfo> call, Throwable t) {
+                view.progressDialog(false);
+            }
+        });
+    }
+
+    private void createNewAccount() {
+        if (
+                validateUsername(account.getUsername()) &&
+                        validatePassword(account.getPassword()) &&
+                        validateDateOfBirth(account.getDateOfBirth())
+                ) {
+            createFirebaseAccount();
         }
     }
 
-    private boolean checkSummoner() {
-        return false;
+    private void createFirebaseAccount() {
+
     }
 
     private boolean validateDateOfBirth(Calendar dateOfBirth) {
         Calendar cal = Calendar.getInstance();
         cal.add(Calendar.YEAR, -13);
-        if(dateOfBirth.after(cal)) {
+        if (dateOfBirth.after(cal)) {
             return true;
         } else {
             view.invalidDateOfBirth();
@@ -77,6 +101,7 @@ public class NewAccountPresenter {
     }
 
     public interface View {
+        void progressDialog(boolean toDisplay);
         void invalidSummonersName();
         void invalidUsername();
         void invalidPassword();

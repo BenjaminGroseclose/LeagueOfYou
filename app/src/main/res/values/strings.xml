@@ -1,5 +1,6 @@
 <resources>
     <string name="app_name">LeagueOfYou</string>
+    <string name="ok">Ok</string>
 
     <!-- login activity -->
     <string name="drawer_open">Open</string>
@@ -32,6 +33,7 @@
     <string name="summoners_invalid_message">We were not able to find the summoners name. Please try again.</string>
     <string name="summoners_exists_title">Account Already Exists</string>
     <string name="summoners_exists_message">It appears that this summoner already has an account. </string>
+    <string name="progress_account_message">Creating New Account</string>
 
     <!-- support fragment -->
     <string name="support">Support</string>
