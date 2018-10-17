@@ -2,40 +2,15 @@ package bgroseclose.leagueofyou.Models;
 
 public class SummonerInfo {
 
-    //{"id":585897,"accountId":31649572,"name":"RiotSchmick","profileIconId":746,"revisionDate":1538788984000,"summonerLevel":104}
-    private int id;
-    private int accountId;
-    private String name;
     private int profileIconId;
+    private String name;
+    private long summonerLevel;
     private long revisionDate;
-    private int summonerLevel;
+    private long id;
+    private long accountId;
 
     public SummonerInfo() {
 
-    }
-
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
-    }
-
-    public int getAccountId() {
-        return accountId;
-    }
-
-    public void setAccountId(int accountId) {
-        this.accountId = accountId;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
     }
 
     public int getProfileIconId() {
@@ -46,6 +21,22 @@ public class SummonerInfo {
         this.profileIconId = profileIconId;
     }
 
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public long getSummonerLevel() {
+        return summonerLevel;
+    }
+
+    public void setSummonerLevel(long summonerLevel) {
+        this.summonerLevel = summonerLevel;
+    }
+
     public long getRevisionDate() {
         return revisionDate;
     }
@@ -54,11 +45,19 @@ public class SummonerInfo {
         this.revisionDate = revisionDate;
     }
 
-    public int getSummonerLevel() {
-        return summonerLevel;
+    public long getId() {
+        return id;
     }
 
-    public void setSummonerLevel(int summonerLevel) {
-        this.summonerLevel = summonerLevel;
+    public void setId(long id) {
+        this.id = id;
+    }
+
+    public long getAccountId() {
+        return accountId;
+    }
+
+    public void setAccountId(long accountId) {
+        this.accountId = accountId;
     }
 }

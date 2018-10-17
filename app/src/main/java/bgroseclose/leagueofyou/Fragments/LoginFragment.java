@@ -1,6 +1,7 @@
 package bgroseclose.leagueofyou.Fragments;
 
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -13,6 +14,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Switch;
 
+import bgroseclose.leagueofyou.Activites.DashboardActivity;
 import bgroseclose.leagueofyou.Presenters.LoginFragmentPresenter;
 import bgroseclose.leagueofyou.R;
 
@@ -56,8 +58,6 @@ public class LoginFragment extends Fragment implements LoginFragmentPresenter.Vi
         mLogin = rootView.findViewById(R.id.login_button);
     }
 
-
-
     @Override
     public void invalidUsernameOrPassword() {
         
@@ -65,7 +65,9 @@ public class LoginFragment extends Fragment implements LoginFragmentPresenter.Vi
 
     @Override
     public void loginSuccess() {
-
+        Intent intent = new Intent(getActivity(), DashboardActivity.class);
+        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+        startActivity(intent);
     }
 
     @Override

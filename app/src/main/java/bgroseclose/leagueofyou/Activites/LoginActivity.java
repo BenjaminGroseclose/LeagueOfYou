@@ -2,7 +2,6 @@ package bgroseclose.leagueofyou.Activites;
 
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
@@ -41,9 +40,9 @@ public class LoginActivity extends AppCompatActivity implements LoginActivityPre
     }
 
     private void initLoginFragment() {
-        if (findViewById(R.id.login_fragment_container) != null) {
+        if (findViewById(R.id.login_container) != null) {
             FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
-            fragmentTransaction.add(R.id.login_fragment_container, new LoginFragment());
+            fragmentTransaction.add(R.id.login_container, new LoginFragment());
             fragmentTransaction.commit();
             existingFragment = new LoginFragment();
         }
@@ -104,7 +103,7 @@ public class LoginActivity extends AppCompatActivity implements LoginActivityPre
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
         if (id == R.id.info) {
-            Fragment currentFragment = getSupportFragmentManager().findFragmentById(R.id.login_fragment_container);
+            Fragment currentFragment = getSupportFragmentManager().findFragmentById(R.id.login_container);
             if(currentFragment instanceof  LoginFragment) {
                 Toast.makeText(this, "Login Fragment", Toast.LENGTH_SHORT).show();
             } else if(currentFragment instanceof NewAccountFragment) {
@@ -120,7 +119,7 @@ public class LoginActivity extends AppCompatActivity implements LoginActivityPre
     public void openLoginFragment() {
         if(existingFragment != new LoginFragment()) {
             FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
-            fragmentTransaction.replace(R.id.login_fragment_container, new LoginFragment());
+            fragmentTransaction.replace(R.id.login_container, new LoginFragment());
             fragmentTransaction.addToBackStack(null);
             fragmentTransaction.commit();
             toolbar.setTitle(getString(R.string.login));
@@ -132,7 +131,7 @@ public class LoginActivity extends AppCompatActivity implements LoginActivityPre
     public void openNewAccountFragment() {
         if(existingFragment != new NewAccountFragment()) {
             FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
-            fragmentTransaction.replace(R.id.login_fragment_container, new NewAccountFragment());
+            fragmentTransaction.replace(R.id.login_container, new NewAccountFragment());
             fragmentTransaction.addToBackStack(null);
             fragmentTransaction.commit();
             toolbar.setTitle(getString(R.string.new_account));
@@ -144,7 +143,7 @@ public class LoginActivity extends AppCompatActivity implements LoginActivityPre
     public void openSupportFragment() {
         if(existingFragment != new SupportFragment()) {
             FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
-            fragmentTransaction.replace(R.id.login_fragment_container, new SupportFragment());
+            fragmentTransaction.replace(R.id.login_container, new SupportFragment());
             fragmentTransaction.addToBackStack(null);
             fragmentTransaction.commit();
             toolbar.setTitle(getString(R.string.support));

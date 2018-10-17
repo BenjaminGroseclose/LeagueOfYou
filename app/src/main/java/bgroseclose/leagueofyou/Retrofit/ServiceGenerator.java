@@ -9,7 +9,7 @@ public class ServiceGenerator {
 
     private static final String BASE_URL = "https://na1.api.riotgames.com/lol/";
     // todo:  key needs to be updated every 24 hours.
-    public static final String Key = "RGAPI-48b08222-39e7-47e9-bb2a-57fea90e6d12";
+    public static final String Key = "RGAPI-4a5da445-4fd5-4d41-8e33-8e784e3cd711";
 
     private static Retrofit.Builder builder =
             new Retrofit.Builder()

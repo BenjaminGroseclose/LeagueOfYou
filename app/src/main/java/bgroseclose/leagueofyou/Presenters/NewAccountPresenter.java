@@ -6,6 +6,7 @@ import android.util.Patterns;
 import java.util.Calendar;
 import java.util.regex.Pattern;
 
+import bgroseclose.leagueofyou.LeagueOfYouSingleton;
 import bgroseclose.leagueofyou.Models.NewAccount;
 import bgroseclose.leagueofyou.Models.SummonerInfo;
 import bgroseclose.leagueofyou.Retrofit.RiotClient;
@@ -53,15 +54,15 @@ public class NewAccountPresenter {
 
     private void startCreateAccount() {
         RiotClient client = ServiceGenerator.createService(RiotClient.class);
-        Call<SummonerInfo> call = client.getSummonersInfo();
+        Call<SummonerInfo> call = client.getSummonersInfo(account.getSummonerName());
         view.progressDialog(true);
 
         call.enqueue(new Callback<SummonerInfo>() {
             @Override
             public void onResponse(Call<SummonerInfo> call, Response<SummonerInfo> response) {
                 view.progressDialog(false);
-                SummonerInfo info = response.body();
-                if (info != null) {
+                if (response.body() != null) {
+                    LeagueOfYouSingleton.setSummonerInfo(response.body());
                     createNewAccount();
                 } else {
                     view.invalidSummonersName();
@@ -71,28 +72,29 @@ public class NewAccountPresenter {
             @Override
             public void onFailure(Call<SummonerInfo> call, Throwable t) {
                 view.progressDialog(false);
+                view.displayServerError();
+
             }
         });
     }
 
     private void createNewAccount() {
-        if (
-                validateUsername(account.getUsername()) &&
-                        validatePassword(account.getPassword()) &&
-                        validateDateOfBirth(account.getDateOfBirth())
-                ) {
+        if (validateUsername(account.getUsername()) &&
+                validatePassword(account.getPassword()) &&
+                validateDateOfBirth(account.getDateOfBirth())) {
             createFirebaseAccount();
         }
     }
 
     private void createFirebaseAccount() {
-
+        //todo: validate account isn't already created... then create account. S
+        //todo: store by summonerId in Firebase
     }
 
     private boolean validateDateOfBirth(Calendar dateOfBirth) {
         Calendar cal = Calendar.getInstance();
         cal.add(Calendar.YEAR, -13);
-        if (dateOfBirth.after(cal)) {
+        if (dateOfBirth.before(cal)) {
             return true;
         } else {
             view.invalidDateOfBirth();
@@ -106,6 +108,7 @@ public class NewAccountPresenter {
         void invalidUsername();
         void invalidPassword();
         void invalidDateOfBirth();
+        void displayServerError();
+        void accountExists();
     }
-
 }

@@ -2,6 +2,7 @@ package bgroseclose.leagueofyou.Fragments;
 
 import android.app.AlertDialog;
 import android.app.ProgressDialog;
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -131,5 +132,34 @@ public class NewAccountFragment extends Fragment implements NewAccountPresenter.
                 getString(R.string.dob_invalid_title),
                 getString(R.string.dob_invalid_message)
         );
+    }
+
+    @Override
+    public void displayServerError() {
+        displayAlertDialog(
+                getString(R.string.server_error_title),
+                getString(R.string.server_error_message)
+        );
+    }
+
+    @Override
+    public void accountExists() {
+        AlertDialog.Builder dialog = new AlertDialog.Builder(getContext());
+        dialog.setTitle(getString(R.string.account_exists_title))
+                .setMessage(getString(R.string.account_exists_message))
+                .setIcon(R.drawable.ic_alert)
+                .setPositiveButton(getString(R.string.ok), new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        getActivity().getSupportFragmentManager().beginTransaction()
+                                .replace(R.id.login_container, new LoginFragment())
+                                .addToBackStack(null)
+                                .commit();
+                    }
+                })
+                .setNeutralButton(getString(R.string.cancel), null);
+
+        dialog.create();
+        dialog.show();
     }
 }

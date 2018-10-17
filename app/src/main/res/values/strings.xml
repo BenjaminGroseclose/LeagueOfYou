@@ -1,6 +1,7 @@
 <resources>
     <string name="app_name">LeagueOfYou</string>
     <string name="ok">Ok</string>
+    <string name="cancel">Cancel</string>
 
     <!-- login activity -->
     <string name="drawer_open">Open</string>
@@ -34,8 +35,15 @@
     <string name="summoners_exists_title">Account Already Exists</string>
     <string name="summoners_exists_message">It appears that this summoner already has an account. </string>
     <string name="progress_account_message">Creating New Account</string>
+    <string name="account_exists_title">Account Already Exists</string>
+    <string name="account_exists_message">It appears that this summoner already has an account, please try logging in again.</string>
 
     <!-- support fragment -->
     <string name="support">Support</string>
+
+    <!-- server error -->
+    <string name="server_error_title">Unexpected Error Occurred</string>
+    <string name="server_error_message">A server error occurred please try again.</string>
+
 
 </resources>
