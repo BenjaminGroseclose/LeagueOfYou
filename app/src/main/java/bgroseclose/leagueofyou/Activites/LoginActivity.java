@@ -17,12 +17,12 @@ import android.widget.Toast;
 import bgroseclose.leagueofyou.Fragments.LoginFragment;
 import bgroseclose.leagueofyou.Fragments.NewAccountFragment;
 import bgroseclose.leagueofyou.Fragments.SupportFragment;
-import bgroseclose.leagueofyou.Presenters.LoginActivityPresenter;
+import bgroseclose.leagueofyou.Presenters.Activities.LoginPresenter;
 import bgroseclose.leagueofyou.R;
 
-public class LoginActivity extends AppCompatActivity implements LoginActivityPresenter.View {
+public class LoginActivity extends AppCompatActivity implements LoginPresenter.View {
 
-    private LoginActivityPresenter presenter;
+    private LoginPresenter presenter;
     private DrawerLayout drawer;
     private NavigationView navigationView;
     private Fragment existingFragment;
@@ -33,7 +33,7 @@ public class LoginActivity extends AppCompatActivity implements LoginActivityPre
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
-        presenter = new LoginActivityPresenter(this);
+        presenter = new LoginPresenter(this);
         initDrawerAndToolbar();
         initLoginFragment();
 

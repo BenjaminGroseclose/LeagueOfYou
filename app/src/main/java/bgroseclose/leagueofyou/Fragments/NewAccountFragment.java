@@ -15,7 +15,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 
 import bgroseclose.leagueofyou.Models.NewAccount;
-import bgroseclose.leagueofyou.Presenters.NewAccountPresenter;
+import bgroseclose.leagueofyou.Presenters.Fragments.NewAccountPresenter;
 import bgroseclose.leagueofyou.R;
 
 public class NewAccountFragment extends Fragment implements NewAccountPresenter.View {

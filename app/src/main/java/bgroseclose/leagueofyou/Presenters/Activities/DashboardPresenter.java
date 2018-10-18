@@ -1,10 +1,10 @@
-package bgroseclose.leagueofyou.Presenters;
+package bgroseclose.leagueofyou.Presenters.Activities;
 
-public class DashboardActivityPresenter {
+public class DashboardPresenter {
 
     View view;
 
-    public DashboardActivityPresenter(View view) {
+    public DashboardPresenter(View view) {
         this.view = view;
     }
 

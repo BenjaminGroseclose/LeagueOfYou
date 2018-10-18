@@ -8,12 +8,12 @@ import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 
-import bgroseclose.leagueofyou.Presenters.DashboardActivityPresenter;
+import bgroseclose.leagueofyou.Presenters.Activities.DashboardPresenter;
 import bgroseclose.leagueofyou.R;
 
-public class DashboardActivity extends AppCompatActivity implements DashboardActivityPresenter.View {
+public class DashboardActivity extends AppCompatActivity implements DashboardPresenter.View {
 
-    private DashboardActivityPresenter presenter;
+    private DashboardPresenter presenter;
     private Toolbar toolbar;
     private DrawerLayout drawer;
     private NavigationView navigationView;
@@ -23,7 +23,7 @@ public class DashboardActivity extends AppCompatActivity implements DashboardAct
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_dashboard);
 
-        presenter = new DashboardActivityPresenter(this);
+        presenter = new DashboardPresenter(this);
         initDrawerAndToolbar();
         presenter.loadSummoner();
     }

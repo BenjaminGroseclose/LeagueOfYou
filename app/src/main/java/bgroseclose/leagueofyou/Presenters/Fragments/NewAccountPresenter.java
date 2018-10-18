@@ -1,4 +1,4 @@
-package bgroseclose.leagueofyou.Presenters;
+package bgroseclose.leagueofyou.Presenters.Fragments;
 
 import android.util.Log;
 import android.util.Patterns;
@@ -62,7 +62,6 @@ public class NewAccountPresenter {
             public void onResponse(Call<SummonerInfo> call, Response<SummonerInfo> response) {
                 view.progressDialog(false);
                 if (response.body() != null) {
-                    LeagueOfYouSingleton.setSummonerInfo(response.body());
                     createNewAccount();
                 } else {
                     view.invalidSummonersName();

@@ -15,23 +15,24 @@ import android.widget.EditText;
 import android.widget.Switch;
 
 import bgroseclose.leagueofyou.Activites.DashboardActivity;
-import bgroseclose.leagueofyou.Presenters.LoginFragmentPresenter;
+import bgroseclose.leagueofyou.Presenters.Fragments.LoginPresenter;
 import bgroseclose.leagueofyou.R;
 
-public class LoginFragment extends Fragment implements LoginFragmentPresenter.View {
+public class LoginFragment extends Fragment implements LoginPresenter.View {
 
-    private LoginFragmentPresenter presenter;
+    private LoginPresenter presenter;
     private EditText mUsernameEditText;
     private EditText mPasswordEditText;
     private Switch mSaveUsernameToggle;
     private Button mLogin;
+    private boolean isSavedUsernameToggled;
     private String username, password;
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_login, container, false);
-        presenter = new LoginFragmentPresenter(this);
+        presenter = new LoginPresenter(this, getActivity());
 
         initViews(rootView);
         getSharedPref();
@@ -48,6 +49,9 @@ public class LoginFragment extends Fragment implements LoginFragmentPresenter.Vi
     }
 
     private void getSharedPref() {
+        SharedPreferences sharedPref = getActivity().getPreferences(Context.MODE_PRIVATE);
+        username = sharedPref.getString(getString(R.string.save_username), "");
+        isSavedUsernameToggled = sharedPref.getBoolean(getString(R.string.save_username_toggle), false);
 
     }
 
@@ -80,6 +84,14 @@ public class LoginFragment extends Fragment implements LoginFragmentPresenter.Vi
         SharedPreferences.Editor prefs = getActivity().getPreferences(Context.MODE_PRIVATE).edit();
         prefs.putBoolean(getString(R.string.save_username_toggle), true);
         prefs.putString(getString(R.string.save_username), username);
+        prefs.apply();
+    }
+
+    @Override
+    public void unsaveUsername() {
+        SharedPreferences.Editor prefs = getActivity().getPreferences(Context.MODE_PRIVATE).edit();
+        prefs.putBoolean(getString(R.string.save_username_toggle), false);
+        prefs.putString(getString(R.string.save_username), "");
         prefs.apply();
     }
 }
