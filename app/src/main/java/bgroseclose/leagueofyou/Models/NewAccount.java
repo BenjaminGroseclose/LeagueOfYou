@@ -11,6 +11,7 @@ public class NewAccount {
     private String Username;
     private String Password;
     private Calendar DateOfBirth;
+    private SummonerInfo SummonerInfo;
 
     public NewAccount() {
 
@@ -21,6 +22,14 @@ public class NewAccount {
         this.Username = username;
         this.Password = password;
         this.DateOfBirth = convertDateOfBirth(dateOfBirth);
+    }
+
+    public bgroseclose.leagueofyou.Models.SummonerInfo getSummonerInfo() {
+        return SummonerInfo;
+    }
+
+    public void setSummonerInfo(bgroseclose.leagueofyou.Models.SummonerInfo summonerInfo) {
+        SummonerInfo = summonerInfo;
     }
 
     public String getSummonerName() {

@@ -1,7 +1,14 @@
 package bgroseclose.leagueofyou.Presenters.Fragments;
 
+import android.support.annotation.NonNull;
 import android.util.Log;
 import android.util.Patterns;
+
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.AuthResult;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DatabaseReference;
 
 import java.util.Calendar;
 import java.util.regex.Pattern;
@@ -17,9 +24,7 @@ import retrofit2.Response;
 
 public class NewAccountPresenter {
 
-    private static final String TAG = "NewAccountPresenter";
-
-    private boolean isSummonersNameValid;
+    private FirebaseAuth auth;
     private View view;
     private NewAccount account;
 
@@ -29,6 +34,7 @@ public class NewAccountPresenter {
 
     public void newAccount(NewAccount account) {
         this.account = account;
+        auth = FirebaseAuth.getInstance();
         startCreateAccount();
     }
 
@@ -60,14 +66,13 @@ public class NewAccountPresenter {
         call.enqueue(new Callback<SummonerInfo>() {
             @Override
             public void onResponse(Call<SummonerInfo> call, Response<SummonerInfo> response) {
-                view.progressDialog(false);
                 if (response.body() != null) {
+                    account.setSummonerInfo(response.body());
                     createNewAccount();
                 } else {
                     view.invalidSummonersName();
                 }
             }
-
             @Override
             public void onFailure(Call<SummonerInfo> call, Throwable t) {
                 view.progressDialog(false);
@@ -85,9 +90,30 @@ public class NewAccountPresenter {
         }
     }
 
+    private boolean doesAccountExist() {
+
+        return false;
+    }
+
     private void createFirebaseAccount() {
-        //todo: validate account isn't already created... then create account. S
-        //todo: store by summonerId in Firebase
+        if(doesAccountExist()) {
+            auth.createUserWithEmailAndPassword(account.getUsername(), account.getPassword())
+                    .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+                        @Override
+                        public void onComplete(@NonNull Task<AuthResult> task) {
+                            if (task.isSuccessful()) {
+                                view.progressDialog(false);
+                            } else {
+                                view.progressDialog(false);
+                                view.displayServerError();
+                            }
+                        }
+                    });
+        } else {
+            view.progressDialog(false);
+            view.accountExists();
+        }
+
     }
 
     private boolean validateDateOfBirth(Calendar dateOfBirth) {

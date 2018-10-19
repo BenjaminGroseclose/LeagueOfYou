@@ -27,7 +27,6 @@ public class LoginPresenter {
         this.isSaveUsernameToggled = isSaveUsernameToggled;
         this.username = username;
         this.password = password;
-        // no need to auth login here. Firebase Auth will do it automatically.
         if (!username.isEmpty() && !password.isEmpty()) {
             attemptLogin();
         } else {
@@ -35,7 +34,6 @@ public class LoginPresenter {
         }
     }
 
-    // todo: may return boolean here.
     private void attemptLogin() {
         auth.signInWithEmailAndPassword(username, password)
                 .addOnCompleteListener(activity, new OnCompleteListener<AuthResult>() {
@@ -43,7 +41,7 @@ public class LoginPresenter {
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()) {
                             view.loginSuccess();
-                            FirebaseUser user = auth.getCurrentUser();
+                            // todo get firebase database account and set to Singleton
                             if (isSaveUsernameToggled) {
                                 view.saveUsername(username);
                             } else {

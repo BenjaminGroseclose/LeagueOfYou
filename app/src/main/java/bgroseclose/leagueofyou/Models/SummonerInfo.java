@@ -1,12 +1,15 @@
 package bgroseclose.leagueofyou.Models;
 
+import com.google.gson.annotations.SerializedName;
+
 public class SummonerInfo {
 
     private int profileIconId;
     private String name;
     private long summonerLevel;
     private long revisionDate;
-    private long id;
+    @SerializedName("id")
+    private long summonerId;
     private long accountId;
 
     public SummonerInfo() {
@@ -45,12 +48,12 @@ public class SummonerInfo {
         this.revisionDate = revisionDate;
     }
 
-    public long getId() {
-        return id;
+    public long getSummonerId() {
+        return summonerId;
     }
 
-    public void setId(long id) {
-        this.id = id;
+    public void setSummonerId(long summonerId) {
+        this.summonerId = summonerId;
     }
 
     public long getAccountId() {
