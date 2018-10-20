@@ -5,22 +5,18 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Locale;
 
-public class NewAccount {
+public class Account {
 
     private String SummonerName;
-    private String Username;
-    private String Password;
     private Calendar DateOfBirth;
     private SummonerInfo SummonerInfo;
 
-    public NewAccount() {
+    public Account() {
 
     }
 
-    public NewAccount(String summonerName, String username, String password, String dateOfBirth) {
+    public Account(String summonerName, String dateOfBirth) {
         this.SummonerName = summonerName;
-        this.Username = username;
-        this.Password = password;
         this.DateOfBirth = convertDateOfBirth(dateOfBirth);
     }
 
@@ -38,22 +34,6 @@ public class NewAccount {
 
     public void setSummonerName(String summonerName) {
         SummonerName = summonerName;
-    }
-
-    public String getUsername() {
-        return Username;
-    }
-
-    public void setUsername(String username) {
-        Username = username;
-    }
-
-    public String getPassword() {
-        return Password;
-    }
-
-    public void setPassword(String password) {
-        Password = password;
     }
 
     public Calendar getDateOfBirth() {

@@ -1,20 +1,18 @@
 package bgroseclose.leagueofyou.Presenters.Fragments;
 
 import android.support.annotation.NonNull;
-import android.util.Log;
 import android.util.Patterns;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.database.DatabaseReference;
 
 import java.util.Calendar;
 import java.util.regex.Pattern;
 
-import bgroseclose.leagueofyou.LeagueOfYouSingleton;
-import bgroseclose.leagueofyou.Models.NewAccount;
+import bgroseclose.leagueofyou.Database.DatabaseClient;
+import bgroseclose.leagueofyou.Models.Account;
 import bgroseclose.leagueofyou.Models.SummonerInfo;
 import bgroseclose.leagueofyou.Retrofit.RiotClient;
 import bgroseclose.leagueofyou.Retrofit.ServiceGenerator;
@@ -26,15 +24,16 @@ public class NewAccountPresenter {
 
     private FirebaseAuth auth;
     private View view;
-    private NewAccount account;
+    private Account account;
+    private String username, password;
 
     public NewAccountPresenter(View view) {
         this.view = view;
+        auth = FirebaseAuth.getInstance();
     }
 
-    public void newAccount(NewAccount account) {
+    public void newAccount(Account account, String username, String password) {
         this.account = account;
-        auth = FirebaseAuth.getInstance();
         startCreateAccount();
     }
 
@@ -83,8 +82,8 @@ public class NewAccountPresenter {
     }
 
     private void createNewAccount() {
-        if (validateUsername(account.getUsername()) &&
-                validatePassword(account.getPassword()) &&
+        if (validateUsername(username) &&
+                validatePassword(password) &&
                 validateDateOfBirth(account.getDateOfBirth())) {
             createFirebaseAccount();
         }
@@ -97,12 +96,18 @@ public class NewAccountPresenter {
 
     private void createFirebaseAccount() {
         if(doesAccountExist()) {
-            auth.createUserWithEmailAndPassword(account.getUsername(), account.getPassword())
+            auth.createUserWithEmailAndPassword(username, password)
                     .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                         @Override
                         public void onComplete(@NonNull Task<AuthResult> task) {
                             if (task.isSuccessful()) {
                                 view.progressDialog(false);
+                                DatabaseClient.saveAccount(account);
+                                if(DatabaseClient.isSuccessful()) {
+                                    //todo: return to login page account is created.
+                                } else {
+                                    //todo: database saved failed return login but require account save again.
+                                }
                             } else {
                                 view.progressDialog(false);
                                 view.displayServerError();

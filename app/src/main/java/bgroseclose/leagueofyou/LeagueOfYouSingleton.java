@@ -1,16 +1,17 @@
 package bgroseclose.leagueofyou;
 
+import bgroseclose.leagueofyou.Models.Account;
 import bgroseclose.leagueofyou.Models.SummonerInfo;
 
 public class LeagueOfYouSingleton {
 
-    private static SummonerInfo summonerInfo;
+    private static Account account;
 
-    public static SummonerInfo getSummonerInfo() {
-        return summonerInfo;
+    public static Account getAccount() {
+        return account;
     }
 
-    public static void setSummonerInfo(SummonerInfo summonerInfo) {
-        LeagueOfYouSingleton.summonerInfo = summonerInfo;
+    public static void setAccount(Account account) {
+        LeagueOfYouSingleton.account = account;
     }
 }

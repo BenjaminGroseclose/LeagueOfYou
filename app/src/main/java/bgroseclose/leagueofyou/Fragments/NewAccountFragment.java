@@ -14,7 +14,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
-import bgroseclose.leagueofyou.Models.NewAccount;
+import bgroseclose.leagueofyou.Models.Account;
 import bgroseclose.leagueofyou.Presenters.Fragments.NewAccountPresenter;
 import bgroseclose.leagueofyou.R;
 
@@ -42,17 +42,17 @@ public class NewAccountFragment extends Fragment implements NewAccountPresenter.
         mCreateNewAccount.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                presenter.newAccount(setNewAccount());
+                presenter.newAccount(setNewAccount(), username, password);
             }
         });
 
         return rootView;
     }
 
-    private NewAccount setNewAccount() {
-        NewAccount account = null;
-        if(isInputValid() && passwordMatch()) {
-            account = new NewAccount(summonersName, username, password, dateOfBirth);
+    private Account setNewAccount() {
+        Account account = null;
+        if (isInputValid() && passwordMatch()) {
+            account = new Account(summonersName, dateOfBirth);
         }
         return account;
     }
@@ -64,11 +64,11 @@ public class NewAccountFragment extends Fragment implements NewAccountPresenter.
     private boolean isInputValid() {
         return (
                 !(summonersName = mSummoners.getText().toString()).isEmpty() &&
-                !(username = mUsername.getText().toString()).isEmpty() &&
-                !(password = mPassword.getText().toString()).isEmpty() &&
-                !(confirmPasword = mConfirmPassword.getText().toString()).isEmpty() &&
-                !(dateOfBirth = mDateOfBirth.getText().toString()).isEmpty()
-                );
+                        !(username = mUsername.getText().toString()).isEmpty() &&
+                        !(password = mPassword.getText().toString()).isEmpty() &&
+                        !(confirmPasword = mConfirmPassword.getText().toString()).isEmpty() &&
+                        !(dateOfBirth = mDateOfBirth.getText().toString()).isEmpty()
+        );
     }
 
     private void initView(View view) {
@@ -93,7 +93,7 @@ public class NewAccountFragment extends Fragment implements NewAccountPresenter.
     @Override
     public void progressDialog(boolean toDisplay) {
         progressDialog = new ProgressDialog(getContext());
-        if(toDisplay) {
+        if (toDisplay) {
             progressDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
             progressDialog.setMessage(getString(R.string.progress_account_message));
             progressDialog.show();
