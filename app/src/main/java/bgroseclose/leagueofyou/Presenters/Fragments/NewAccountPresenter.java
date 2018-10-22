@@ -1,19 +1,25 @@
 package bgroseclose.leagueofyou.Presenters.Fragments;
 
+import android.content.Context;
+import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.v4.app.FragmentTransaction;
 import android.util.Patterns;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 
 import java.util.Calendar;
 import java.util.regex.Pattern;
 
 import bgroseclose.leagueofyou.Database.DatabaseClient;
+import bgroseclose.leagueofyou.Fragments.LoginFragment;
 import bgroseclose.leagueofyou.Models.Account;
 import bgroseclose.leagueofyou.Models.SummonerInfo;
+import bgroseclose.leagueofyou.R;
 import bgroseclose.leagueofyou.Retrofit.RiotClient;
 import bgroseclose.leagueofyou.Retrofit.ServiceGenerator;
 import retrofit2.Call;
@@ -33,8 +39,14 @@ public class NewAccountPresenter {
     }
 
     public void newAccount(Account account, String username, String password) {
+        this.username = username;
+        this.password = password;
         this.account = account;
-        startCreateAccount();
+        if (validateUsername(username) &&
+                validatePassword(password) &&
+                validateDateOfBirth(account.getDateOfBirth())) {
+            startCreateAccount();
+        }
     }
 
     private boolean validateUsername(String username) {
@@ -67,7 +79,7 @@ public class NewAccountPresenter {
             public void onResponse(Call<SummonerInfo> call, Response<SummonerInfo> response) {
                 if (response.body() != null) {
                     account.setSummonerInfo(response.body());
-                    createNewAccount();
+                    createFirebaseAccount();
                 } else {
                     view.invalidSummonersName();
                 }
@@ -81,44 +93,26 @@ public class NewAccountPresenter {
         });
     }
 
-    private void createNewAccount() {
-        if (validateUsername(username) &&
-                validatePassword(password) &&
-                validateDateOfBirth(account.getDateOfBirth())) {
-            createFirebaseAccount();
-        }
-    }
-
-    private boolean doesAccountExist() {
-
-        return false;
-    }
-
     private void createFirebaseAccount() {
-        if(doesAccountExist()) {
-            auth.createUserWithEmailAndPassword(username, password)
-                    .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
-                        @Override
-                        public void onComplete(@NonNull Task<AuthResult> task) {
-                            if (task.isSuccessful()) {
-                                view.progressDialog(false);
-                                DatabaseClient.saveAccount(account);
-                                if(DatabaseClient.isSuccessful()) {
-                                    //todo: return to login page account is created.
-                                } else {
-                                    //todo: database saved failed return login but require account save again.
-                                }
+        auth.createUserWithEmailAndPassword(username, password)
+                .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+                    @Override
+                    public void onComplete(@NonNull Task<AuthResult> task) {
+                        if (task.isSuccessful()) {
+                            view.progressDialog(false);
+                            FirebaseUser user = auth.getCurrentUser();
+                            DatabaseClient.saveAccount(user.getUid(), account);
+                            if (DatabaseClient.isSuccessful()) {
+                                view.returnToLogin(username);
                             } else {
-                                view.progressDialog(false);
-                                view.displayServerError();
+                                //todo: database saved failed return login but require account save again.
                             }
+                        } else {
+                            view.progressDialog(false);
+                            view.displayServerError();
                         }
-                    });
-        } else {
-            view.progressDialog(false);
-            view.accountExists();
-        }
-
+                    }
+                });
     }
 
     private boolean validateDateOfBirth(Calendar dateOfBirth) {
@@ -140,5 +134,6 @@ public class NewAccountPresenter {
         void invalidDateOfBirth();
         void displayServerError();
         void accountExists();
+        void returnToLogin(String username);
     }
 }

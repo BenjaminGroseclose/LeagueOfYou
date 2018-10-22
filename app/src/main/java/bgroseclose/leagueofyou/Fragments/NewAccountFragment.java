@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentTransaction;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -36,7 +37,7 @@ public class NewAccountFragment extends Fragment implements NewAccountPresenter.
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_new_account, container, false);
 
-        presenter = new NewAccountPresenter(this);
+        presenter = new NewAccountPresenter( this);
         initView(rootView);
 
         mCreateNewAccount.setOnClickListener(new View.OnClickListener() {
@@ -161,5 +162,15 @@ public class NewAccountFragment extends Fragment implements NewAccountPresenter.
 
         dialog.create();
         dialog.show();
+    }
+
+    @Override
+    public void returnToLogin(String username) {
+            LoginFragment loginFragment = new LoginFragment();
+            FragmentTransaction transaction = getFragmentManager().beginTransaction();
+            Bundle bundle = new Bundle();
+            bundle.putString(getContext().getString(R.string.username), username);
+            loginFragment.setArguments(bundle);
+            transaction.replace(R.id.login_container, loginFragment);
     }
 }

@@ -9,6 +9,8 @@ import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
+import bgroseclose.leagueofyou.Database.DatabaseClient;
+
 public class LoginPresenter {
 
     private boolean isSaveUsernameToggled;
@@ -41,7 +43,8 @@ public class LoginPresenter {
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()) {
                             view.loginSuccess();
-                            // todo get firebase database account and set to Singleton
+                            FirebaseUser user = auth.getCurrentUser();
+                            DatabaseClient.getAccount(user.getUid());
                             if (isSaveUsernameToggled) {
                                 view.saveUsername(username);
                             } else {

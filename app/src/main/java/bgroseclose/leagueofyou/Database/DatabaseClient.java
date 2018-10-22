@@ -1,6 +1,7 @@
 package bgroseclose.leagueofyou.Database;
 
 import android.support.annotation.NonNull;
+import android.util.Log;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -16,16 +17,19 @@ import bgroseclose.leagueofyou.Models.Account;
 
 public class DatabaseClient {
 
+    private static final String TAG = "DatabaseClient";
+    private static final String dbAccount = "Account";
+
     private static DatabaseReference databaseReference;
     private static boolean isSuccessful;
 
-    public static void saveAccount(Account account) {
+    public static void saveAccount(String userId, Account account) {
         if(databaseReference == null) {
             databaseReference = FirebaseDatabase.getInstance().getReference();
         }
 
-        databaseReference.child("Account")
-                .child(String.valueOf(account.getSummonerInfo().getSummonerId()))
+        databaseReference.child(dbAccount)
+                .child(userId)
                 .setValue(account)
                 .addOnCompleteListener(new OnCompleteListener<Void>() {
                     @Override
@@ -35,12 +39,15 @@ public class DatabaseClient {
                 });
     }
 
-    private static void getAccount(long summonerId) {
+    /**
+     * This will should only be called if they are already logged in.
+     */
+    public static void getAccount(String userId) {
         if(databaseReference == null) {
             databaseReference = FirebaseDatabase.getInstance().getReference();
         }
 
-        Query query = databaseReference.child("Account").equalTo(summonerId);
+        Query query = databaseReference.child(dbAccount).equalTo(userId);
         query.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
@@ -54,7 +61,8 @@ public class DatabaseClient {
 
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
-
+                Log.e(TAG, "onCancelled: " + databaseError.toString(), databaseError.toException());
+                isSuccessful = false;
             }
         });
     }
@@ -62,5 +70,4 @@ public class DatabaseClient {
     public static boolean isSuccessful() {
         return isSuccessful;
     }
-
 }

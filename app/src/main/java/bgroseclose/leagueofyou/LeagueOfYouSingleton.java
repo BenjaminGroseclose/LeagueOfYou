@@ -1,7 +1,6 @@
 package bgroseclose.leagueofyou;
 
 import bgroseclose.leagueofyou.Models.Account;
-import bgroseclose.leagueofyou.Models.SummonerInfo;
 
 public class LeagueOfYouSingleton {
 
