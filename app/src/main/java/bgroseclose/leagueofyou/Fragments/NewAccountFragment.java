@@ -15,30 +15,37 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import bgroseclose.leagueofyou.Components.DaggerIRiotClientComponent;
+import bgroseclose.leagueofyou.Components.IRiotClientComponent;
 import bgroseclose.leagueofyou.Models.Account;
 import bgroseclose.leagueofyou.Presenters.Fragments.NewAccountPresenter;
 import bgroseclose.leagueofyou.R;
+import butterknife.BindView;
+import butterknife.ButterKnife;
 
 public class NewAccountFragment extends Fragment implements NewAccountPresenter.View {
 
-    private EditText mSummoners;
-    private EditText mUsername;
-    private EditText mPassword;
-    private EditText mConfirmPassword;
-    private Button mCreateNewAccount;
-    private TextView mDateOfBirth;
+    @BindView(R.id.new_account_summoners_name) EditText mSummoners;
+    @BindView(R.id.new_account_username) EditText mUsername;
+    @BindView(R.id.new_account_password) EditText mPassword;
+    @BindView(R.id.new_account_password_confirm) EditText mConfirmPassword;
+    @BindView(R.id.create_new_account) Button mCreateNewAccount;
+    @BindView(R.id.new_account_dob) TextView mDateOfBirth;
     private NewAccountPresenter presenter;
     private ProgressDialog progressDialog;
-    String summonersName, username, password, confirmPasword, dateOfBirth;
-
+    private String summonersName, username, password, confirmPasword, dateOfBirth;
+    private IRiotClientComponent clientComponent;
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_new_account, container, false);
+        ButterKnife.bind(this, rootView);
 
-        presenter = new NewAccountPresenter( this);
-        initView(rootView);
+        clientComponent = DaggerIRiotClientComponent.builder()
+                .build();
+
+        presenter = new NewAccountPresenter( this, clientComponent.getRiotClient());
 
         mCreateNewAccount.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -59,26 +66,27 @@ public class NewAccountFragment extends Fragment implements NewAccountPresenter.
     }
 
     private boolean passwordMatch() {
-        return password.equals(confirmPasword);
+        if(password.equals(confirmPasword)) {
+            return true;
+        } else {
+            //todo: displayAlertDialog();
+            return false;
+        }
     }
 
     private boolean isInputValid() {
-        return (
+        if(
                 !(summonersName = mSummoners.getText().toString()).isEmpty() &&
                         !(username = mUsername.getText().toString()).isEmpty() &&
                         !(password = mPassword.getText().toString()).isEmpty() &&
                         !(confirmPasword = mConfirmPassword.getText().toString()).isEmpty() &&
                         !(dateOfBirth = mDateOfBirth.getText().toString()).isEmpty()
-        );
-    }
-
-    private void initView(View view) {
-        mSummoners = view.findViewById(R.id.new_account_summoners_name);
-        mUsername = view.findViewById(R.id.new_account_username);
-        mPassword = view.findViewById(R.id.new_account_password);
-        mConfirmPassword = view.findViewById(R.id.new_account_password_confirm);
-        mCreateNewAccount = view.findViewById(R.id.create_new_account);
-        mDateOfBirth = view.findViewById(R.id.new_account_dob);
+        ) {
+            return true;
+        } else {
+            //todo: displayAlertDialog();
+            return false;
+        }
     }
 
     private void displayAlertDialog(String title, String message) {
