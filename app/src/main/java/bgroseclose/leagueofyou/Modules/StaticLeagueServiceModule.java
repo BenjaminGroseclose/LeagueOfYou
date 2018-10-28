@@ -3,7 +3,7 @@ package bgroseclose.leagueofyou.Modules;
 import javax.inject.Named;
 
 import bgroseclose.leagueofyou.LeagueOfYouSingleton;
-import bgroseclose.leagueofyou.Retrofit.IRiotClient;
+import bgroseclose.leagueofyou.Retrofit.IStaticLeagueClient;
 import dagger.Module;
 import dagger.Provides;
 import okhttp3.OkHttpClient;
@@ -11,19 +11,21 @@ import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
 @Module(includes = NetworkModule.class)
-public class RiotServiceModule {
+public class StaticLeagueServiceModule {
+
 
     @Provides
-    public IRiotClient riotClient(@Named("riotRetrofit") Retrofit retrofit) {
-        return  retrofit.create(IRiotClient.class);
+    public IStaticLeagueClient riotClient(@Named("staticRetrofit") Retrofit retrofit) {
+        return  retrofit.create(IStaticLeagueClient.class);
     }
 
     @Provides
-    public Retrofit riotRetrofit(OkHttpClient okHttpClient) {
+    public Retrofit staticRetrofit(OkHttpClient okHttpClient) {
         return new Retrofit.Builder()
                 .addConverterFactory(GsonConverterFactory.create())
                 .client(okHttpClient)
-                .baseUrl(LeagueOfYouSingleton.riotBaseUrl)
+                .baseUrl(LeagueOfYouSingleton.riotStaticBaseUrl)
                 .build();
     }
+
 }

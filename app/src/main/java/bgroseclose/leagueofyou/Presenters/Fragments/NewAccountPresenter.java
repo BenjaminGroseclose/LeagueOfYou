@@ -80,6 +80,7 @@ public class NewAccountPresenter {
                     account.setSummonerInfo(response.body());
                     createFirebaseAccount();
                 } else {
+                    view.progressDialog(false);
                     view.invalidSummonersName();
                 }
             }
@@ -104,7 +105,7 @@ public class NewAccountPresenter {
                             if (DatabaseClient.isSuccessful()) {
                                 view.returnToLogin(username);
                             } else {
-                                //todo: database saved failed return login but require account save again.
+                                view.displayServerError();
                             }
                         } else {
                             view.progressDialog(false);
@@ -132,7 +133,6 @@ public class NewAccountPresenter {
         void invalidPassword();
         void invalidDateOfBirth();
         void displayServerError();
-        void accountExists();
         void returnToLogin(String username);
     }
 }

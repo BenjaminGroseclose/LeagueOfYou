@@ -47,7 +47,6 @@ public class LoginActivity extends AppCompatActivity implements LoginPresenter.V
             existingFragment = new LoginFragment();
         }
         toolbar.setTitle(getString(R.string.login));
-
     }
 
     private void initDrawerAndToolbar() {

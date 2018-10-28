@@ -15,7 +15,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
-import bgroseclose.leagueofyou.Components.DaggerIRiotClientComponent;
+
 import bgroseclose.leagueofyou.Components.IRiotClientComponent;
 import bgroseclose.leagueofyou.Models.Account;
 import bgroseclose.leagueofyou.Presenters.Fragments.NewAccountPresenter;
@@ -42,8 +42,8 @@ public class NewAccountFragment extends Fragment implements NewAccountPresenter.
         View rootView = inflater.inflate(R.layout.fragment_new_account, container, false);
         ButterKnife.bind(this, rootView);
 
-        clientComponent = DaggerIRiotClientComponent.builder()
-                .build();
+//        clientComponent = DaggerIRiotClientComponent.builder()
+//                .build();
 
         presenter = new NewAccountPresenter( this, clientComponent.getRiotClient());
 
@@ -69,7 +69,10 @@ public class NewAccountFragment extends Fragment implements NewAccountPresenter.
         if(password.equals(confirmPasword)) {
             return true;
         } else {
-            //todo: displayAlertDialog();
+            displayAlertDialog(
+                    getString(R.string.password_invalid_title),
+                    getString(R.string.password_mismatch_message)
+            );
             return false;
         }
     }
@@ -84,7 +87,10 @@ public class NewAccountFragment extends Fragment implements NewAccountPresenter.
         ) {
             return true;
         } else {
-            //todo: displayAlertDialog();
+            displayAlertDialog(
+                    getString(R.string.missing_input_title),
+                    getString(R.string.missing_input_message)
+            );
             return false;
         }
     }
@@ -149,27 +155,6 @@ public class NewAccountFragment extends Fragment implements NewAccountPresenter.
                 getString(R.string.server_error_title),
                 getString(R.string.server_error_message)
         );
-    }
-
-    @Override
-    public void accountExists() {
-        AlertDialog.Builder dialog = new AlertDialog.Builder(getContext());
-        dialog.setTitle(getString(R.string.account_exists_title))
-                .setMessage(getString(R.string.account_exists_message))
-                .setIcon(R.drawable.ic_alert)
-                .setPositiveButton(getString(R.string.ok), new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        getActivity().getSupportFragmentManager().beginTransaction()
-                                .replace(R.id.login_container, new LoginFragment())
-                                .addToBackStack(null)
-                                .commit();
-                    }
-                })
-                .setNeutralButton(getString(R.string.cancel), null);
-
-        dialog.create();
-        dialog.show();
     }
 
     @Override

@@ -18,25 +18,35 @@ import android.widget.Switch;
 import bgroseclose.leagueofyou.Activites.DashboardActivity;
 import bgroseclose.leagueofyou.Presenters.Fragments.LoginPresenter;
 import bgroseclose.leagueofyou.R;
+import butterknife.BindView;
+import butterknife.ButterKnife;
 
 public class LoginFragment extends Fragment implements LoginPresenter.View {
 
-    private LoginPresenter presenter;
-    private EditText mUsernameEditText;
-    private EditText mPasswordEditText;
-    private Switch mSaveUsernameToggle;
-    private Button mLogin;
+
+    @BindView(R.id.login_username) EditText mUsernameEditText;
+    @BindView(R.id.login_password) EditText mPasswordEditText;
+    @BindView(R.id.login_save_username_toggle) Switch mSaveUsernameToggle;
+    @BindView(R.id.login_button) Button mLogin;
     private boolean isSavedUsernameToggled;
     private String username, password;
+    private LoginPresenter presenter;
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_login, container, false);
+        ButterKnife.bind(this, rootView);
+
         presenter = new LoginPresenter(this, getActivity());
 
-        initViews(rootView);
         getSharedPref();
+        Bundle bundle = this.getArguments();
+        if(bundle != null) {
+            String usernameFromNewAccount = bundle.getString(getContext().getString(R.string.username), "");
+            mUsernameEditText.setText(usernameFromNewAccount);
+        }
+
         mLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -54,19 +64,6 @@ public class LoginFragment extends Fragment implements LoginPresenter.View {
         username = sharedPref.getString(getString(R.string.save_username), "");
         isSavedUsernameToggled = sharedPref.getBoolean(getString(R.string.save_username_toggle), false);
         mSaveUsernameToggle.setChecked(isSavedUsernameToggled);
-    }
-
-    private void initViews(View rootView) {
-        mUsernameEditText = rootView.findViewById(R.id.login_username);
-        mPasswordEditText = rootView.findViewById(R.id.login_password);
-        mSaveUsernameToggle = rootView.findViewById(R.id.login_save_username_toggle);
-        mLogin = rootView.findViewById(R.id.login_button);
-
-        Bundle bundle = this.getArguments();
-        if(bundle != null) {
-            String usernameFromNewAccount = bundle.getString(getContext().getString(R.string.username), "");
-            mUsernameEditText.setText(usernameFromNewAccount);
-        }
     }
 
     private void displayAlertDialog(String title, String message) {
