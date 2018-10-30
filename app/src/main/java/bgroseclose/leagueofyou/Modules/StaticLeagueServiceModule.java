@@ -15,7 +15,7 @@ public class StaticLeagueServiceModule {
 
 
     @Provides
-    public IStaticLeagueClient riotClient(@Named("staticRetrofit") Retrofit retrofit) {
+    public IStaticLeagueClient riotClient( Retrofit retrofit) {
         return  retrofit.create(IStaticLeagueClient.class);
     }
 

@@ -2,7 +2,6 @@ package bgroseclose.leagueofyou.Fragments;
 
 import android.app.AlertDialog;
 import android.app.ProgressDialog;
-import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -16,7 +15,9 @@ import android.widget.EditText;
 import android.widget.TextView;
 
 
+import bgroseclose.leagueofyou.Components.DaggerIRiotClientComponent;
 import bgroseclose.leagueofyou.Components.IRiotClientComponent;
+import bgroseclose.leagueofyou.LeagueOfYouSingleton;
 import bgroseclose.leagueofyou.Models.Account;
 import bgroseclose.leagueofyou.Presenters.Fragments.NewAccountPresenter;
 import bgroseclose.leagueofyou.R;
@@ -34,7 +35,7 @@ public class NewAccountFragment extends Fragment implements NewAccountPresenter.
     private NewAccountPresenter presenter;
     private ProgressDialog progressDialog;
     private String summonersName, username, password, confirmPasword, dateOfBirth;
-    private IRiotClientComponent clientComponent;
+    private IRiotClientComponent riotClientComponent;
 
     @Nullable
     @Override
@@ -42,10 +43,11 @@ public class NewAccountFragment extends Fragment implements NewAccountPresenter.
         View rootView = inflater.inflate(R.layout.fragment_new_account, container, false);
         ButterKnife.bind(this, rootView);
 
-//        clientComponent = DaggerIRiotClientComponent.builder()
-//                .build();
+        riotClientComponent = DaggerIRiotClientComponent.builder()
+                .build();
 
-        presenter = new NewAccountPresenter( this, clientComponent.getRiotClient());
+
+        presenter = new NewAccountPresenter( this, riotClientComponent.getRiotClient());
 
         mCreateNewAccount.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -103,6 +105,19 @@ public class NewAccountFragment extends Fragment implements NewAccountPresenter.
                 .setNeutralButton(getString(R.string.ok), null);
         dialog.create();
         dialog.show();
+    }
+
+    @Override
+    public boolean checkConnection() {
+        if(LeagueOfYouSingleton.checkConnection(getContext())) {
+            return true;
+        } else {
+            displayAlertDialog(
+                    getString(R.string.connection_failed_title),
+                    getString(R.string.connection_failed_message)
+            );
+            return false;
+        }
     }
 
     @Override

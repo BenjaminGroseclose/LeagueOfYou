@@ -14,7 +14,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 public class RiotServiceModule {
 
     @Provides
-    public IRiotClient riotClient(@Named("riotRetrofit") Retrofit retrofit) {
+    public IRiotClient riotClient(Retrofit retrofit) {
         return  retrofit.create(IRiotClient.class);
     }
 

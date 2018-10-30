@@ -6,11 +6,9 @@ import bgroseclose.leagueofyou.Retrofit.IRiotClient;
 import bgroseclose.leagueofyou.Retrofit.IStaticLeagueClient;
 import dagger.Component;
 
-@Component(modules = {RiotServiceModule.class, StaticLeagueServiceModule.class})
+@Component(modules = RiotServiceModule.class)
 public interface IRiotClientComponent {
 
     IRiotClient getRiotClient();
-
-    IStaticLeagueClient getStaticClient();
 
 }

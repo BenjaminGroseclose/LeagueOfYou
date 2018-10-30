@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <item
+        android:id="@+id/drawer_dashboard_menu"
+        android:icon="@drawable/ic_dashboard"
+        android:title="Dashboard"
+        app:showAsAction="ifRoom"/>
+
+    <item
+        android:id="@+id/drawer_champion_menu"
+        android:icon="@drawable/ic_champions"
+        android:title="Champions"
+        app:showAsAction="ifRoom"/>
+
+    <item
+        android:id="@+id/drawer_builds_menu"
+        android:icon="@drawable/ic_builds"
+        android:title="Builds"
+        app:showAsAction="ifRoom"/>
+
+</menu>

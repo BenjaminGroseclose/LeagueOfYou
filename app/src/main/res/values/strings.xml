@@ -53,6 +53,8 @@
     <!-- server error -->
     <string name="server_error_title">Unexpected Error Occurred</string>
     <string name="server_error_message">A server error occurred please try again.</string>
+    <string name="connection_failed_title">Unable to Connect</string>
+    <string name="connection_failed_message">We were not able to connect to the internet, please connect and try again.</string>
 
 
 </resources>

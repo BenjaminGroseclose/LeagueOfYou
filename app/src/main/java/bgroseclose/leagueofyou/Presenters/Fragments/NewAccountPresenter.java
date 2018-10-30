@@ -1,5 +1,7 @@
 package bgroseclose.leagueofyou.Presenters.Fragments;
 
+import android.content.Context;
+import android.net.ConnectivityManager;
 import android.support.annotation.NonNull;
 import android.util.Patterns;
 
@@ -70,27 +72,30 @@ public class NewAccountPresenter {
     }
 
     private void startCreateAccount() {
-        Call<SummonerInfo> call = riotClient.getSummonersInfo(account.getSummonerName());
-        view.progressDialog(true);
+        if(view.checkConnection()) {
+            Call<SummonerInfo> call = riotClient.getSummonersInfo(account.getSummonerName());
+            view.progressDialog(true);
 
-        call.enqueue(new Callback<SummonerInfo>() {
-            @Override
-            public void onResponse(@NonNull Call<SummonerInfo> call, @NonNull Response<SummonerInfo> response) {
-                if (response.body() != null) {
-                    account.setSummonerInfo(response.body());
-                    createFirebaseAccount();
-                } else {
-                    view.progressDialog(false);
-                    view.invalidSummonersName();
+            call.enqueue(new Callback<SummonerInfo>() {
+                @Override
+                public void onResponse(@NonNull Call<SummonerInfo> call, @NonNull Response<SummonerInfo> response) {
+                    if (response.body() != null) {
+                        account.setSummonerInfo(response.body());
+                        createFirebaseAccount();
+                    } else {
+                        view.progressDialog(false);
+                        view.invalidSummonersName();
+                    }
                 }
-            }
-            @Override
-            public void onFailure(@NonNull Call<SummonerInfo> call, @NonNull Throwable t) {
-                view.progressDialog(false);
-                view.displayServerError();
 
-            }
-        });
+                @Override
+                public void onFailure(@NonNull Call<SummonerInfo> call, @NonNull Throwable t) {
+                    view.progressDialog(false);
+                    view.displayServerError();
+
+                }
+            });
+        }
     }
 
     private void createFirebaseAccount() {
@@ -126,7 +131,9 @@ public class NewAccountPresenter {
         }
     }
 
+
     public interface View {
+        boolean checkConnection();
         void progressDialog(boolean toDisplay);
         void invalidSummonersName();
         void invalidUsername();
