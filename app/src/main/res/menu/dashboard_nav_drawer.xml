@@ -5,19 +5,25 @@
     <item
         android:id="@+id/drawer_dashboard_menu"
         android:icon="@drawable/ic_dashboard"
-        android:title="Dashboard"
+        android:title="@string/dashbaord"
         app:showAsAction="ifRoom"/>
 
     <item
         android:id="@+id/drawer_champion_menu"
         android:icon="@drawable/ic_champions"
-        android:title="Champions"
+        android:title="@string/champions"
         app:showAsAction="ifRoom"/>
 
     <item
         android:id="@+id/drawer_builds_menu"
         android:icon="@drawable/ic_builds"
-        android:title="Builds"
+        android:title="@string/items"
+        app:showAsAction="ifRoom"/>
+
+    <item
+        android:id="@+id/drawer_logout_menu"
+        android:icon="@drawable/ic_logout"
+        android:title="@string/logout"
         app:showAsAction="ifRoom"/>
 
 </menu>

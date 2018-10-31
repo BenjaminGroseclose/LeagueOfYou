@@ -1,6 +1,8 @@
 package bgroseclose.leagueofyou.Activites;
 
 import android.support.design.widget.NavigationView;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
@@ -9,6 +11,7 @@ import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 
+import bgroseclose.leagueofyou.Fragments.DashboardFragment;
 import bgroseclose.leagueofyou.Presenters.Activities.DashboardPresenter;
 import bgroseclose.leagueofyou.R;
 
@@ -18,6 +21,7 @@ public class DashboardActivity extends AppCompatActivity implements DashboardPre
     private Toolbar toolbar;
     private DrawerLayout drawer;
     private NavigationView navigationView;
+    private Fragment existingFragment;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -56,6 +60,16 @@ public class DashboardActivity extends AppCompatActivity implements DashboardPre
                         return true;
                     }
                 });
+    }
+
+    private void initDashboardFragment() {
+        if (findViewById(R.id.dashboard_container) != null) {
+            FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
+            fragmentTransaction.add(R.id.dashboard_container, new DashboardFragment());
+            fragmentTransaction.commit();
+            existingFragment = new DashboardFragment();
+        }
+        toolbar.setTitle(getString(R.string.login));
     }
 
     @Override

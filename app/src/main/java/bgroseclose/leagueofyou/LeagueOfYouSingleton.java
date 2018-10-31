@@ -14,6 +14,16 @@ public class LeagueOfYouSingleton {
     public static final String riotStaticBaseUrl = "http://ddragon.leagueoflegends.com/";
     private static Account account;
 
+    public static String getCurrentVersionNumber() {
+        return currentVersionNumber;
+    }
+
+    public static void setCurrentVersionNumber(String currentVersionNumber) {
+        LeagueOfYouSingleton.currentVersionNumber = currentVersionNumber;
+    }
+
+    private static String currentVersionNumber;
+
     public static Account getAccount() {
         return account;
     }

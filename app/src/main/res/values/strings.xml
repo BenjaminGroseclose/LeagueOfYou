@@ -56,5 +56,11 @@
     <string name="connection_failed_title">Unable to Connect</string>
     <string name="connection_failed_message">We were not able to connect to the internet, please connect and try again.</string>
 
+    <!-- Dashboard Drawer-->
+    <string name="dashbaord">Dashboard</string>
+    <string name="champions">Champions</string>
+    <string name="items">Items</string>
+    <string name="logout">Logout</string>
+
 
 </resources>
