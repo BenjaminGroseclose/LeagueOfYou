@@ -1,9 +1,8 @@
 package bgroseclose.leagueofyou.Presenters.Fragments;
 
 import android.content.Context;
-import android.os.Bundle;
+import android.net.ConnectivityManager;
 import android.support.annotation.NonNull;
-import android.support.v4.app.FragmentTransaction;
 import android.util.Patterns;
 
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -16,12 +15,9 @@ import java.util.Calendar;
 import java.util.regex.Pattern;
 
 import bgroseclose.leagueofyou.Database.DatabaseClient;
-import bgroseclose.leagueofyou.Fragments.LoginFragment;
 import bgroseclose.leagueofyou.Models.Account;
 import bgroseclose.leagueofyou.Models.SummonerInfo;
-import bgroseclose.leagueofyou.R;
-import bgroseclose.leagueofyou.Retrofit.RiotClient;
-import bgroseclose.leagueofyou.Retrofit.ServiceGenerator;
+import bgroseclose.leagueofyou.Retrofit.IRiotClient;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -32,20 +28,26 @@ public class NewAccountPresenter {
     private View view;
     private Account account;
     private String username, password;
+    private IRiotClient riotClient;
 
-    public NewAccountPresenter(View view) {
+    public NewAccountPresenter(View view, IRiotClient riotClient) {
         this.view = view;
+        this.riotClient = riotClient;
         auth = FirebaseAuth.getInstance();
     }
 
     public void newAccount(Account account, String username, String password) {
-        this.username = username;
-        this.password = password;
-        this.account = account;
-        if (validateUsername(username) &&
-                validatePassword(password) &&
-                validateDateOfBirth(account.getDateOfBirth())) {
-            startCreateAccount();
+        if(account != null) {
+            this.username = username;
+            this.password = password;
+            this.account = account;
+            if (validateUsername(username) &&
+                    validatePassword(password) &&
+                    validateDateOfBirth(account.getDateOfBirth())) {
+                startCreateAccount();
+            }
+        } else {
+
         }
     }
 
@@ -70,27 +72,30 @@ public class NewAccountPresenter {
     }
 
     private void startCreateAccount() {
-        RiotClient client = ServiceGenerator.createService(RiotClient.class);
-        Call<SummonerInfo> call = client.getSummonersInfo(account.getSummonerName());
-        view.progressDialog(true);
+        if(view.checkConnection()) {
+            Call<SummonerInfo> call = riotClient.getSummonersInfo(account.getSummonerName());
+            view.progressDialog(true);
 
-        call.enqueue(new Callback<SummonerInfo>() {
-            @Override
-            public void onResponse(Call<SummonerInfo> call, Response<SummonerInfo> response) {
-                if (response.body() != null) {
-                    account.setSummonerInfo(response.body());
-                    createFirebaseAccount();
-                } else {
-                    view.invalidSummonersName();
+            call.enqueue(new Callback<SummonerInfo>() {
+                @Override
+                public void onResponse(@NonNull Call<SummonerInfo> call, @NonNull Response<SummonerInfo> response) {
+                    if (response.body() != null) {
+                        account.setSummonerInfo(response.body());
+                        createFirebaseAccount();
+                    } else {
+                        view.progressDialog(false);
+                        view.invalidSummonersName();
+                    }
                 }
-            }
-            @Override
-            public void onFailure(Call<SummonerInfo> call, Throwable t) {
-                view.progressDialog(false);
-                view.displayServerError();
 
-            }
-        });
+                @Override
+                public void onFailure(@NonNull Call<SummonerInfo> call, @NonNull Throwable t) {
+                    view.progressDialog(false);
+                    view.displayServerError();
+
+                }
+            });
+        }
     }
 
     private void createFirebaseAccount() {
@@ -105,7 +110,7 @@ public class NewAccountPresenter {
                             if (DatabaseClient.isSuccessful()) {
                                 view.returnToLogin(username);
                             } else {
-                                //todo: database saved failed return login but require account save again.
+                                view.displayServerError();
                             }
                         } else {
                             view.progressDialog(false);
@@ -126,14 +131,15 @@ public class NewAccountPresenter {
         }
     }
 
+
     public interface View {
+        boolean checkConnection();
         void progressDialog(boolean toDisplay);
         void invalidSummonersName();
         void invalidUsername();
         void invalidPassword();
         void invalidDateOfBirth();
         void displayServerError();
-        void accountExists();
         void returnToLogin(String username);
     }
 }

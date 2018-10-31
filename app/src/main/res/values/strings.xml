@@ -43,6 +43,9 @@
     <string name="progress_account_message">Creating New Account</string>
     <string name="account_exists_title">Account Already Exists</string>
     <string name="account_exists_message">It appears that this summoner already has an account, please try logging in again.</string>
+    <string name="missing_input_title">Missing Input</string>
+    <string name="missing_input_message">Please try again and enter input into all the fields.</string>
+    <string name="password_mismatch_message">The Passwords you enter did not match please try again.</string>
 
     <!-- support fragment -->
     <string name="support">Support</string>
@@ -50,6 +53,14 @@
     <!-- server error -->
     <string name="server_error_title">Unexpected Error Occurred</string>
     <string name="server_error_message">A server error occurred please try again.</string>
+    <string name="connection_failed_title">Unable to Connect</string>
+    <string name="connection_failed_message">We were not able to connect to the internet, please connect and try again.</string>
+
+    <!-- Dashboard Drawer-->
+    <string name="dashbaord">Dashboard</string>
+    <string name="champions">Champions</string>
+    <string name="items">Items</string>
+    <string name="logout">Logout</string>
 
 
 </resources>

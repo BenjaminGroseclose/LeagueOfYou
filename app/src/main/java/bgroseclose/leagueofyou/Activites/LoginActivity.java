@@ -1,5 +1,6 @@
 package bgroseclose.leagueofyou.Activites;
 
+import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
@@ -47,7 +48,6 @@ public class LoginActivity extends AppCompatActivity implements LoginPresenter.V
             existingFragment = new LoginFragment();
         }
         toolbar.setTitle(getString(R.string.login));
-
     }
 
     private void initDrawerAndToolbar() {
@@ -60,20 +60,18 @@ public class LoginActivity extends AppCompatActivity implements LoginPresenter.V
         drawer = findViewById(R.id.login_drawer_layout);
         navigationView = findViewById(R.id.login_drawer);
         ActionBarDrawerToggle drawerToggle = new ActionBarDrawerToggle(
-                this, drawer, toolbar, R.string.drawer_open, R.string.drawer_close
-                );
+                this, drawer, toolbar, R.string.drawer_open, R.string.drawer_close);
         drawer.addDrawerListener(drawerToggle);
         drawerToggle.syncState();
 
         setupDrawerContent(navigationView);
     }
 
-
     private void setupDrawerContent(NavigationView navigationView) {
         navigationView.setNavigationItemSelectedListener(
                 new NavigationView.OnNavigationItemSelectedListener() {
                     @Override
-                    public boolean onNavigationItemSelected(MenuItem menuItem) {
+                    public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
                         presenter.drawerItemSelected(menuItem.getItemId());
                         return true;
                     }
@@ -96,7 +94,6 @@ public class LoginActivity extends AppCompatActivity implements LoginPresenter.V
         } else {
             onBackPressed();
         }
-
     }
 
     @Override
