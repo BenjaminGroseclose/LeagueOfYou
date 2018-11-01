@@ -15,6 +15,7 @@ import java.util.Calendar;
 import java.util.regex.Pattern;
 
 import bgroseclose.leagueofyou.Database.DatabaseClient;
+import bgroseclose.leagueofyou.LeagueOfYouSingleton;
 import bgroseclose.leagueofyou.Models.Account;
 import bgroseclose.leagueofyou.Models.SummonerInfo;
 import bgroseclose.leagueofyou.Retrofit.IRiotClient;
@@ -92,7 +93,6 @@ public class NewAccountPresenter {
                 public void onFailure(@NonNull Call<SummonerInfo> call, @NonNull Throwable t) {
                     view.progressDialog(false);
                     view.displayServerError();
-
                 }
             });
         }
@@ -114,7 +114,11 @@ public class NewAccountPresenter {
                             }
                         } else {
                             view.progressDialog(false);
-                            view.displayServerError();
+                            if(task.getException().getMessage().equals(LeagueOfYouSingleton.ErrorConstants.EMAIL_ALREADY_EXISTS)) {
+                                view.emailAlreadyExists();
+                            } else {
+                                view.displayServerError();
+                            }
                         }
                     }
                 });
@@ -134,6 +138,7 @@ public class NewAccountPresenter {
 
     public interface View {
         boolean checkConnection();
+        void emailAlreadyExists();
         void progressDialog(boolean toDisplay);
         void invalidSummonersName();
         void invalidUsername();

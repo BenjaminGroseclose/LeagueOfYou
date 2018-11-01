@@ -92,8 +92,8 @@ public class LoginFragment extends Fragment implements LoginPresenter.View {
 
     @Override
     public void progressDialog(boolean isVisible) {
-        progressDialog = new ProgressDialog(getContext());
         if (isVisible) {
+            progressDialog = new ProgressDialog(getContext());
             progressDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
             progressDialog.setMessage(getString(R.string.progress_account_message));
             progressDialog.show();
