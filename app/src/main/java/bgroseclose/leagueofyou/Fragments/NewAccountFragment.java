@@ -121,9 +121,17 @@ public class NewAccountFragment extends Fragment implements NewAccountPresenter.
     }
 
     @Override
+    public void emailAlreadyExists() {
+        displayAlertDialog(
+                getString(R.string.username_invalid_title),
+                getString(R.string.username_already_in_use)
+        );
+    }
+
+    @Override
     public void progressDialog(boolean toDisplay) {
-        progressDialog = new ProgressDialog(getContext());
         if (toDisplay) {
+            progressDialog = new ProgressDialog(getContext());
             progressDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
             progressDialog.setMessage(getString(R.string.progress_account_message));
             progressDialog.show();

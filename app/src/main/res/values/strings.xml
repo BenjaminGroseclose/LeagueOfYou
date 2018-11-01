@@ -9,7 +9,7 @@
 
     <!-- login fragment -->
     <string name="login">Login</string>
-    <string name="username">Username</string>
+    <string name="username">Username (Email)</string>
     <string name="password">Password</string>
     <string name="save_username">SAVE_USERNAME</string>
     <string name="save_username_toggle">SAVE_USERNAME_TOGGLE</string>
@@ -32,6 +32,7 @@
     <!-- new account alert dialog -->
     <string name="username_invalid_title">Username Invalid</string>
     <string name="username_invalid_message">Your username must be an email.</string>
+    <string name="username_already_in_use">This username is already in use, please try logging in again.</string>
     <string name="password_invalid_title">Password Invalid</string>
     <string name="password_invalid_message">Your password must contain at least 1 number, 1 uppercase letter, 1 lowercase letter, and at least 7 total characters.</string>
     <string name="dob_invalid_title">Date of Birth Invalid</string>
