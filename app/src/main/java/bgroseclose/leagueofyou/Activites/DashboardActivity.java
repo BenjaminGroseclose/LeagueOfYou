@@ -36,9 +36,9 @@ public class DashboardActivity extends AppCompatActivity implements DashboardPre
     private void initDrawerAndToolbar() {
         toolbar = findViewById(R.id.main_toolbar);
         setSupportActionBar(toolbar);
-        getSupportActionBar().setDisplayShowTitleEnabled(false);
 
         toolbar.setNavigationIcon(R.drawable.ic_drawer);
+
 
         drawer = findViewById(R.id.dashboard_drawer_layout);
         navigationView = findViewById(R.id.dashboard_drawer);
@@ -49,6 +49,7 @@ public class DashboardActivity extends AppCompatActivity implements DashboardPre
         drawerToggle.syncState();
 
         setupDrawerContent(navigationView);
+        initDashboardFragment();
     }
 
     private void setupDrawerContent(NavigationView navigationView) {

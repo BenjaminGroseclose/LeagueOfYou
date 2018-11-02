@@ -25,6 +25,7 @@
             android:textColor="@color/colorPrimaryDark"
             android:textColorHint="@color/colorPrimaryDark"
             android:padding="8dp"
+            android:inputType="textEmailAddress"
             android:layout_below="@id/login_logo"
             android:layout_margin="8dp"
             android:fontFamily="@font/advent_pro_bold"/>
@@ -39,6 +40,7 @@
             android:textColor="@color/colorPrimaryDark"
             android:textColorHint="@color/colorPrimaryDark"
             android:padding="8dp"
+            android:inputType="textPassword"
             android:layout_below="@id/login_username"
             android:layout_margin="8dp"
             android:fontFamily="@font/advent_pro_bold"/>

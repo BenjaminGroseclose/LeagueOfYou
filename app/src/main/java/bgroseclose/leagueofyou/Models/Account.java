@@ -46,7 +46,7 @@ public class Account {
 
     private Calendar convertDateOfBirth(String dateOfBirth) {
         Calendar calendar = Calendar.getInstance();
-        SimpleDateFormat sdf = new SimpleDateFormat("dd/mm/yyyy", Locale.ENGLISH);
+        SimpleDateFormat sdf = new SimpleDateFormat("mm/dd/yyyy", Locale.ENGLISH);
         try {
             calendar.setTime(sdf.parse(dateOfBirth));
         } catch (ParseException e) {
@@ -54,5 +54,4 @@ public class Account {
         }
         return calendar;
     }
-
 }

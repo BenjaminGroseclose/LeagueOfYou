@@ -147,4 +147,5 @@ public class LoginActivity extends AppCompatActivity implements LoginPresenter.V
         }
         drawer.closeDrawers();
     }
+
 }

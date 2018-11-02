@@ -118,16 +118,10 @@ public class LoginFragment extends Fragment implements LoginPresenter.View {
 
     @Override
     public void loginSuccess() {
-        if(presenter.getGameVersion()) {
             Intent intent = new Intent(getActivity(), DashboardActivity.class);
             intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
             startActivity(intent);
-        } else {
-            displayAlertDialog(
-                    getString(R.string.server_error_title),
-                    getString(R.string.server_error_message)
-            );
-        }
+
     }
 
     @Override

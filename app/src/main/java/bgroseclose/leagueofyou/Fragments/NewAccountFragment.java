@@ -1,7 +1,10 @@
 package bgroseclose.leagueofyou.Fragments;
 
 import android.app.AlertDialog;
+import android.app.DatePickerDialog;
 import android.app.ProgressDialog;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -11,9 +14,11 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import java.util.Calendar;
 
 import bgroseclose.leagueofyou.Components.DaggerIRiotClientComponent;
 import bgroseclose.leagueofyou.Components.IRiotClientComponent;
@@ -36,6 +41,7 @@ public class NewAccountFragment extends Fragment implements NewAccountPresenter.
     private ProgressDialog progressDialog;
     private String summonersName, username, password, confirmPasword, dateOfBirth;
     private IRiotClientComponent riotClientComponent;
+    private DatePickerDialog.OnDateSetListener dateSetListener;
 
     @Nullable
     @Override
@@ -55,6 +61,33 @@ public class NewAccountFragment extends Fragment implements NewAccountPresenter.
                 presenter.newAccount(setNewAccount(), username, password);
             }
         });
+
+        mDateOfBirth.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Calendar cal = Calendar.getInstance();
+                int year  = cal.get(Calendar.YEAR);
+                int month = cal.get(Calendar.MONTH);
+                int day = cal.get(Calendar.DAY_OF_MONTH);
+
+                DatePickerDialog datePickerDialog = new DatePickerDialog(
+                        getContext(),
+                        android.R.style.Theme_DeviceDefault_Light_Dialog_MinWidth,
+                        dateSetListener,
+                        year, month, day);
+                datePickerDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.WHITE));
+                datePickerDialog.show();
+            }
+        });
+
+        dateSetListener = new DatePickerDialog.OnDateSetListener() {
+            @Override
+            public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
+                mDateOfBirth.setText(String.valueOf(month+1)
+                            .concat("/").concat(String.valueOf(dayOfMonth))
+                            .concat("/").concat(String.valueOf(year)));
+            }
+        };
 
         return rootView;
     }
@@ -188,5 +221,7 @@ public class NewAccountFragment extends Fragment implements NewAccountPresenter.
             bundle.putString(getContext().getString(R.string.username), username);
             loginFragment.setArguments(bundle);
             transaction.replace(R.id.login_container, loginFragment);
+            transaction.commit();
+            getActivity().setTitle(getString(R.string.login));
     }
 }

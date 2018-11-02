@@ -52,7 +52,7 @@ public class LoginPresenter {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()) {
-                            view.loginSuccess();
+                            getGameVersion();
                             FirebaseUser user = auth.getCurrentUser();
                             DatabaseClient.getAccount(user.getUid());
                             if (isSaveUsernameToggled) {
@@ -75,6 +75,8 @@ public class LoginPresenter {
             public void onResponse(Call<ArrayList<String>> call, Response<ArrayList<String>> response) {
                 LeagueOfYouSingleton.setCurrentVersionNumber(response.body().get(0));
                 wasVersionFound = true;
+                view.loginSuccess();
+                view.progressDialog(false);
             }
 
             @Override
@@ -89,11 +91,17 @@ public class LoginPresenter {
 
     public interface View {
         void progressDialog(boolean isVisible);
+
         void invalidUsernameOrPassword();
+
         void displayServerError();
+
         void saveUsername(String username);
+
         void unsaveUsername();
+
         void loginSuccess();
+
         void loginFailed();
     }
 }

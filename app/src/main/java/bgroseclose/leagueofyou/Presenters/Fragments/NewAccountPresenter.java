@@ -107,11 +107,14 @@ public class NewAccountPresenter {
                             view.progressDialog(false);
                             FirebaseUser user = auth.getCurrentUser();
                             DatabaseClient.saveAccount(user.getUid(), account);
-                            if (DatabaseClient.isSuccessful()) {
-                                view.returnToLogin(username);
-                            } else {
-                                view.displayServerError();
-                            }
+                            view.returnToLogin(username);
+
+//                          todo: Need to handle if the saving Fails.
+//                            if (DatabaseClient.isSuccessful()) {
+//                                view.returnToLogin(username);
+//                            } else {
+//                                view.displayServerError();
+//                            }
                         } else {
                             view.progressDialog(false);
                             if(task.getException().getMessage().equals(LeagueOfYouSingleton.ErrorConstants.EMAIL_ALREADY_EXISTS)) {
