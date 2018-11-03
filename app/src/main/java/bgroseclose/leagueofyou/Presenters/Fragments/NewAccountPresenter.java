@@ -1,7 +1,5 @@
 package bgroseclose.leagueofyou.Presenters.Fragments;
 
-import android.content.Context;
-import android.net.ConnectivityManager;
 import android.support.annotation.NonNull;
 import android.util.Patterns;
 
@@ -48,7 +46,7 @@ public class NewAccountPresenter {
                 startCreateAccount();
             }
         } else {
-
+            view.displayServerError();
         }
     }
 

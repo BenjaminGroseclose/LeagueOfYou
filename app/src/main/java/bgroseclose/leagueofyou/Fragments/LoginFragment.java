@@ -46,8 +46,6 @@ public class LoginFragment extends Fragment implements LoginPresenter.View {
         View rootView = inflater.inflate(R.layout.fragment_login, container, false);
         ButterKnife.bind(this, rootView);
 
-
-
         staticLeagueComponent = DaggerIStaticLeagueComponent.builder()
                 .build();
 
@@ -121,7 +119,6 @@ public class LoginFragment extends Fragment implements LoginPresenter.View {
             Intent intent = new Intent(getActivity(), DashboardActivity.class);
             intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
             startActivity(intent);
-
     }
 
     @Override

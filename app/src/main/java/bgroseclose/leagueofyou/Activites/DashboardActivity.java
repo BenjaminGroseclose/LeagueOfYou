@@ -28,6 +28,8 @@ public class DashboardActivity extends AppCompatActivity implements DashboardPre
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_dashboard);
 
+
+
         presenter = new DashboardPresenter(this);
         initDrawerAndToolbar();
         presenter.loadSummoner();

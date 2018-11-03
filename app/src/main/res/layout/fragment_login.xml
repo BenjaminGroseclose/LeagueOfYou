@@ -27,8 +27,7 @@
             android:padding="8dp"
             android:inputType="textEmailAddress"
             android:layout_below="@id/login_logo"
-            android:layout_margin="8dp"
-            android:fontFamily="@font/advent_pro_bold"/>
+            android:layout_margin="8dp"/>
 
 
         <EditText
@@ -42,8 +41,7 @@
             android:padding="8dp"
             android:inputType="textPassword"
             android:layout_below="@id/login_username"
-            android:layout_margin="8dp"
-            android:fontFamily="@font/advent_pro_bold"/>
+            android:layout_margin="8dp"/>
 
         <TextView
             android:id="@+id/login_save_username_textview"
@@ -76,8 +74,7 @@
             android:layout_marginTop="30dp"
             android:text="@string/login"
             android:textSize="18sp"
-            android:textColor="@color/colorPrimaryDark"
-            android:fontFamily="@font/advent_pro_bold"/>
+            android:textColor="@color/colorPrimaryDark"/>
         
     </RelativeLayout>
 
