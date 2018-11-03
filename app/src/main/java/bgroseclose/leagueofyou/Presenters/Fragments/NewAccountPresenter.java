@@ -14,7 +14,7 @@ import java.util.regex.Pattern;
 
 import bgroseclose.leagueofyou.Database.DatabaseClient;
 import bgroseclose.leagueofyou.LeagueOfYouSingleton;
-import bgroseclose.leagueofyou.Models.Account;
+import bgroseclose.leagueofyou.Models.LeagueOfYouAccount;
 import bgroseclose.leagueofyou.Models.SummonerInfo;
 import bgroseclose.leagueofyou.Retrofit.IRiotClient;
 import retrofit2.Call;
@@ -25,7 +25,7 @@ public class NewAccountPresenter {
 
     private FirebaseAuth auth;
     private View view;
-    private Account account;
+    private LeagueOfYouAccount leagueOfYouAccount;
     private String username, password;
     private IRiotClient riotClient;
 
@@ -35,14 +35,14 @@ public class NewAccountPresenter {
         auth = FirebaseAuth.getInstance();
     }
 
-    public void newAccount(Account account, String username, String password) {
-        if(account != null) {
+    public void newAccount(LeagueOfYouAccount leagueOfYouAccount, String username, String password) {
+        if(leagueOfYouAccount != null) {
             this.username = username;
             this.password = password;
-            this.account = account;
+            this.leagueOfYouAccount = leagueOfYouAccount;
             if (validateUsername(username) &&
                     validatePassword(password) &&
-                    validateDateOfBirth(account.getDateOfBirth())) {
+                    validateDateOfBirth(leagueOfYouAccount.getDateOfBirth())) {
                 startCreateAccount();
             }
         } else {
@@ -72,14 +72,14 @@ public class NewAccountPresenter {
 
     private void startCreateAccount() {
         if(view.checkConnection()) {
-            Call<SummonerInfo> call = riotClient.getSummonersInfo(account.getSummonerName());
+            Call<SummonerInfo> call = riotClient.getSummonersInfo(leagueOfYouAccount.getSummonerName());
             view.progressDialog(true);
 
             call.enqueue(new Callback<SummonerInfo>() {
                 @Override
                 public void onResponse(@NonNull Call<SummonerInfo> call, @NonNull Response<SummonerInfo> response) {
                     if (response.body() != null) {
-                        account.setSummonerInfo(response.body());
+                        leagueOfYouAccount.setSummonerInfo(response.body());
                         createFirebaseAccount();
                     } else {
                         view.progressDialog(false);
@@ -104,15 +104,9 @@ public class NewAccountPresenter {
                         if (task.isSuccessful()) {
                             view.progressDialog(false);
                             FirebaseUser user = auth.getCurrentUser();
-                            DatabaseClient.saveAccount(user.getUid(), account);
+                            DatabaseClient.saveAccount(user.getUid(), leagueOfYouAccount);
                             view.returnToLogin(username);
-
 //                          todo: Need to handle if the saving Fails.
-//                            if (DatabaseClient.isSuccessful()) {
-//                                view.returnToLogin(username);
-//                            } else {
-//                                view.displayServerError();
-//                            }
                         } else {
                             view.progressDialog(false);
                             if(task.getException().getMessage().equals(LeagueOfYouSingleton.ErrorConstants.EMAIL_ALREADY_EXISTS)) {
@@ -135,7 +129,6 @@ public class NewAccountPresenter {
             return false;
         }
     }
-
 
     public interface View {
         boolean checkConnection();

@@ -23,7 +23,7 @@ import java.util.Calendar;
 import bgroseclose.leagueofyou.Components.DaggerIRiotClientComponent;
 import bgroseclose.leagueofyou.Components.IRiotClientComponent;
 import bgroseclose.leagueofyou.LeagueOfYouSingleton;
-import bgroseclose.leagueofyou.Models.Account;
+import bgroseclose.leagueofyou.Models.LeagueOfYouAccount;
 import bgroseclose.leagueofyou.Presenters.Fragments.NewAccountPresenter;
 import bgroseclose.leagueofyou.R;
 import butterknife.BindView;
@@ -92,12 +92,12 @@ public class NewAccountFragment extends Fragment implements NewAccountPresenter.
         return rootView;
     }
 
-    private Account setNewAccount() {
-        Account account = null;
+    private LeagueOfYouAccount setNewAccount() {
+        LeagueOfYouAccount leagueOfYouAccount = null;
         if (isInputValid() && passwordMatch()) {
-            account = new Account(summonersName, dateOfBirth);
+            leagueOfYouAccount = new LeagueOfYouAccount(summonersName, dateOfBirth);
         }
-        return account;
+        return leagueOfYouAccount;
     }
 
     private boolean passwordMatch() {

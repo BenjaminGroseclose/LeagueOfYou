@@ -2,9 +2,8 @@ package bgroseclose.leagueofyou;
 
 import android.content.Context;
 import android.net.ConnectivityManager;
-import android.support.v4.content.ContextCompat;
 
-import bgroseclose.leagueofyou.Models.Account;
+import bgroseclose.leagueofyou.Models.LeagueOfYouAccount;
 
 public class LeagueOfYouSingleton {
 
@@ -12,7 +11,7 @@ public class LeagueOfYouSingleton {
     public static final String riotKet = "RGAPI-3914c11c-0989-43f2-bf02-a94bbc21f269";
     public static final String riotBaseUrl = "https://na1.api.riotgames.com/lol/";
     public static final String riotStaticBaseUrl = "https://ddragon.leagueoflegends.com/";
-    private static Account account;
+    private static LeagueOfYouAccount leagueOfYouAccount;
 
     public static String getCurrentVersionNumber() {
         return currentVersionNumber;
@@ -22,14 +21,24 @@ public class LeagueOfYouSingleton {
         LeagueOfYouSingleton.currentVersionNumber = currentVersionNumber;
     }
 
-    private static String currentVersionNumber;
+    //http://ddragon.leagueoflegends.com/cdn/6.24.1/img/profileicon/588.png
 
-    public static Account getAccount() {
-        return account;
+    public static String getSummonerProfileIcon() {
+        return riotStaticBaseUrl.concat("cdn/")
+                                .concat(getCurrentVersionNumber())
+                                .concat("/img/profileicon/")
+                                .concat(String.valueOf(getLeagueOfYouAccount().getSummonerInfo().getProfileIconId()))
+                                .concat(".png");
     }
 
-    public static void setAccount(Account account) {
-        LeagueOfYouSingleton.account = account;
+    private static String currentVersionNumber;
+
+    public static LeagueOfYouAccount getLeagueOfYouAccount() {
+        return leagueOfYouAccount;
+    }
+
+    public static void setLeagueOfYouAccount(LeagueOfYouAccount leagueOfYouAccount) {
+        LeagueOfYouSingleton.leagueOfYouAccount = leagueOfYouAccount;
     }
 
     public static boolean checkConnection(Context context) {

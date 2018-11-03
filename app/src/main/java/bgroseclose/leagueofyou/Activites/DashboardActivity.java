@@ -1,5 +1,6 @@
 package bgroseclose.leagueofyou.Activites;
 
+import android.net.Uri;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
@@ -10,10 +11,17 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
+import android.widget.ImageView;
+import android.widget.TextView;
 
 import bgroseclose.leagueofyou.Fragments.DashboardFragment;
+import bgroseclose.leagueofyou.LeagueOfYouSingleton;
+import bgroseclose.leagueofyou.Models.LeagueOfYouAccount;
 import bgroseclose.leagueofyou.Presenters.Activities.DashboardPresenter;
 import bgroseclose.leagueofyou.R;
+import butterknife.BindView;
+import butterknife.ButterKnife;
+import de.hdodenhof.circleimageview.CircleImageView;
 
 public class DashboardActivity extends AppCompatActivity implements DashboardPresenter.View {
 
@@ -22,13 +30,21 @@ public class DashboardActivity extends AppCompatActivity implements DashboardPre
     private DrawerLayout drawer;
     private NavigationView navigationView;
     private Fragment existingFragment;
+    private LeagueOfYouAccount leagueOfYouAccount;
+
+    @BindView(R.id.nav_drawer_profile_pic) CircleImageView profileImageView;
+    @BindView(R.id.nav_drawer_summoner_name) TextView txtSummonerName;
+    @BindView(R.id.nav_drawer_summoner_lvl) TextView txtSummonerLevel;
+    @BindView(R.id.nav_drawer_rank_icon) ImageView imageRankIcon;
+    @BindView(R.id.nav_drawer_rank_name) TextView txtRankName;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_dashboard);
+        ButterKnife.bind(this);
 
-
+        leagueOfYouAccount = LeagueOfYouSingleton.getLeagueOfYouAccount();
 
         presenter = new DashboardPresenter(this);
         initDrawerAndToolbar();
@@ -41,7 +57,6 @@ public class DashboardActivity extends AppCompatActivity implements DashboardPre
 
         toolbar.setNavigationIcon(R.drawable.ic_drawer);
 
-
         drawer = findViewById(R.id.dashboard_drawer_layout);
         navigationView = findViewById(R.id.dashboard_drawer);
         ActionBarDrawerToggle drawerToggle = new ActionBarDrawerToggle(
@@ -49,6 +64,10 @@ public class DashboardActivity extends AppCompatActivity implements DashboardPre
         );
         drawer.addDrawerListener(drawerToggle);
         drawerToggle.syncState();
+
+        profileImageView.setImageURI(Uri.parse(LeagueOfYouSingleton.getSummonerProfileIcon()));
+        txtSummonerName.setText(leagueOfYouAccount.getSummonerName());
+        txtSummonerLevel.setText("Lvl ".concat(String.valueOf(leagueOfYouAccount.getSummonerInfo().getSummonerLevel())));
 
         setupDrawerContent(navigationView);
         initDashboardFragment();

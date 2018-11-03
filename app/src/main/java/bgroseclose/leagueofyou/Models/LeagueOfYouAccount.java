@@ -5,17 +5,17 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Locale;
 
-public class Account {
+public class LeagueOfYouAccount {
 
     private String SummonerName;
     private Calendar DateOfBirth;
     private SummonerInfo SummonerInfo;
 
-    public Account() {
+    public LeagueOfYouAccount() {
 
     }
 
-    public Account(String summonerName, String dateOfBirth) {
+    public LeagueOfYouAccount(String summonerName, String dateOfBirth) {
         this.SummonerName = summonerName;
         this.DateOfBirth = convertDateOfBirth(dateOfBirth);
     }

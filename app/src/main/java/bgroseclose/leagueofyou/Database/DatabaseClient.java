@@ -13,7 +13,7 @@ import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 
 import bgroseclose.leagueofyou.LeagueOfYouSingleton;
-import bgroseclose.leagueofyou.Models.Account;
+import bgroseclose.leagueofyou.Models.LeagueOfYouAccount;
 
 public class DatabaseClient {
 
@@ -23,14 +23,14 @@ public class DatabaseClient {
     private static DatabaseReference databaseReference;
     private static boolean isSuccessful;
 
-    public static void saveAccount(String userId, Account account) {
+    public static void saveAccount(String userId, LeagueOfYouAccount leagueOfYouAccount) {
         if(databaseReference == null) {
             databaseReference = FirebaseDatabase.getInstance().getReference();
         }
 
         databaseReference.child(dbAccount)
                 .child(userId)
-                .setValue(account)
+                .setValue(leagueOfYouAccount)
                 .addOnCompleteListener(new OnCompleteListener<Void>() {
                     @Override
                     public void onComplete(@NonNull Task<Void> task) {
@@ -53,8 +53,8 @@ public class DatabaseClient {
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 if(dataSnapshot.exists()) {
                     for(DataSnapshot snapshot : dataSnapshot.getChildren()) {
-                        Account account = snapshot.getValue(Account.class);
-                        LeagueOfYouSingleton.setAccount(account);
+                        LeagueOfYouAccount leagueOfYouAccount = snapshot.getValue(LeagueOfYouAccount.class);
+                        LeagueOfYouSingleton.setLeagueOfYouAccount(leagueOfYouAccount);
                     }
                 }
             }
