@@ -11,6 +11,7 @@ public class SummonerInfo {
     @SerializedName("id")
     private long summonerId;
     private long accountId;
+    private SummonerRankInfo summonerRankInfo;
 
     public SummonerInfo() {
 
@@ -62,5 +63,13 @@ public class SummonerInfo {
 
     public void setAccountId(long accountId) {
         this.accountId = accountId;
+    }
+
+    public SummonerRankInfo getSummonerRankInfo() {
+        return summonerRankInfo;
+    }
+
+    public void setSummonerRankInfo(SummonerRankInfo summonerRankInfo) {
+        this.summonerRankInfo = summonerRankInfo;
     }
 }

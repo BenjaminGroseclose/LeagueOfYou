@@ -19,6 +19,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 
 import java.util.Calendar;
+import java.util.Objects;
 
 import bgroseclose.leagueofyou.Components.DaggerIRiotClientComponent;
 import bgroseclose.leagueofyou.Components.IRiotClientComponent;
@@ -71,11 +72,11 @@ public class NewAccountFragment extends Fragment implements NewAccountPresenter.
                 int day = cal.get(Calendar.DAY_OF_MONTH);
 
                 DatePickerDialog datePickerDialog = new DatePickerDialog(
-                        getContext(),
+                        Objects.requireNonNull(getContext()),
                         android.R.style.Theme_DeviceDefault_Light_Dialog_MinWidth,
                         dateSetListener,
                         year, month, day);
-                datePickerDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.WHITE));
+                Objects.requireNonNull(datePickerDialog.getWindow()).setBackgroundDrawable(new ColorDrawable(Color.WHITE));
                 datePickerDialog.show();
             }
         });

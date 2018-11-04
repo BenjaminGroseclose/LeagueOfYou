@@ -17,6 +17,6 @@ public class DashboardPresenter {
     }
 
     public interface View {
-
+        void loadDashboard(boolean isVisible);
     }
 }

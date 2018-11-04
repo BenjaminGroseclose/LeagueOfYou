@@ -1,6 +1,8 @@
 package bgroseclose.leagueofyou.Activites;
 
+import android.app.ProgressDialog;
 import android.net.Uri;
+import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
@@ -31,6 +33,7 @@ public class DashboardActivity extends AppCompatActivity implements DashboardPre
     private NavigationView navigationView;
     private Fragment existingFragment;
     private LeagueOfYouAccount leagueOfYouAccount;
+    private ProgressDialog progressDialog;
 
     @BindView(R.id.nav_drawer_profile_pic) CircleImageView profileImageView;
     @BindView(R.id.nav_drawer_summoner_name) TextView txtSummonerName;
@@ -67,7 +70,8 @@ public class DashboardActivity extends AppCompatActivity implements DashboardPre
 
         profileImageView.setImageURI(Uri.parse(LeagueOfYouSingleton.getSummonerProfileIcon()));
         txtSummonerName.setText(leagueOfYouAccount.getSummonerName());
-        txtSummonerLevel.setText("Lvl ".concat(String.valueOf(leagueOfYouAccount.getSummonerInfo().getSummonerLevel())));
+        txtSummonerLevel.setText(getString(R.string.drawer_lvl_text)
+                .concat(String.valueOf(leagueOfYouAccount.getSummonerInfo().getSummonerLevel())));
 
         setupDrawerContent(navigationView);
         initDashboardFragment();
@@ -77,7 +81,7 @@ public class DashboardActivity extends AppCompatActivity implements DashboardPre
         navigationView.setNavigationItemSelectedListener(
                 new NavigationView.OnNavigationItemSelectedListener() {
                     @Override
-                    public boolean onNavigationItemSelected(MenuItem menuItem) {
+                    public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
                         presenter.drawerItemSelected(menuItem.getItemId());
                         return true;
                     }
@@ -105,4 +109,15 @@ public class DashboardActivity extends AppCompatActivity implements DashboardPre
         }
     }
 
+    @Override
+    public void loadDashboard(boolean isVisible) {
+        if(isVisible) {
+            progressDialog = new ProgressDialog(this);
+            progressDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
+            progressDialog.setMessage(getString(R.string.dashboard_load_profile_msg));
+            progressDialog.show();
+        } else {
+            progressDialog.dismiss();
+        }
+    }
 }

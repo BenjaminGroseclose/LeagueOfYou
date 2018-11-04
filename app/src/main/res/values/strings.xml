@@ -62,6 +62,8 @@
     <string name="champions">Champions</string>
     <string name="items">Items</string>
     <string name="logout">Logout</string>
+    <string name="drawer_lvl_text">Lvl</string>
+    <string name="dashboard_load_profile_msg">Loading Profile...</string>
 
 
 </resources>
