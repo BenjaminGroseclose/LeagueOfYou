@@ -67,6 +67,14 @@ public class DatabaseClient {
         });
     }
 
+    public static void getSummonerName(String userId) {
+        if(databaseReference == null) {
+            databaseReference = FirebaseDatabase.getInstance().getReference();
+        }
+
+        Query query = databaseReference.child(dbAccount).equalTo(userId);
+    }
+
     public static boolean isSuccessful() {
         return isSuccessful;
     }

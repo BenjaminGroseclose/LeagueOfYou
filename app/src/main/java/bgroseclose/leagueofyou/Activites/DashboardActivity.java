@@ -32,12 +32,6 @@ public class DashboardActivity extends AppCompatActivity implements DashboardPre
     private Fragment existingFragment;
     private LeagueOfYouAccount leagueOfYouAccount;
 
-    @BindView(R.id.nav_drawer_profile_pic) CircleImageView profileImageView;
-    @BindView(R.id.nav_drawer_summoner_name) TextView txtSummonerName;
-    @BindView(R.id.nav_drawer_summoner_lvl) TextView txtSummonerLevel;
-    @BindView(R.id.nav_drawer_rank_icon) ImageView imageRankIcon;
-    @BindView(R.id.nav_drawer_rank_name) TextView txtRankName;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -52,12 +46,17 @@ public class DashboardActivity extends AppCompatActivity implements DashboardPre
     }
 
     private void initDrawerAndToolbar() {
-        toolbar = findViewById(R.id.main_toolbar);
+        toolbar = findViewById(R.id.dashboard_toolbar);
         setSupportActionBar(toolbar);
 
         toolbar.setNavigationIcon(R.drawable.ic_drawer);
 
         drawer = findViewById(R.id.dashboard_drawer_layout);
+        CircleImageView profileImageView = findViewById(R.id.nav_drawer_profile_pic);
+        TextView txtSummonerName = findViewById(R.id.nav_drawer_summoner_name);
+        TextView txtSummonerLevel = findViewById(R.id.nav_drawer_summoner_lvl);
+        ImageView imageRankIcon = findViewById(R.id.nav_drawer_rank_icon);
+        TextView txtRankName = findViewById(R.id.nav_drawer_rank_name);
         navigationView = findViewById(R.id.dashboard_drawer);
         ActionBarDrawerToggle drawerToggle = new ActionBarDrawerToggle(
                 this, drawer, toolbar, R.string.drawer_open, R.string.drawer_close
@@ -68,6 +67,8 @@ public class DashboardActivity extends AppCompatActivity implements DashboardPre
         profileImageView.setImageURI(Uri.parse(LeagueOfYouSingleton.getSummonerProfileIcon()));
         txtSummonerName.setText(leagueOfYouAccount.getSummonerName());
         txtSummonerLevel.setText("Lvl ".concat(String.valueOf(leagueOfYouAccount.getSummonerInfo().getSummonerLevel())));
+        imageRankIcon.setImageDrawable(getDrawable(leagueOfYouAccount.getSummonerInfo().getSummonerRankedInfo().getRankedIcon()));
+        txtRankName.setText(leagueOfYouAccount.getSummonerInfo().getSummonerRankedInfo().getRankedName());
 
         setupDrawerContent(navigationView);
         initDashboardFragment();
@@ -91,7 +92,7 @@ public class DashboardActivity extends AppCompatActivity implements DashboardPre
             fragmentTransaction.commit();
             existingFragment = new DashboardFragment();
         }
-        toolbar.setTitle(getString(R.string.login));
+        toolbar.setTitle(getString(R.string.dashbaord));
     }
 
     @Override

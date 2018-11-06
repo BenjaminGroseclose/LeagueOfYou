@@ -7,7 +7,9 @@
     tools:context=".Activites.DashboardActivity"
     android:orientation="vertical">
 
-    <include layout="@layout/main_toolbar"/>
+    <include
+        android:id="@+id/dashboard_toolbar"
+        layout="@layout/main_toolbar"/>
 
     <android.support.v4.widget.DrawerLayout
         android:id="@+id/dashboard_drawer_layout"

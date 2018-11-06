@@ -51,7 +51,7 @@ public class LoginActivity extends AppCompatActivity implements LoginPresenter.V
     }
 
     private void initDrawerAndToolbar() {
-        toolbar = findViewById(R.id.main_toolbar);
+        toolbar = findViewById(R.id.login_toolbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayShowTitleEnabled(false);
 
