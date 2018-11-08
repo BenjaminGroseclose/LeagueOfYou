@@ -104,7 +104,8 @@ public class NewAccountPresenter {
                         if (task.isSuccessful()) {
                             view.progressDialog(false);
                             FirebaseUser user = auth.getCurrentUser();
-                            DatabaseClient.saveAccount(user.getUid(), leagueOfYouAccount);
+                            leagueOfYouAccount.setUserId(user.getUid());
+                            DatabaseClient.saveAccount(leagueOfYouAccount);
                             view.returnToLogin(username);
 //                          todo: Need to handle if the saving Fails.
                         } else {

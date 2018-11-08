@@ -21,7 +21,7 @@
     <string name="login_failed_message">Your Username or password are incorrect please try again.</string>
 
     <!-- new account fragment -->
-    <string name="new_account">New Account</string>
+    <string name="new_account">Create Account</string>
     <string name="welcome">Welcome to League of You!</string>
     <string name="info">All we need is some information to get started</string>
     <string name="summoner_name_hint">Summoner\'s Name</string>

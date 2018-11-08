@@ -7,6 +7,7 @@ import java.util.Locale;
 
 public class LeagueOfYouAccount {
 
+    private String userId;
     private String SummonerName;
     private Calendar DateOfBirth;
     private SummonerInfo SummonerInfo;
@@ -53,5 +54,13 @@ public class LeagueOfYouAccount {
             e.printStackTrace();
         }
         return calendar;
+    }
+
+    public String getUserId() {
+        return userId;
+    }
+
+    public void setUserId(String userId) {
+        this.userId = userId;
     }
 }

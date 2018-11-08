@@ -106,4 +106,8 @@ public class DashboardActivity extends AppCompatActivity implements DashboardPre
         }
     }
 
+    @Override
+    public void loadDashboard(boolean isVisible) {
+
+    }
 }

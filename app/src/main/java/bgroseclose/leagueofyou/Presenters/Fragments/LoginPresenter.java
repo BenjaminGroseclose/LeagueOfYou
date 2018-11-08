@@ -8,17 +8,20 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
 
 import java.util.ArrayList;
 
 import bgroseclose.leagueofyou.Database.DatabaseClient;
+import bgroseclose.leagueofyou.Database.IDatabaseListener;
 import bgroseclose.leagueofyou.LeagueOfYouSingleton;
+import bgroseclose.leagueofyou.Models.LeagueOfYouAccount;
 import bgroseclose.leagueofyou.Retrofit.IStaticLeagueClient;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class LoginPresenter {
+public class LoginPresenter implements IDatabaseListener {
 
     private boolean isSaveUsernameToggled;
     private View view;
@@ -54,7 +57,7 @@ public class LoginPresenter {
                         if (task.isSuccessful()) {
                             getGameVersion();
                             FirebaseUser user = auth.getCurrentUser();
-                            DatabaseClient.getAccount(user.getUid());
+                            DatabaseClient.getAccount(user.getUid(),LoginPresenter.this);
                             if (isSaveUsernameToggled) {
                                 view.saveUsername(username);
                             } else {
@@ -67,41 +70,51 @@ public class LoginPresenter {
                 });
     }
 
-    public boolean getGameVersion() {
+    private void getGameVersion() {
         view.progressDialog(true);
         final Call<ArrayList<String>> request = staticLeagueClient.getVersions();
         request.enqueue(new Callback<ArrayList<String>>() {
             @Override
             public void onResponse(Call<ArrayList<String>> call, Response<ArrayList<String>> response) {
                 LeagueOfYouSingleton.setCurrentVersionNumber(response.body().get(0));
-                wasVersionFound = true;
-                view.loginSuccess();
-                view.progressDialog(false);
             }
 
             @Override
             public void onFailure(Call<ArrayList<String>> call, Throwable t) {
                 view.displayServerError();
-                wasVersionFound = false;
                 view.progressDialog(false);
             }
         });
-        return wasVersionFound;
+    }
+
+    @Override
+    public void onStart() {
+
+    }
+
+    @Override
+    public void onSuccess(DataSnapshot snapshot) {
+        for(DataSnapshot dataSnapshot : snapshot.getChildren()) {
+            view.progressDialog(false);
+            LeagueOfYouAccount leagueOfYouAccount = dataSnapshot.getValue(LeagueOfYouAccount.class);
+            LeagueOfYouSingleton.setLeagueOfYouAccount(leagueOfYouAccount);
+            view.loginSuccess();
+        }
+    }
+
+    @Override
+    public void onFailure() {
+        view.displayServerError();
+        view.progressDialog(false);
     }
 
     public interface View {
         void progressDialog(boolean isVisible);
-
         void invalidUsernameOrPassword();
-
         void displayServerError();
-
         void saveUsername(String username);
-
         void unsaveUsername();
-
         void loginSuccess();
-
         void loginFailed();
     }
 }

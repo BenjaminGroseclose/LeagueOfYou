@@ -23,13 +23,13 @@ public class DatabaseClient {
     private static DatabaseReference databaseReference;
     private static boolean isSuccessful;
 
-    public static void saveAccount(String userId, LeagueOfYouAccount leagueOfYouAccount) {
+    public static void saveAccount(LeagueOfYouAccount leagueOfYouAccount) {
         if(databaseReference == null) {
             databaseReference = FirebaseDatabase.getInstance().getReference();
         }
 
         databaseReference.child(dbAccount)
-                .child(userId)
+                .child(leagueOfYouAccount.getUserId())
                 .setValue(leagueOfYouAccount)
                 .addOnCompleteListener(new OnCompleteListener<Void>() {
                     @Override
@@ -42,27 +42,27 @@ public class DatabaseClient {
     /**
      * This will should only be called if they are already logged in.
      */
-    public static void getAccount(String userId) {
+    public static void getAccount(String userId, final IDatabaseListener listener) {
         if(databaseReference == null) {
             databaseReference = FirebaseDatabase.getInstance().getReference();
         }
 
-        Query query = databaseReference.child(dbAccount).equalTo(userId);
+        listener.onStart();
+        Query query = databaseReference.child(dbAccount).orderByChild("userId").equalTo(userId);
         query.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 if(dataSnapshot.exists()) {
-                    for(DataSnapshot snapshot : dataSnapshot.getChildren()) {
-                        LeagueOfYouAccount leagueOfYouAccount = snapshot.getValue(LeagueOfYouAccount.class);
-                        LeagueOfYouSingleton.setLeagueOfYouAccount(leagueOfYouAccount);
-                    }
+                    listener.onSuccess(dataSnapshot);
+                } else {
+                    listener.onFailure();
                 }
             }
 
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
                 Log.e(TAG, "onCancelled: " + databaseError.toString(), databaseError.toException());
-                isSuccessful = false;
+                listener.onFailure();
             }
         });
     }
@@ -73,9 +73,5 @@ public class DatabaseClient {
         }
 
         Query query = databaseReference.child(dbAccount).equalTo(userId);
-    }
-
-    public static boolean isSuccessful() {
-        return isSuccessful;
     }
 }
