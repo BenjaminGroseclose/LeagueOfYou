@@ -58,7 +58,6 @@ public class DatabaseClient {
                     listener.onFailure();
                 }
             }
-
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
                 Log.e(TAG, "onCancelled: " + databaseError.toString(), databaseError.toException());

@@ -9,7 +9,7 @@ public class LeagueOfYouAccount {
 
     private String userId;
     private String SummonerName;
-    private Calendar DateOfBirth;
+    private String DateOfBirth;
     private SummonerInfo SummonerInfo;
 
     public LeagueOfYouAccount() {
@@ -18,7 +18,7 @@ public class LeagueOfYouAccount {
 
     public LeagueOfYouAccount(String summonerName, String dateOfBirth) {
         this.SummonerName = summonerName;
-        this.DateOfBirth = convertDateOfBirth(dateOfBirth);
+        this.DateOfBirth = dateOfBirth;
     }
 
     public bgroseclose.leagueofyou.Models.SummonerInfo getSummonerInfo() {
@@ -37,19 +37,19 @@ public class LeagueOfYouAccount {
         SummonerName = summonerName;
     }
 
-    public Calendar getDateOfBirth() {
+    public String getDateOfBirth() {
         return DateOfBirth;
     }
 
-    public void setDateOfBirth(Calendar dateOfBirth) {
+    public void setDateOfBirth(String dateOfBirth) {
         DateOfBirth = dateOfBirth;
     }
 
-    private Calendar convertDateOfBirth(String dateOfBirth) {
+    public Calendar dateOfBirthCalendar() {
         Calendar calendar = Calendar.getInstance();
         SimpleDateFormat sdf = new SimpleDateFormat("mm/dd/yyyy", Locale.ENGLISH);
         try {
-            calendar.setTime(sdf.parse(dateOfBirth));
+            calendar.setTime(sdf.parse(getDateOfBirth()));
         } catch (ParseException e) {
             e.printStackTrace();
         }

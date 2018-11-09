@@ -42,7 +42,7 @@ public class NewAccountPresenter {
             this.leagueOfYouAccount = leagueOfYouAccount;
             if (validateUsername(username) &&
                     validatePassword(password) &&
-                    validateDateOfBirth(leagueOfYouAccount.getDateOfBirth())) {
+                    validateDateOfBirth()) {
                 startCreateAccount();
             }
         } else {
@@ -120,10 +120,10 @@ public class NewAccountPresenter {
                 });
     }
 
-    private boolean validateDateOfBirth(Calendar dateOfBirth) {
+    private boolean validateDateOfBirth() {
         Calendar cal = Calendar.getInstance();
         cal.add(Calendar.YEAR, -13);
-        if (dateOfBirth.before(cal)) {
+        if (leagueOfYouAccount.dateOfBirthCalendar().before(cal)) {
             return true;
         } else {
             view.invalidDateOfBirth();

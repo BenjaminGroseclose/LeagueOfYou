@@ -15,13 +15,13 @@ public interface IRiotClient {
     // base url: "https://na1.api.riotgames.com/lol/"
 
     //   https://na1.api.riotgames.com/lol/summoner/v3/summoners/by-name/RiotSchmick?api_key=
-    @GET("summoner/v3/summoners/by-name/{summonerName}" + LeagueOfYouSingleton.riotKet)
+    @GET("summoner/v3/summoners/by-name/{summonerName}?api_key=" + LeagueOfYouSingleton.riotKet)
     Call<SummonerInfo> getSummonersInfo (
             @Path("summonerName") String summonerName
     );
 
     //https://na1.api.riotgames.com/lol/league/v3/positions/by-summoner/36343232
-    @GET("league/v3/positions/by-summoner/{summonerId}" + LeagueOfYouSingleton.riotKet)
+    @GET("league/v3/positions/by-summoner/{summonerId}?api_key=" + LeagueOfYouSingleton.riotKet)
     Call<List<SummonerRankInfo>> getSummonerRankInfo (
             @Path("summonerId") String summonerId
     );
