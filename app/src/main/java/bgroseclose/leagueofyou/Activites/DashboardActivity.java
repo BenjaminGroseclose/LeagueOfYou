@@ -1,5 +1,6 @@
 package bgroseclose.leagueofyou.Activites;
 
+import android.app.AlertDialog;
 import android.net.Uri;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.Fragment;
@@ -11,9 +12,15 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
+import javax.inject.Inject;
+
+import bgroseclose.leagueofyou.Components.DaggerIRiotClientComponent;
+import bgroseclose.leagueofyou.Components.IRiotClientComponent;
 import bgroseclose.leagueofyou.Fragments.DashboardFragment;
 import bgroseclose.leagueofyou.LeagueOfYouSingleton;
 import bgroseclose.leagueofyou.Models.LeagueOfYouAccount;
@@ -25,12 +32,14 @@ import de.hdodenhof.circleimageview.CircleImageView;
 
 public class DashboardActivity extends AppCompatActivity implements DashboardPresenter.View {
 
+    @Inject private IRiotClientComponent riotClientComponent;
     private DashboardPresenter presenter;
     private Toolbar toolbar;
     private DrawerLayout drawer;
     private NavigationView navigationView;
     private Fragment existingFragment;
     private LeagueOfYouAccount leagueOfYouAccount;
+    private ProgressBar progressBar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,11 +47,16 @@ public class DashboardActivity extends AppCompatActivity implements DashboardPre
         setContentView(R.layout.activity_dashboard);
         ButterKnife.bind(this);
 
-        leagueOfYouAccount = LeagueOfYouSingleton.getLeagueOfYouAccount();
+        riotClientComponent = DaggerIRiotClientComponent.builder()
+                .build();
 
-        presenter = new DashboardPresenter(this);
-        initDrawerAndToolbar();
+        leagueOfYouAccount = LeagueOfYouSingleton.getLeagueOfYouAccount();
+        progressBar = findViewById(R.id.dashboard_progress_bar);
+
+        presenter = new DashboardPresenter(this, leagueOfYouAccount, riotClientComponent.getRiotClient());
         presenter.loadSummoner();
+
+        initDrawerAndToolbar();
     }
 
     private void initDrawerAndToolbar() {
@@ -52,12 +66,13 @@ public class DashboardActivity extends AppCompatActivity implements DashboardPre
         toolbar.setNavigationIcon(R.drawable.ic_drawer);
 
         drawer = findViewById(R.id.dashboard_drawer_layout);
-        CircleImageView profileImageView = findViewById(R.id.nav_drawer_profile_pic);
-        TextView txtSummonerName = findViewById(R.id.nav_drawer_summoner_name);
-        TextView txtSummonerLevel = findViewById(R.id.nav_drawer_summoner_lvl);
-        ImageView imageRankIcon = findViewById(R.id.nav_drawer_rank_icon);
-        TextView txtRankName = findViewById(R.id.nav_drawer_rank_name);
         navigationView = findViewById(R.id.dashboard_drawer);
+        View header = navigationView.getHeaderView(0);
+        CircleImageView profileImageView = header.findViewById(R.id.nav_drawer_profile_pic);
+        TextView txtSummonerName = header.findViewById(R.id.nav_drawer_summoner_name);
+        TextView txtSummonerLevel = header.findViewById(R.id.nav_drawer_summoner_lvl);
+        ImageView imageRankIcon = header.findViewById(R.id.nav_drawer_rank_icon);
+        TextView txtRankName = header.findViewById(R.id.nav_drawer_rank_name);
         ActionBarDrawerToggle drawerToggle = new ActionBarDrawerToggle(
                 this, drawer, toolbar, R.string.drawer_open, R.string.drawer_close
         );
@@ -67,8 +82,8 @@ public class DashboardActivity extends AppCompatActivity implements DashboardPre
         profileImageView.setImageURI(Uri.parse(LeagueOfYouSingleton.getSummonerProfileIcon()));
         txtSummonerName.setText(leagueOfYouAccount.getSummonerName());
         txtSummonerLevel.setText("Lvl ".concat(String.valueOf(leagueOfYouAccount.getSummonerInfo().getSummonerLevel())));
-        imageRankIcon.setImageDrawable(getDrawable(leagueOfYouAccount.getSummonerInfo().getSummonerRankedInfo().getRankedIcon()));
-        txtRankName.setText(leagueOfYouAccount.getSummonerInfo().getSummonerRankedInfo().getRankedName());
+//        imageRankIcon.setImageDrawable(getDrawable(leagueOfYouAccount.getSummonerInfo().getSummonerRankedInfo().getRankedIcon()));
+//        txtRankName.setText(leagueOfYouAccount.getSummonerInfo().getSummonerRankedInfo());
 
         setupDrawerContent(navigationView);
         initDashboardFragment();
@@ -95,6 +110,17 @@ public class DashboardActivity extends AppCompatActivity implements DashboardPre
         toolbar.setTitle(getString(R.string.dashbaord));
     }
 
+
+    private void displayAlertDialog(String title, String message) {
+        AlertDialog.Builder dialog = new AlertDialog.Builder(this);
+        dialog.setTitle(title)
+                .setMessage(message)
+                .setIcon(R.drawable.ic_alert)
+                .setNeutralButton(getString(R.string.ok), null);
+        dialog.create();
+        dialog.show();
+    }
+
     @Override
     public void onBackPressed() {
         if(drawer.isDrawerOpen(GravityCompat.START)) {
@@ -108,6 +134,19 @@ public class DashboardActivity extends AppCompatActivity implements DashboardPre
 
     @Override
     public void loadDashboard(boolean isVisible) {
-
+        if(isVisible) {
+            progressBar.setVisibility(View.VISIBLE);
+        } else {
+            progressBar.setVisibility(View.GONE);
+        }
     }
+
+    @Override
+    public void displayServerError() {
+        displayAlertDialog(
+                getString(R.string.server_error_title),
+                getString(R.string.server_error_message)
+        );
+    }
+
 }

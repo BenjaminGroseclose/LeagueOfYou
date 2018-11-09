@@ -2,6 +2,8 @@ package bgroseclose.leagueofyou.Models;
 
 import com.google.gson.annotations.SerializedName;
 
+import java.util.List;
+
 public class SummonerInfo {
 
     private int profileIconId;
@@ -11,7 +13,7 @@ public class SummonerInfo {
     @SerializedName("id")
     private long summonerId;
     private long accountId;
-    private SummonerRankedInfo summonerRankedInfo;
+    private List<SummonerRankInfo> summonerRankedInfo;
 
     public SummonerInfo() {
 
@@ -65,11 +67,11 @@ public class SummonerInfo {
         this.accountId = accountId;
     }
 
-    public SummonerRankedInfo getSummonerRankedInfo() {
+    public List<SummonerRankInfo> getSummonerRankedInfo() {
         return summonerRankedInfo;
     }
 
-    public void setSummonerRankedInfo(SummonerRankedInfo summonerRankedInfo) {
+    public void setSummonerRankedInfo(List<SummonerRankInfo> summonerRankedInfo) {
         this.summonerRankedInfo = summonerRankedInfo;
     }
 
