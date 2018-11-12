@@ -12,7 +12,6 @@ import retrofit2.Response;
 
 public class DashboardPresenter {
 
-    private List<SummonerRankInfo> rankedInfo;
     private View view;
     private LeagueOfYouAccount leagueOfYouAccount;
     private IRiotClient riotClient;
@@ -34,9 +33,9 @@ public class DashboardPresenter {
             @Override
             public void onResponse(Call<List<SummonerRankInfo>> call, Response<List<SummonerRankInfo>> response) {
                 if(response.body() != null) {
-                    rankedInfo = response.body();
-                    leagueOfYouAccount.getSummonerInfo().setSummonerRankedInfo(rankedInfo);
+                    leagueOfYouAccount.getSummonerInfo().setSummonerRankedInfo(response.body());
                     LeagueOfYouSingleton.setLeagueOfYouAccount(leagueOfYouAccount);
+                    view.initDrawerAndToolbar();
                 }
                 view.loadDashboard(false);
             }
@@ -47,10 +46,10 @@ public class DashboardPresenter {
                 view.displayServerError();
             }
         });
-
     }
 
     public interface View {
+        void initDrawerAndToolbar();
         void loadDashboard(boolean isVisible);
         void displayServerError();
     }

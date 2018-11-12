@@ -1,4 +1,4 @@
-package bgroseclose.leagueofyou.Models;
+package bgroseclose.leagueofyou.Models.ChampionModels;
 
 import com.google.gson.annotations.SerializedName;
 

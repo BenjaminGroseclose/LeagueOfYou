@@ -4,11 +4,12 @@ import android.content.Context;
 import android.net.ConnectivityManager;
 
 import bgroseclose.leagueofyou.Models.LeagueOfYouAccount;
+import bgroseclose.leagueofyou.Models.SummonerRankInfo;
 
 public class LeagueOfYouSingleton {
 
     // todo: needs to be updated every 24 hours.
-    public static final String riotKet = "RGAPI-5064dbc3-754d-4f13-a2aa-5210192e7f97";
+    public static final String riotKet = "RGAPI-45da9484-1069-4c1c-a02f-03cd0b347f8e";
     public static final String riotBaseUrl = "https://na1.api.riotgames.com/lol/";
     public static final String riotStaticBaseUrl = "https://ddragon.leagueoflegends.com/";
     private static LeagueOfYouAccount leagueOfYouAccount;
@@ -46,8 +47,19 @@ public class LeagueOfYouSingleton {
         return cm.getActiveNetworkInfo() != null;
     }
 
-    public static class ErrorConstants {
+    public static int getSoloQueue() {
+        int retval = -1;
+        LeagueOfYouAccount account = getLeagueOfYouAccount();
+        for (int i = 0; i < account.getSummonerInfo().getSummonerRankedInfo().size(); i++) {
+            SummonerRankInfo rank = account.getSummonerInfo().getSummonerRankedInfo().get(i);
+            if(rank.getQueueType().equals("RANKED_SOLO_5x5")) {
+                retval = i;
+            }
+        }
+        return retval;
+    }
 
+    public static class ErrorConstants {
         public static final String EMAIL_ALREADY_EXISTS = "The email address is already in use by another account.";
     }
 }

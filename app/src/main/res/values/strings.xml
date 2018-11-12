@@ -69,4 +69,15 @@
     <!-- Ranked Type Codes -->
     <string name="SOLOQ_TYPE_CODE">RANKED_SOLO_5x5</string>
 
+    <string-array name="ranked_names">
+        <item>BRONZE</item>
+        <item>SILVER</item>
+        <item>GOLD</item>
+        <item>PLATINUM</item>
+        <item>DIAMOND</item>
+        <item>MASTER</item>
+        <item>CHALLENGER</item>
+    </string-array>
+
+
 </resources>

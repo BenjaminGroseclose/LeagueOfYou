@@ -10,6 +10,7 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
+import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -21,10 +22,11 @@ import android.widget.TextView;
 import java.util.Calendar;
 import java.util.Objects;
 
-import bgroseclose.leagueofyou.Components.DaggerIRiotClientComponent;
-import bgroseclose.leagueofyou.Components.IRiotClientComponent;
+import bgroseclose.leagueofyou.Components.DaggerIApplicationComponent;
+import bgroseclose.leagueofyou.Components.IApplicationComponent;
 import bgroseclose.leagueofyou.LeagueOfYouSingleton;
 import bgroseclose.leagueofyou.Models.LeagueOfYouAccount;
+import bgroseclose.leagueofyou.Modules.ContextModule;
 import bgroseclose.leagueofyou.Presenters.Fragments.NewAccountPresenter;
 import bgroseclose.leagueofyou.R;
 import butterknife.BindView;
@@ -41,7 +43,7 @@ public class NewAccountFragment extends Fragment implements NewAccountPresenter.
     private NewAccountPresenter presenter;
     private ProgressDialog progressDialog;
     private String summonersName, username, password, confirmPasword, dateOfBirth;
-    private IRiotClientComponent riotClientComponent;
+    private IApplicationComponent applicationComponent;
     private DatePickerDialog.OnDateSetListener dateSetListener;
 
     @Nullable
@@ -50,11 +52,14 @@ public class NewAccountFragment extends Fragment implements NewAccountPresenter.
         View rootView = inflater.inflate(R.layout.fragment_new_account, container, false);
         ButterKnife.bind(this, rootView);
 
-        riotClientComponent = DaggerIRiotClientComponent.builder()
+        Toolbar toolbar = getActivity().findViewById(R.id.login_toolbar);
+        toolbar.setTitle(getString(R.string.create_new_account));
+
+        applicationComponent = DaggerIApplicationComponent.builder()
+                .contextModule(new ContextModule(getContext()))
                 .build();
 
-
-        presenter = new NewAccountPresenter( this, riotClientComponent.getRiotClient());
+        presenter = new NewAccountPresenter( this, applicationComponent.getRiotClient());
 
         mCreateNewAccount.setOnClickListener(new View.OnClickListener() {
             @Override

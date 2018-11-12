@@ -55,14 +55,13 @@ public class LoginPresenter implements IDatabaseListener {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()) {
-                            getGameVersion();
                             FirebaseUser user = auth.getCurrentUser();
-                            DatabaseClient.getAccount(user.getUid(),LoginPresenter.this);
                             if (isSaveUsernameToggled) {
                                 view.saveUsername(username);
                             } else {
                                 view.unsaveUsername();
                             }
+                            getGameVersion(user.getUid());
                         } else {
                             view.loginFailed();
                         }
@@ -70,13 +69,14 @@ public class LoginPresenter implements IDatabaseListener {
                 });
     }
 
-    private void getGameVersion() {
+    private void getGameVersion(final String userId) {
         view.progressDialog(true);
         final Call<ArrayList<String>> request = staticLeagueClient.getVersions();
         request.enqueue(new Callback<ArrayList<String>>() {
             @Override
             public void onResponse(Call<ArrayList<String>> call, Response<ArrayList<String>> response) {
                 LeagueOfYouSingleton.setCurrentVersionNumber(response.body().get(0));
+                DatabaseClient.getAccount(userId,LoginPresenter.this);
             }
 
             @Override

@@ -2,7 +2,7 @@ package bgroseclose.leagueofyou.Retrofit;
 
 import java.util.ArrayList;
 
-import bgroseclose.leagueofyou.Models.ChampionList;
+import bgroseclose.leagueofyou.Models.ChampionModels.ChampionList;
 import retrofit2.Call;
 import retrofit2.http.GET;
 

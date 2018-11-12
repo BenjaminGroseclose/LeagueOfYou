@@ -1,7 +1,7 @@
 package bgroseclose.leagueofyou.Activites;
 
 import android.app.AlertDialog;
-import android.net.Uri;
+import android.graphics.drawable.Drawable;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
@@ -17,22 +17,27 @@ import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
+import com.squareup.picasso.Picasso;
+
+import java.util.ArrayList;
+
 import javax.inject.Inject;
 
-import bgroseclose.leagueofyou.Components.DaggerIRiotClientComponent;
-import bgroseclose.leagueofyou.Components.IRiotClientComponent;
+import bgroseclose.leagueofyou.Components.DaggerIApplicationComponent;
+import bgroseclose.leagueofyou.Components.IApplicationComponent;
 import bgroseclose.leagueofyou.Fragments.DashboardFragment;
 import bgroseclose.leagueofyou.LeagueOfYouSingleton;
 import bgroseclose.leagueofyou.Models.LeagueOfYouAccount;
+import bgroseclose.leagueofyou.Modules.ContextModule;
 import bgroseclose.leagueofyou.Presenters.Activities.DashboardPresenter;
 import bgroseclose.leagueofyou.R;
-import butterknife.BindView;
 import butterknife.ButterKnife;
 import de.hdodenhof.circleimageview.CircleImageView;
 
 public class DashboardActivity extends AppCompatActivity implements DashboardPresenter.View {
 
-    @Inject private IRiotClientComponent riotClientComponent;
+    @Inject
+    IApplicationComponent applicationComponent;
     private DashboardPresenter presenter;
     private Toolbar toolbar;
     private DrawerLayout drawer;
@@ -40,6 +45,7 @@ public class DashboardActivity extends AppCompatActivity implements DashboardPre
     private Fragment existingFragment;
     private LeagueOfYouAccount leagueOfYouAccount;
     private ProgressBar progressBar;
+    private Picasso picasso;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,19 +53,20 @@ public class DashboardActivity extends AppCompatActivity implements DashboardPre
         setContentView(R.layout.activity_dashboard);
         ButterKnife.bind(this);
 
-        riotClientComponent = DaggerIRiotClientComponent.builder()
+        applicationComponent = DaggerIApplicationComponent.builder()
+                .contextModule(new ContextModule(this))
                 .build();
+        picasso = applicationComponent.getPicasso();
 
         leagueOfYouAccount = LeagueOfYouSingleton.getLeagueOfYouAccount();
         progressBar = findViewById(R.id.dashboard_progress_bar);
 
-        presenter = new DashboardPresenter(this, leagueOfYouAccount, riotClientComponent.getRiotClient());
+        presenter = new DashboardPresenter(this, applicationComponent.getRiotClient());
         presenter.loadSummoner();
-
-        initDrawerAndToolbar();
     }
 
-    private void initDrawerAndToolbar() {
+    @Override
+    public void initDrawerAndToolbar() {
         toolbar = findViewById(R.id.dashboard_toolbar);
         setSupportActionBar(toolbar);
 
@@ -79,14 +86,64 @@ public class DashboardActivity extends AppCompatActivity implements DashboardPre
         drawer.addDrawerListener(drawerToggle);
         drawerToggle.syncState();
 
-        profileImageView.setImageURI(Uri.parse(LeagueOfYouSingleton.getSummonerProfileIcon()));
+        picasso.load(LeagueOfYouSingleton.getSummonerProfileIcon()).into(profileImageView);
         txtSummonerName.setText(leagueOfYouAccount.getSummonerName());
         txtSummonerLevel.setText("Lvl ".concat(String.valueOf(leagueOfYouAccount.getSummonerInfo().getSummonerLevel())));
-//        imageRankIcon.setImageDrawable(getDrawable(leagueOfYouAccount.getSummonerInfo().getSummonerRankedInfo().getRankedIcon()));
-//        txtRankName.setText(leagueOfYouAccount.getSummonerInfo().getSummonerRankedInfo());
+        setRank(imageRankIcon, txtRankName);
 
         setupDrawerContent(navigationView);
         initDashboardFragment();
+    }
+
+    private void setRank(ImageView rankedIcon, TextView rankedText) {
+        if(LeagueOfYouSingleton.getSoloQueue() > -1 ) {
+            String rank = leagueOfYouAccount.getSummonerInfo().getSummonerRankedInfo().get(LeagueOfYouSingleton.getSoloQueue()).getRank();
+            String tier = leagueOfYouAccount.getSummonerInfo().getSummonerRankedInfo().get(LeagueOfYouSingleton.getSoloQueue()).getTier();
+            rankedText.setText(tier.concat(" ").concat(rank));
+            rankedIcon.setImageDrawable(setRankedIcon(tier));
+        } else {
+            rankedIcon.setVisibility(View.GONE);
+            rankedText.setVisibility(View.GONE);
+        }
+
+    }
+
+    private Drawable setRankedIcon(String tier) {
+        Drawable retval;
+        int rankLocation = -1;
+        String[] rankedNames = getResources().getStringArray(R.array.ranked_names);
+        for(int i = 0; i < rankedNames.length; i++) {
+            if(rankedNames[i].equals(tier)) {
+                rankLocation = i;
+            }
+        }
+        switch (rankLocation) {
+            case 0:
+                retval = getDrawable(R.drawable.bronze);
+                break;
+            case 1:
+                retval = getDrawable(R.drawable.silver);
+                break;
+            case 2:
+                retval = getDrawable(R.drawable.gold);
+                break;
+            case 3:
+                retval = getDrawable(R.drawable.platinum);
+                break;
+            case 4:
+                retval = getDrawable(R.drawable.diamond);
+                break;
+            case 5:
+                retval = getDrawable(R.drawable.master);
+                break;
+            case 6:
+                retval = getDrawable(R.drawable.challenger);
+                break;
+            default:
+                retval = getDrawable(R.drawable.provisional);
+                break;
+        }
+        return retval;
     }
 
     private void setupDrawerContent(NavigationView navigationView) {
