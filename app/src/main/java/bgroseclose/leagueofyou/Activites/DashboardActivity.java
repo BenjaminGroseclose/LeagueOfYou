@@ -1,7 +1,9 @@
 package bgroseclose.leagueofyou.Activites;
 
 import android.app.AlertDialog;
+import android.content.Intent;
 import android.graphics.drawable.Drawable;
+import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
@@ -17,14 +19,15 @@ import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
+import com.google.firebase.auth.FirebaseAuth;
 import com.squareup.picasso.Picasso;
-
-import java.util.ArrayList;
 
 import javax.inject.Inject;
 
 import bgroseclose.leagueofyou.Components.DaggerIApplicationComponent;
 import bgroseclose.leagueofyou.Components.IApplicationComponent;
+import bgroseclose.leagueofyou.Fragments.BuildFragment;
+import bgroseclose.leagueofyou.Fragments.ChampionListFragment;
 import bgroseclose.leagueofyou.Fragments.DashboardFragment;
 import bgroseclose.leagueofyou.LeagueOfYouSingleton;
 import bgroseclose.leagueofyou.Models.LeagueOfYouAccount;
@@ -206,4 +209,45 @@ public class DashboardActivity extends AppCompatActivity implements DashboardPre
         );
     }
 
+    @Override
+    public void openDashboardFragment() {
+        if(existingFragment !=  new DashboardFragment()) {
+            FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
+            fragmentTransaction.replace(R.id.dashboard_container, new DashboardFragment());
+            fragmentTransaction.addToBackStack(null);
+            fragmentTransaction.commit();
+        }
+        drawer.closeDrawers();
+    }
+
+    @Override
+    public void openChampionFragment() {
+        if(existingFragment !=  new ChampionListFragment()) {
+            FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
+            fragmentTransaction.replace(R.id.dashboard_container, new ChampionListFragment());
+            fragmentTransaction.addToBackStack(null);
+            fragmentTransaction.commit();
+        }
+        drawer.closeDrawers();
+    }
+
+    @Override
+    public void openBuildFragment() {
+        if(existingFragment !=  new BuildFragment()) {
+            FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
+            fragmentTransaction.replace(R.id.dashboard_container, new BuildFragment());
+            fragmentTransaction.addToBackStack(null);
+            fragmentTransaction.commit();
+        }
+        drawer.closeDrawers();
+    }
+
+    @Override
+    public void logout() {
+        Intent intent = new Intent(this, LoginActivity.class);
+        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+        startActivity(intent);
+        FirebaseAuth.getInstance().signOut();
+        finish();
+    }
 }

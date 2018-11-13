@@ -4,6 +4,8 @@ import com.google.gson.annotations.SerializedName;
 
 import java.util.ArrayList;
 
+import bgroseclose.leagueofyou.LeagueOfYouSingleton;
+
 public class Champion {
 
     @SerializedName("version")
@@ -96,4 +98,15 @@ public class Champion {
     public void setStats(ChampionStats stats) {
         this.stats = stats;
     }
+
+
+    // http://ddragon.leagueoflegends.com/cdn/6.24.1/img/champion/Aatrox.png
+    public String getChampionSquare() {
+        return LeagueOfYouSingleton.riotStaticBaseUrl.concat("cdn/")
+                .concat(LeagueOfYouSingleton.getCurrentVersionNumber())
+                .concat("/img/champion/")
+                .concat(getName())
+                .concat(".png");
+    }
+
 }

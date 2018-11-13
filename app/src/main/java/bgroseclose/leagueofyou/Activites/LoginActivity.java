@@ -89,11 +89,7 @@ public class LoginActivity extends AppCompatActivity implements LoginPresenter.V
     public void onBackPressed() {
         if(drawer.isDrawerOpen(GravityCompat.START)) {
             drawer.closeDrawer(GravityCompat.START);
-        }
-//        else if(getSupportFragmentManager().getBackStackEntryCount() == 0) {
-//            finish();
-//        }
-        else {
+        } else {
             super.onBackPressed();
         }
     }
@@ -143,7 +139,6 @@ public class LoginActivity extends AppCompatActivity implements LoginPresenter.V
             fragmentTransaction.replace(R.id.login_container, new SupportFragment());
             fragmentTransaction.addToBackStack(null);
             fragmentTransaction.commit();
-            toolbar.setTitle(getString(R.string.support));
         }
         drawer.closeDrawers();
     }

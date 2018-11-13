@@ -9,7 +9,7 @@ import bgroseclose.leagueofyou.Models.SummonerRankInfo;
 public class LeagueOfYouSingleton {
 
     // todo: needs to be updated every 24 hours.
-    public static final String riotKet = "RGAPI-45da9484-1069-4c1c-a02f-03cd0b347f8e";
+    public static final String riotKet = "RGAPI-10911bba-3794-4fb1-b814-82ddc064ff2e";
     public static final String riotBaseUrl = "https://na1.api.riotgames.com/lol/";
     public static final String riotStaticBaseUrl = "https://ddragon.leagueoflegends.com/";
     private static LeagueOfYouAccount leagueOfYouAccount;

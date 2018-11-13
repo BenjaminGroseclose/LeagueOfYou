@@ -19,8 +19,6 @@ public class DashboardFragment extends Fragment {
         View rootView = inflater.inflate(R.layout.fragment_dashboard, container, false);
         ButterKnife.bind(this, rootView);
 
-
-
         return rootView;
     }
 }

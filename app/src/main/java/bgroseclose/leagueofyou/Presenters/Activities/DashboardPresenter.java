@@ -5,6 +5,7 @@ import java.util.List;
 import bgroseclose.leagueofyou.LeagueOfYouSingleton;
 import bgroseclose.leagueofyou.Models.LeagueOfYouAccount;
 import bgroseclose.leagueofyou.Models.SummonerRankInfo;
+import bgroseclose.leagueofyou.R;
 import bgroseclose.leagueofyou.Retrofit.IRiotClient;
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -20,10 +21,6 @@ public class DashboardPresenter {
         this.view = view;
         this.leagueOfYouAccount = LeagueOfYouSingleton.getLeagueOfYouAccount();
         this.riotClient = riotClient;
-    }
-
-    public void drawerItemSelected(int itemId) {
-
     }
 
     public void loadSummoner() {
@@ -48,9 +45,25 @@ public class DashboardPresenter {
         });
     }
 
+    public void drawerItemSelected(int id) {
+        if(id == R.id.drawer_dashboard_menu) {
+            view.openDashboardFragment();
+        } else if (id == R.id.drawer_champion_menu) {
+            view.openChampionFragment();
+        } else if (id == R.id.drawer_builds_menu) {
+            view.openBuildFragment();
+        } else if (id == R.id.drawer_logout_menu) {
+            view.logout();
+        }
+    }
+
     public interface View {
         void initDrawerAndToolbar();
         void loadDashboard(boolean isVisible);
         void displayServerError();
+        void openDashboardFragment();
+        void openChampionFragment();
+        void openBuildFragment();
+        void logout();
     }
 }

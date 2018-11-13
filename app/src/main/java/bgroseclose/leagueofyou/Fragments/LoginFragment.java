@@ -20,6 +20,7 @@ import android.widget.Switch;
 import bgroseclose.leagueofyou.Activites.DashboardActivity;
 import bgroseclose.leagueofyou.Components.DaggerIStaticLeagueComponent;
 import bgroseclose.leagueofyou.Components.IStaticLeagueComponent;
+import bgroseclose.leagueofyou.Modules.ContextModule;
 import bgroseclose.leagueofyou.Presenters.Fragments.LoginPresenter;
 import bgroseclose.leagueofyou.R;
 import butterknife.BindView;
@@ -45,6 +46,7 @@ public class LoginFragment extends Fragment implements LoginPresenter.View {
         ButterKnife.bind(this, rootView);
 
         staticLeagueComponent = DaggerIStaticLeagueComponent.builder()
+                .contextModule(new ContextModule(getContext()))
                 .build();
 
         Toolbar toolbar = getActivity().findViewById(R.id.login_toolbar);

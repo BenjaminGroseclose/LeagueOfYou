@@ -66,6 +66,9 @@
     <string name="drawer_lvl_text">Lvl</string>
     <string name="dashboard_load_profile_msg">Loading Profile...</string>
 
+    <!-- Champion List -->
+    <string name="search">Search</string>
+
     <!-- Ranked Type Codes -->
     <string name="SOLOQ_TYPE_CODE">RANKED_SOLO_5x5</string>
 
