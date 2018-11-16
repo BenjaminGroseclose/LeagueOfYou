@@ -18,15 +18,14 @@ import android.widget.ImageButton;
 import android.widget.ProgressBar;
 
 import java.util.ArrayList;
-import java.util.List;
+import java.util.LinkedHashMap;
+import java.util.Objects;
 
 import bgroseclose.leagueofyou.Adapters.ChampionListAdapter;
 import bgroseclose.leagueofyou.Components.DaggerIStaticLeagueComponent;
-import bgroseclose.leagueofyou.Components.IApplicationComponent;
 import bgroseclose.leagueofyou.Components.IStaticLeagueComponent;
 import bgroseclose.leagueofyou.LeagueOfYouSingleton;
 import bgroseclose.leagueofyou.Models.ChampionModels.Champion;
-import bgroseclose.leagueofyou.Models.ChampionModels.ChampionList;
 import bgroseclose.leagueofyou.Modules.ContextModule;
 import bgroseclose.leagueofyou.Presenters.Fragments.ChampionListPresenter;
 import bgroseclose.leagueofyou.R;
@@ -44,7 +43,7 @@ public class ChampionListFragment extends Fragment implements ChampionListPresen
     @BindView(R.id.champion_list_progress_bar)
     ProgressBar progressBar;
 
-    private ArrayList<Champion> champions;
+    private LinkedHashMap<String, String> championList = null;
     private ChampionListPresenter presenter;
     private IStaticLeagueComponent staticLeagueComponent;
 
@@ -54,19 +53,23 @@ public class ChampionListFragment extends Fragment implements ChampionListPresen
         View rootView = inflater.inflate(R.layout.fragment_champion_list, container, false);
         ButterKnife.bind(this, rootView);
 
-
-        Toolbar toolbar = getActivity().findViewById(R.id.dashboard_toolbar);
+        Toolbar toolbar = Objects.requireNonNull(getActivity()).findViewById(R.id.dashboard_toolbar);
         toolbar.setTitle(getString(R.string.champions));
 
         staticLeagueComponent = DaggerIStaticLeagueComponent.builder()
                 .contextModule(new ContextModule(getContext()))
                 .build();
 
-        presenter = new ChampionListPresenter(this, staticLeagueComponent.getStaticLeagueClient(), staticLeagueComponent.getPicasso());
-
-        presenter.getChampionList();
+        presenter = new ChampionListPresenter(this);
 
         championListSearchEdit.addTextChangedListener(searchTextWatcher());
+        championListSearchBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                searchChampionList(championListSearchEdit.getText().toString());
+            }
+        });
+        presenter.getChampionList();
 
         return rootView;
     }
@@ -85,15 +88,19 @@ public class ChampionListFragment extends Fragment implements ChampionListPresen
 
             @Override
             public void afterTextChanged(Editable s) {
-                ArrayList<Champion> tempChampions = null;
-                for(Champion champion : champions) {
-                    if(champion.getName().contains(s)) {
-                        tempChampions.add(champion);
-                    }
-                }
-                setListAdapter(tempChampions);
+                searchChampionList(s.toString());
             }
         };
+    }
+
+    private void searchChampionList(String text) {
+        LinkedHashMap<String, String> tempChampions = new LinkedHashMap<>();
+        for(String name : championList.keySet()) {
+            if(name.contains(text)) {
+                tempChampions.put(name, championList.get(name));
+            }
+        }
+        setAdapter(tempChampions);
     }
 
     private void displayAlertDialog(String title, String message) {
@@ -137,9 +144,11 @@ public class ChampionListFragment extends Fragment implements ChampionListPresen
     }
 
     @Override
-    public void setListAdapter(ArrayList<Champion> champions) {
-        this.champions = champions;
-        ChampionListAdapter adapter = new ChampionListAdapter(this.champions, staticLeagueComponent.getPicasso());
+    public void setAdapter(LinkedHashMap<String, String> championList) {
+        if(this.championList == null) {
+            this.championList = championList;
+        }
+        ChampionListAdapter adapter = new ChampionListAdapter(getContext(), championList, staticLeagueComponent.getPicasso());
         championRecyclerView.setAdapter(adapter);
         championRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
     }

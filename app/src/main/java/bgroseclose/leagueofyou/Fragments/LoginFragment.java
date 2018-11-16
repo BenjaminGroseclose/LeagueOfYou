@@ -78,6 +78,7 @@ public class LoginFragment extends Fragment implements LoginPresenter.View {
         username = sharedPref.getString(getString(R.string.save_username), "");
         isSavedUsernameToggled = sharedPref.getBoolean(getString(R.string.save_username_toggle), false);
         mSaveUsernameToggle.setChecked(isSavedUsernameToggled);
+        mUsernameEditText.setText(username);
     }
 
     private void displayAlertDialog(String title, String message) {

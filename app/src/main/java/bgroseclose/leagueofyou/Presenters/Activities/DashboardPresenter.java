@@ -1,5 +1,7 @@
 package bgroseclose.leagueofyou.Presenters.Activities;
 
+import android.support.annotation.NonNull;
+
 import java.util.List;
 
 import bgroseclose.leagueofyou.LeagueOfYouSingleton;
@@ -28,7 +30,7 @@ public class DashboardPresenter {
         Call<List<SummonerRankInfo>> call = riotClient.getSummonerRankInfo(String.valueOf(leagueOfYouAccount.getSummonerInfo().getSummonerId()));
         call.enqueue(new Callback<List<SummonerRankInfo>>() {
             @Override
-            public void onResponse(Call<List<SummonerRankInfo>> call, Response<List<SummonerRankInfo>> response) {
+            public void onResponse(@NonNull Call<List<SummonerRankInfo>> call, @NonNull Response<List<SummonerRankInfo>> response) {
                 if(response.body() != null) {
                     leagueOfYouAccount.getSummonerInfo().setSummonerRankedInfo(response.body());
                     LeagueOfYouSingleton.setLeagueOfYouAccount(leagueOfYouAccount);
@@ -38,7 +40,7 @@ public class DashboardPresenter {
             }
 
             @Override
-            public void onFailure(Call<List<SummonerRankInfo>> call, Throwable t) {
+            public void onFailure(@NonNull Call<List<SummonerRankInfo>> call, @NonNull Throwable t) {
                 view.loadDashboard(false);
                 view.displayServerError();
             }

@@ -20,6 +20,7 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.google.firebase.auth.FirebaseAuth;
+
 import com.squareup.picasso.Picasso;
 
 import javax.inject.Inject;
@@ -39,8 +40,8 @@ import de.hdodenhof.circleimageview.CircleImageView;
 
 public class DashboardActivity extends AppCompatActivity implements DashboardPresenter.View {
 
-    @Inject
-    IApplicationComponent applicationComponent;
+    private IApplicationComponent applicationComponent;
+    private Picasso picasso;
     private DashboardPresenter presenter;
     private Toolbar toolbar;
     private DrawerLayout drawer;
@@ -48,7 +49,6 @@ public class DashboardActivity extends AppCompatActivity implements DashboardPre
     private Fragment existingFragment;
     private LeagueOfYouAccount leagueOfYouAccount;
     private ProgressBar progressBar;
-    private Picasso picasso;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -59,6 +59,7 @@ public class DashboardActivity extends AppCompatActivity implements DashboardPre
         applicationComponent = DaggerIApplicationComponent.builder()
                 .contextModule(new ContextModule(this))
                 .build();
+
         picasso = applicationComponent.getPicasso();
 
         leagueOfYouAccount = LeagueOfYouSingleton.getLeagueOfYouAccount();

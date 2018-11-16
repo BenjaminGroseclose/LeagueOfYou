@@ -1,6 +1,8 @@
 package bgroseclose.leagueofyou.Adapters;
 
+import android.content.Context;
 import android.support.annotation.NonNull;
+import android.support.constraint.ConstraintLayout;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -8,22 +10,31 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.squareup.picasso.Picasso;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
+import java.util.LinkedHashMap;
+import java.util.Set;
 
+import bgroseclose.leagueofyou.LeagueOfYouSingleton;
 import bgroseclose.leagueofyou.Models.ChampionModels.Champion;
 import bgroseclose.leagueofyou.R;
 
 public class ChampionListAdapter extends RecyclerView.Adapter<ChampionListAdapter.ViewHolder> {
 
-    private ArrayList<Champion> championsList;
+    private LinkedHashMap<String, String> championList;
     private Picasso picasso;
+    private Object[] names;
+    private Context context;
 
-    public ChampionListAdapter(ArrayList<Champion> championList, Picasso picasso) {
-        this.championsList = championList;
+    public ChampionListAdapter(Context context, LinkedHashMap<String, String> championList, Picasso picasso) {
+        this.championList = championList;
         this.picasso = picasso;
+        this.names = championList.keySet().toArray();
+        this.context = context;
     }
 
     @NonNull
@@ -36,32 +47,33 @@ public class ChampionListAdapter extends RecyclerView.Adapter<ChampionListAdapte
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder viewHolder, int i) {
-        final Champion champion = championsList.get(i);
-        viewHolder.championNameText.setText(champion.getName());
-        viewHolder.championFlavorText.setText(champion.getTitle());
-        picasso.load(champion.getChampionSquare()).into(viewHolder.championImage);
+        final String name = String.valueOf(names[i]);
+        viewHolder.championNameText.setText(name);
+        viewHolder.championFlavorText.setText(championList.get(name));
+        picasso.load(LeagueOfYouSingleton.getChampionIcon(name)).into(viewHolder.championImage);
 
+        viewHolder.championWinRateText.setText("50%");
         viewHolder.championLayout.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v) {
-                openChampion(champion);
+            public void onClick(View view) {
+               openChampion(name);
             }
         });
 
     }
 
-    private void openChampion(Champion champion) {
-
+    private void openChampion(String name) {
+        Toast.makeText(context, name, Toast.LENGTH_SHORT).show();
     }
 
     @Override
     public int getItemCount() {
-        return championsList.size();
+        return championList.size();
     }
 
     class ViewHolder extends RecyclerView.ViewHolder {
 
-        LinearLayout championLayout;
+        ConstraintLayout championLayout;
         ImageView championImage;
         TextView championNameText;
         TextView championFlavorText;

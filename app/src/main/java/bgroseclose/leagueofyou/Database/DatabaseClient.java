@@ -19,6 +19,7 @@ public class DatabaseClient {
 
     private static final String TAG = "DatabaseClient";
     private static final String dbAccount = "Account";
+    private static final String dbChampionList = "ChampionList";
 
     private static DatabaseReference databaseReference;
     private static boolean isSuccessful;
@@ -66,11 +67,29 @@ public class DatabaseClient {
         });
     }
 
-    public static void getSummonerName(String userId) {
+    public static void getChampionList(final IDatabaseListener listener) {
         if(databaseReference == null) {
             databaseReference = FirebaseDatabase.getInstance().getReference();
         }
 
-        Query query = databaseReference.child(dbAccount).equalTo(userId);
+        listener.onStart();
+        Query query = databaseReference.child(dbChampionList);
+        query.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                if(dataSnapshot.exists()) {
+                    listener.onSuccess(dataSnapshot);
+                } else {
+                    listener.onFailure();
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+                Log.e(TAG, "onCancelled: " + databaseError.toString(), databaseError.toException());
+                listener.onFailure();
+            }
+        });
+
     }
 }

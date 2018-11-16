@@ -9,7 +9,7 @@ import bgroseclose.leagueofyou.Models.SummonerRankInfo;
 public class LeagueOfYouSingleton {
 
     // todo: needs to be updated every 24 hours.
-    public static final String riotKet = "RGAPI-10911bba-3794-4fb1-b814-82ddc064ff2e";
+    public static final String riotKet = "RGAPI-9e63440e-c76e-4815-9a13-7b62fde104c2";
     public static final String riotBaseUrl = "https://na1.api.riotgames.com/lol/";
     public static final String riotStaticBaseUrl = "https://ddragon.leagueoflegends.com/";
     private static LeagueOfYouAccount leagueOfYouAccount;
@@ -23,7 +23,6 @@ public class LeagueOfYouSingleton {
     }
 
     //http://ddragon.leagueoflegends.com/cdn/6.24.1/img/profileicon/588.png
-
     public static String getSummonerProfileIcon() {
         return riotStaticBaseUrl.concat("cdn/")
                                 .concat(getCurrentVersionNumber())
@@ -31,6 +30,16 @@ public class LeagueOfYouSingleton {
                                 .concat(String.valueOf(getLeagueOfYouAccount().getSummonerInfo().getProfileIconId()))
                                 .concat(".png");
     }
+
+    //http://ddragon.leagueoflegends.com/cdn/8.22.1/img/champion/Aatrox.png
+    public static String getChampionIcon(String name) {
+        return riotStaticBaseUrl.concat("cdn/")
+                                .concat(getCurrentVersionNumber())
+                                .concat("/img/champion/")
+                                .concat(name)
+                                .concat(".png");
+    }
+
 
     private static String currentVersionNumber;
 
