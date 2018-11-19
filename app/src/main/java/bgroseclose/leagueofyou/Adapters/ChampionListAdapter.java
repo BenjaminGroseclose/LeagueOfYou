@@ -21,16 +21,17 @@ import java.util.Set;
 
 import bgroseclose.leagueofyou.LeagueOfYouSingleton;
 import bgroseclose.leagueofyou.Models.ChampionModels.Champion;
+import bgroseclose.leagueofyou.Models.ChampionModels.ChampionListModel;
 import bgroseclose.leagueofyou.R;
 
 public class ChampionListAdapter extends RecyclerView.Adapter<ChampionListAdapter.ViewHolder> {
 
-    private LinkedHashMap<String, String> championList;
+    private LinkedHashMap<String, ChampionListModel> championList;
     private Picasso picasso;
     private Object[] names;
     private Context context;
 
-    public ChampionListAdapter(Context context, LinkedHashMap<String, String> championList, Picasso picasso) {
+    public ChampionListAdapter(Context context, LinkedHashMap<String, ChampionListModel> championList, Picasso picasso) {
         this.championList = championList;
         this.picasso = picasso;
         this.names = championList.keySet().toArray();
@@ -48,8 +49,8 @@ public class ChampionListAdapter extends RecyclerView.Adapter<ChampionListAdapte
     @Override
     public void onBindViewHolder(@NonNull ViewHolder viewHolder, int i) {
         final String name = String.valueOf(names[i]);
-        viewHolder.championNameText.setText(name);
-        viewHolder.championFlavorText.setText(championList.get(name));
+        viewHolder.championNameText.setText(championList.get(name).getName());
+        viewHolder.championFlavorText.setText(championList.get(name).getTitle());
         picasso.load(LeagueOfYouSingleton.getChampionIcon(name)).into(viewHolder.championImage);
 
         viewHolder.championWinRateText.setText("50%");

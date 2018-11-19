@@ -98,6 +98,7 @@ public class LoginFragment extends Fragment implements LoginPresenter.View {
             progressDialog = new ProgressDialog(getContext());
             progressDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
             progressDialog.setMessage(getString(R.string.logging_in));
+            progressDialog.setCancelable(false);
             progressDialog.show();
         } else {
             progressDialog.dismiss();

@@ -5,6 +5,8 @@ import java.util.LinkedHashMap;
 
 import bgroseclose.leagueofyou.Database.DatabaseClient;
 import bgroseclose.leagueofyou.Database.IDatabaseListener;
+import bgroseclose.leagueofyou.Models.ChampionModels.ChampionListModel;
+
 public class ChampionListPresenter implements IDatabaseListener {
 
     private View view;
@@ -26,9 +28,9 @@ public class ChampionListPresenter implements IDatabaseListener {
 
     @Override
     public void onSuccess(DataSnapshot snapshot) {
-        LinkedHashMap<String, String> championList = new LinkedHashMap<>();
+        LinkedHashMap<String, ChampionListModel> championList = new LinkedHashMap<>();
         for(DataSnapshot dataSnapshot: snapshot.getChildren()) {
-            championList.put(dataSnapshot.getKey(), dataSnapshot.getValue(String.class));
+            championList.put(dataSnapshot.getKey(), dataSnapshot.getValue(ChampionListModel.class));
             view.loadChampions(false);
         }
         view.setAdapter(championList);
@@ -43,7 +45,7 @@ public class ChampionListPresenter implements IDatabaseListener {
     public interface View {
         boolean checkConnection();
         void loadChampions(boolean isVisible);
-        void setAdapter(LinkedHashMap<String, String> championList);
+        void setAdapter(LinkedHashMap<String, ChampionListModel> championList);
         void displayServerError();
     }
 }

@@ -4,13 +4,13 @@ import java.util.HashMap;
 
 public class ChampionList {
 
-    private HashMap<String, String> championList;
+    private HashMap<String, ChampionListModel> championList;
 
-    public HashMap<String, String> getChampionList() {
+    public HashMap<String, ChampionListModel> getChampionList() {
         return championList;
     }
 
-    public void setChampionList(HashMap<String, String> championList) {
+    public void setChampionList(HashMap<String, ChampionListModel> championList) {
         this.championList = championList;
     }
 }

@@ -26,6 +26,7 @@ import bgroseclose.leagueofyou.Components.DaggerIStaticLeagueComponent;
 import bgroseclose.leagueofyou.Components.IStaticLeagueComponent;
 import bgroseclose.leagueofyou.LeagueOfYouSingleton;
 import bgroseclose.leagueofyou.Models.ChampionModels.Champion;
+import bgroseclose.leagueofyou.Models.ChampionModels.ChampionListModel;
 import bgroseclose.leagueofyou.Modules.ContextModule;
 import bgroseclose.leagueofyou.Presenters.Fragments.ChampionListPresenter;
 import bgroseclose.leagueofyou.R;
@@ -43,7 +44,7 @@ public class ChampionListFragment extends Fragment implements ChampionListPresen
     @BindView(R.id.champion_list_progress_bar)
     ProgressBar progressBar;
 
-    private LinkedHashMap<String, String> championList = null;
+    private LinkedHashMap<String, ChampionListModel> championList = null;
     private ChampionListPresenter presenter;
     private IStaticLeagueComponent staticLeagueComponent;
 
@@ -94,10 +95,10 @@ public class ChampionListFragment extends Fragment implements ChampionListPresen
     }
 
     private void searchChampionList(String text) {
-        LinkedHashMap<String, String> tempChampions = new LinkedHashMap<>();
-        for(String name : championList.keySet()) {
-            if(name.contains(text)) {
-                tempChampions.put(name, championList.get(name));
+        LinkedHashMap<String, ChampionListModel> tempChampions = new LinkedHashMap<>();
+        for(ChampionListModel championModel : championList.values()) {
+            if(championModel.getName().contains(text)) {
+                tempChampions.put(championModel.getId(), championModel);
             }
         }
         setAdapter(tempChampions);
@@ -144,7 +145,7 @@ public class ChampionListFragment extends Fragment implements ChampionListPresen
     }
 
     @Override
-    public void setAdapter(LinkedHashMap<String, String> championList) {
+    public void setAdapter(LinkedHashMap<String, ChampionListModel> championList) {
         if(this.championList == null) {
             this.championList = championList;
         }
