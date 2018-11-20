@@ -2,7 +2,7 @@ package bgroseclose.leagueofyou.Models.ChampionModels;
 
 import com.google.gson.annotations.SerializedName;
 
-class ChampionInfo {
+public class ChampionInfo {
 
     @SerializedName("attack")
     private int attack;

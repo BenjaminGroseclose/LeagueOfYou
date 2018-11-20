@@ -2,7 +2,7 @@ package bgroseclose.leagueofyou.Models.ChampionModels;
 
 import com.google.gson.annotations.SerializedName;
 
-class ChampionStats {
+public class ChampionStats {
 
     @SerializedName("hp")
     private double hp;
