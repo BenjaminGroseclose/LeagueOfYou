@@ -13,7 +13,7 @@ class ChampionSkinAdapter(val context: Context, val images: Array<Int>): PagerAd
     }
 
     override fun getCount(): Int {
-        images.size
+        return images.size
     }
 
     override fun instantiateItem(container: ViewGroup, position: Int): Any {

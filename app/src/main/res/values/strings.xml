@@ -82,4 +82,7 @@
         <item>CHALLENGER</item>
     </string-array>
 
+    <!-- Champion Page -->
+    <string name="champion_mastery">Champion Mastery</string>
+
 </resources>
