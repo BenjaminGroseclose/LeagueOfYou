@@ -30,7 +30,6 @@ class Runes{
 
 }
 
-
 class Rune {
 
     @SerializedName("id")

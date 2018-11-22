@@ -83,6 +83,6 @@
     </string-array>
 
     <!-- Champion Page -->
-    <string name="champion_mastery">Champion Mastery</string>
+    <string name="champion_mastery">Mastery</string>
 
 </resources>
