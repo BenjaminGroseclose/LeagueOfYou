@@ -32,5 +32,6 @@ class ChampionPresenter(val staticLeagueClient: IStaticLeagueClient, val view: C
         fun progressBar(isVisible: Boolean)
         fun displayServerError()
         fun setPagerAdater(champion: Champion)
+        fun updateUI(champion: Champion)
     }
 }

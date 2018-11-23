@@ -14,6 +14,7 @@ import bgroseclose.leagueofyou.Models.ChampionModels.ChampionSkins
 import bgroseclose.leagueofyou.Modules.ContextModule
 import bgroseclose.leagueofyou.Presenters.Fragments.ChampionPresenter
 import bgroseclose.leagueofyou.R
+import bgroseclose.leagueofyou.R.id.champion_skin_image_pager
 import kotlinx.android.synthetic.main.fragment_champion.*
 
 class ChampionFragment: Fragment(), ChampionPresenter.ChampionView {
@@ -64,6 +65,7 @@ class ChampionFragment: Fragment(), ChampionPresenter.ChampionView {
             this.champion = champion
             champion_skin_image_pager.adapter = ChampionSkinAdapter(it, getChampionSkins(champion), component.picasso)
         }
+        updateUI(champion)
     }
 
     override fun progressBar(isVisible: Boolean) {
@@ -79,4 +81,10 @@ class ChampionFragment: Fragment(), ChampionPresenter.ChampionView {
                 getString(R.string.server_error_title),
                 getString(R.string.server_error_message))
     }
+
+    override fun updateUI(champion: Champion) {
+
+    }
+
+
 }
