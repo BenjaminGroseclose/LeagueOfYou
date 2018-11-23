@@ -1,37 +1,38 @@
 package bgroseclose.leagueofyou.Adapters;
 
 import android.content.Context;
+import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.constraint.ConstraintLayout;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.squareup.picasso.Picasso;
 
-import java.lang.reflect.Array;
-import java.util.ArrayList;
 import java.util.LinkedHashMap;
-import java.util.Set;
 
+import bgroseclose.leagueofyou.Activites.DashboardActivity;
+import bgroseclose.leagueofyou.Fragments.ChampionFragment;
+import bgroseclose.leagueofyou.Fragments.SupportFragment;
 import bgroseclose.leagueofyou.LeagueOfYouSingleton;
-import bgroseclose.leagueofyou.Models.ChampionModels.Champion;
-import bgroseclose.leagueofyou.Models.ChampionModels.ChampionListModel;
+import bgroseclose.leagueofyou.Models.ChampionModels.ChampionsModel;
 import bgroseclose.leagueofyou.R;
 
 public class ChampionListAdapter extends RecyclerView.Adapter<ChampionListAdapter.ViewHolder> {
 
-    private LinkedHashMap<String, ChampionListModel> championList;
+    private LinkedHashMap<String, ChampionsModel> championList;
     private Picasso picasso;
     private Object[] names;
     private Context context;
 
-    public ChampionListAdapter(Context context, LinkedHashMap<String, ChampionListModel> championList, Picasso picasso) {
+    public ChampionListAdapter(Context context, LinkedHashMap<String, ChampionsModel> championList, Picasso picasso) {
         this.championList = championList;
         this.picasso = picasso;
         this.names = championList.keySet().toArray();
@@ -64,7 +65,15 @@ public class ChampionListAdapter extends RecyclerView.Adapter<ChampionListAdapte
     }
 
     private void openChampion(String name) {
-        Toast.makeText(context, name, Toast.LENGTH_SHORT).show();
+        Fragment championFragment = new ChampionFragment();
+        Bundle bundle = new Bundle();
+        bundle.putString(context.getString(R.string.champion_name_bundle), name);
+        championFragment.setArguments(bundle);
+
+        FragmentTransaction fragmentTransaction = ((DashboardActivity)context).getSupportFragmentManager().beginTransaction();
+        fragmentTransaction.replace(R.id.dashboard_container, championFragment);
+        fragmentTransaction.addToBackStack(null);
+        fragmentTransaction.commit();
     }
 
     @Override

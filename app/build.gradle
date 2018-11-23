@@ -1,5 +1,7 @@
 apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-android-extensions'
+apply plugin: 'kotlin-kapt'
 
 android {
     compileSdkVersion 28
@@ -43,6 +45,7 @@ dependencies {
     implementation 'com.ss.bannerslider:bannerslider:2.0.0'
 
     annotationProcessor 'com.google.dagger:dagger-compiler:2.13'
+    kapt 'com.google.dagger:dagger-compiler:2.13'
     annotationProcessor 'com.jakewharton:butterknife-compiler:9.0.0-rc1'
     
     testImplementation 'junit:junit:4.12'

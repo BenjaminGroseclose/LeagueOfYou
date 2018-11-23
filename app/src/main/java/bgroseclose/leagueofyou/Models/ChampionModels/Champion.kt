@@ -27,6 +27,8 @@ class Champion {
     @SerializedName("stats")
     var stats: ChampionStats? = null
 
+    var skins: ArrayList<ChampionSkins>? = null
+
 
     // http://ddragon.leagueoflegends.com/cdn/6.24.1/img/champion/Aatrox.png
     val championSquare: String

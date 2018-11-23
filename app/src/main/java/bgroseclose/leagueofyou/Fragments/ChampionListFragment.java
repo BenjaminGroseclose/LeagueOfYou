@@ -17,7 +17,6 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ProgressBar;
 
-import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.Objects;
 
@@ -25,8 +24,7 @@ import bgroseclose.leagueofyou.Adapters.ChampionListAdapter;
 import bgroseclose.leagueofyou.Components.DaggerIStaticLeagueComponent;
 import bgroseclose.leagueofyou.Components.IStaticLeagueComponent;
 import bgroseclose.leagueofyou.LeagueOfYouSingleton;
-import bgroseclose.leagueofyou.Models.ChampionModels.Champion;
-import bgroseclose.leagueofyou.Models.ChampionModels.ChampionListModel;
+import bgroseclose.leagueofyou.Models.ChampionModels.ChampionsModel;
 import bgroseclose.leagueofyou.Modules.ContextModule;
 import bgroseclose.leagueofyou.Presenters.Fragments.ChampionListPresenter;
 import bgroseclose.leagueofyou.R;
@@ -44,7 +42,7 @@ public class ChampionListFragment extends Fragment implements ChampionListPresen
     @BindView(R.id.champion_list_progress_bar)
     ProgressBar progressBar;
 
-    private LinkedHashMap<String, ChampionListModel> championList = null;
+    private LinkedHashMap<String, ChampionsModel> championList = null;
     private ChampionListPresenter presenter;
     private IStaticLeagueComponent staticLeagueComponent;
 
@@ -95,8 +93,8 @@ public class ChampionListFragment extends Fragment implements ChampionListPresen
     }
 
     private void searchChampionList(String text) {
-        LinkedHashMap<String, ChampionListModel> tempChampions = new LinkedHashMap<>();
-        for(ChampionListModel championModel : championList.values()) {
+        LinkedHashMap<String, ChampionsModel> tempChampions = new LinkedHashMap<>();
+        for(ChampionsModel championModel : championList.values()) {
             if(championModel.getName().contains(text)) {
                 tempChampions.put(championModel.getId(), championModel);
             }
@@ -145,7 +143,7 @@ public class ChampionListFragment extends Fragment implements ChampionListPresen
     }
 
     @Override
-    public void setAdapter(LinkedHashMap<String, ChampionListModel> championList) {
+    public void setAdapter(LinkedHashMap<String, ChampionsModel> championList) {
         if(this.championList == null) {
             this.championList = championList;
         }
