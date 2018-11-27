@@ -123,6 +123,7 @@ public class ChampionListFragment extends Fragment implements ChampionListPresen
                     getString(R.string.connection_failed_message)
             );
             return false;
+
         }
     }
 

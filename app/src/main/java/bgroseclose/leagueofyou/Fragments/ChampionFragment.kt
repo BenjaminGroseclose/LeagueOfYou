@@ -10,11 +10,9 @@ import bgroseclose.leagueofyou.Adapters.ChampionSkinAdapter
 import bgroseclose.leagueofyou.Components.DaggerIStaticLeagueComponent
 import bgroseclose.leagueofyou.Components.IStaticLeagueComponent
 import bgroseclose.leagueofyou.Models.ChampionModels.Champion
-import bgroseclose.leagueofyou.Models.ChampionModels.ChampionSkins
 import bgroseclose.leagueofyou.Modules.ContextModule
 import bgroseclose.leagueofyou.Presenters.Fragments.ChampionPresenter
 import bgroseclose.leagueofyou.R
-import bgroseclose.leagueofyou.R.id.champion_skin_image_pager
 import kotlinx.android.synthetic.main.fragment_champion.*
 
 class ChampionFragment: Fragment(), ChampionPresenter.ChampionView {

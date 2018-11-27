@@ -9,8 +9,6 @@ import retrofit2.Response
 
 class ChampionPresenter(val staticLeagueClient: IStaticLeagueClient, val view: ChampionView) {
 
-    lateinit var championUrls: ArrayList<String>
-
     fun getChampionData(name: String) {
         view.progressBar(true)
         val call = staticLeagueClient.getChampion(LeagueOfYouSingleton.getCurrentVersionNumber(), name)
@@ -21,9 +19,9 @@ class ChampionPresenter(val staticLeagueClient: IStaticLeagueClient, val view: C
                     view.progressBar(false)
                 }
             }
-
             override fun onFailure(call: Call<Champion>, t: Throwable) {
                 view.progressBar(false)
+                view.displayServerError()
             }
         })
     }
