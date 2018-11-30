@@ -9,7 +9,7 @@ import bgroseclose.leagueofyou.Models.SummonerRankInfo;
 public class LeagueOfYouSingleton {
 
     // todo: needs to be updated every 24 hours.
-    public static final String riotKet = "RGAPI-be64d6b4-812a-474c-a19c-3afd78d0e5c2";
+    public static final String riotKet = "RGAPI-1cee6503-db25-42c6-9ecd-d3a65883d2d5";
     public static final String riotBaseUrl = "https://na1.api.riotgames.com/lol/";
     public static final String riotStaticBaseUrl = "https://ddragon.leagueoflegends.com/";
     private static LeagueOfYouAccount leagueOfYouAccount;
@@ -71,4 +71,11 @@ public class LeagueOfYouSingleton {
     public static class ErrorConstants {
         public static final String EMAIL_ALREADY_EXISTS = "The email address is already in use by another account.";
     }
+
+    public class Constants {
+        // Extras
+        public static final String CHAMPION_NAME_EXTRA = "CHAMPION_NAME_EXTRA";
+    }
+
+
 }

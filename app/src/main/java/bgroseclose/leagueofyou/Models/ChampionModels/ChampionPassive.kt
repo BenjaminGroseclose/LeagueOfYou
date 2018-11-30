@@ -1,5 +1,6 @@
 package bgroseclose.leagueofyou.Models.ChampionModels
 
+import bgroseclose.leagueofyou.Models.Image
 import com.google.gson.annotations.SerializedName
 
 class ChampionPassive {
@@ -9,6 +10,6 @@ class ChampionPassive {
     @SerializedName("description")
     var description: String? = null
     @SerializedName("image")
-    var image: ChampionImage? = null
+    var image: Image? = null
 
 }

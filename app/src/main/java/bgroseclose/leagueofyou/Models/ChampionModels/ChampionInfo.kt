@@ -1,5 +1,6 @@
 package bgroseclose.leagueofyou.Models.ChampionModels
 
+import bgroseclose.leagueofyou.Models.Image
 import com.google.gson.annotations.SerializedName
 
 class ChampionInfo {
@@ -13,7 +14,7 @@ class ChampionInfo {
     @SerializedName("title")
     var title: String? = null
     @SerializedName("image")
-    var image: ChampionImage? = null
+    var image: Image? = null
     @SerializedName("skins")
     var skins: ArrayList<ChampionSkins>? = null
     @SerializedName("lore")

@@ -1,8 +1,8 @@
-package bgroseclose.leagueofyou.Models.ChampionModels
+package bgroseclose.leagueofyou.Models
 
 import com.google.gson.annotations.SerializedName
 
-class ChampionImage {
+class Image {
 
     @SerializedName("full")
     var full: String? = null

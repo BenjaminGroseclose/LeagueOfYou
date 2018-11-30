@@ -26,6 +26,8 @@
 
         <activity android:name=".Activites.DashboardActivity"
             android:screenOrientation="portrait"></activity>
+        <activity android:name=".Activites.ChampionActivity"
+            android:screenOrientation="portrait"/>
     </application>
 
 </manifest>
