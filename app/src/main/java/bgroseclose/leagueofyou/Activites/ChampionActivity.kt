@@ -82,7 +82,9 @@ class ChampionActivity: FragmentActivity(), ChampionPresenter.ChampionView {
                 0 -> fragment = ChampionOverviewFragment()
                 1 -> fragment = ChampionBuildFragment()
                 2 -> fragment = ChampionSpellsFragment()
-
+                else -> {
+                    fragment = ChampionOverviewFragment()
+                }
             }
             return fragment
         }

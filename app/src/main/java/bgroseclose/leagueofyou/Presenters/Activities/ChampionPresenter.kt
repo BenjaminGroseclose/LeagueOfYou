@@ -4,11 +4,12 @@ import bgroseclose.leagueofyou.Activites.ChampionActivity
 import bgroseclose.leagueofyou.LeagueOfYouSingleton
 import bgroseclose.leagueofyou.Models.ChampionModels.Champion
 import bgroseclose.leagueofyou.Retrofit.IStaticLeagueClient
+
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
-class ChampionPresenter(val view: ChampionView, val staticClient: IStaticLeagueClient ) {
+class ChampionPresenter(val view: ChampionView, private val staticClient: IStaticLeagueClient ) {
 
     init {
 
