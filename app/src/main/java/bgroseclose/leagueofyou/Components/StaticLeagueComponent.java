@@ -8,7 +8,7 @@ import bgroseclose.leagueofyou.Retrofit.IStaticLeagueClient;
 import dagger.Component;
 
 @Component(modules = {StaticLeagueServiceModule.class, PicassoModule.class})
-public interface IStaticLeagueComponent {
+public interface StaticLeagueComponent {
 
     IStaticLeagueClient getStaticLeagueClient();
 

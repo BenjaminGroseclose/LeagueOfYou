@@ -18,8 +18,8 @@ import android.widget.EditText;
 import android.widget.Switch;
 
 import bgroseclose.leagueofyou.Activites.DashboardActivity;
-import bgroseclose.leagueofyou.Components.DaggerIStaticLeagueComponent;
-import bgroseclose.leagueofyou.Components.IStaticLeagueComponent;
+import bgroseclose.leagueofyou.Components.DaggerStaticLeagueComponent;
+import bgroseclose.leagueofyou.Components.StaticLeagueComponent;
 import bgroseclose.leagueofyou.Modules.ContextModule;
 import bgroseclose.leagueofyou.Presenters.Fragments.LoginPresenter;
 import bgroseclose.leagueofyou.R;
@@ -36,7 +36,7 @@ public class LoginFragment extends Fragment implements LoginPresenter.View {
     private boolean isSavedUsernameToggled;
     private String username, password;
     private LoginPresenter presenter;
-    private IStaticLeagueComponent staticLeagueComponent;
+    private StaticLeagueComponent staticLeagueComponent;
     private ProgressDialog progressDialog;
 
     @Nullable
@@ -45,7 +45,7 @@ public class LoginFragment extends Fragment implements LoginPresenter.View {
         View rootView = inflater.inflate(R.layout.fragment_login, container, false);
         ButterKnife.bind(this, rootView);
 
-        staticLeagueComponent = DaggerIStaticLeagueComponent.builder()
+        staticLeagueComponent = DaggerStaticLeagueComponent.builder()
                 .contextModule(new ContextModule(getContext()))
                 .build();
 

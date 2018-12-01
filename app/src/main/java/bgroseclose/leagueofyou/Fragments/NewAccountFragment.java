@@ -22,8 +22,8 @@ import android.widget.TextView;
 import java.util.Calendar;
 import java.util.Objects;
 
-import bgroseclose.leagueofyou.Components.DaggerIApplicationComponent;
-import bgroseclose.leagueofyou.Components.IApplicationComponent;
+import bgroseclose.leagueofyou.Components.ApplicationComponent;
+import bgroseclose.leagueofyou.Components.DaggerApplicationComponent;
 import bgroseclose.leagueofyou.LeagueOfYouSingleton;
 import bgroseclose.leagueofyou.Models.LeagueOfYouAccount;
 import bgroseclose.leagueofyou.Modules.ContextModule;
@@ -43,7 +43,7 @@ public class NewAccountFragment extends Fragment implements NewAccountPresenter.
     private NewAccountPresenter presenter;
     private ProgressDialog progressDialog;
     private String summonersName, username, password, confirmPasword, dateOfBirth;
-    private IApplicationComponent applicationComponent;
+    private ApplicationComponent applicationComponent;
     private DatePickerDialog.OnDateSetListener dateSetListener;
 
     @Nullable
@@ -55,7 +55,7 @@ public class NewAccountFragment extends Fragment implements NewAccountPresenter.
         Toolbar toolbar = getActivity().findViewById(R.id.login_toolbar);
         toolbar.setTitle(getString(R.string.create_new_account));
 
-        applicationComponent = DaggerIApplicationComponent.builder()
+        applicationComponent = DaggerApplicationComponent.builder()
                 .contextModule(new ContextModule(getContext()))
                 .build();
 

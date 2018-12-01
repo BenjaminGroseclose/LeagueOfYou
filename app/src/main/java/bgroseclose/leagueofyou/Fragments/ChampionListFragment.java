@@ -21,8 +21,8 @@ import java.util.LinkedHashMap;
 import java.util.Objects;
 
 import bgroseclose.leagueofyou.Adapters.ChampionListAdapter;
-import bgroseclose.leagueofyou.Components.DaggerIStaticLeagueComponent;
-import bgroseclose.leagueofyou.Components.IStaticLeagueComponent;
+import bgroseclose.leagueofyou.Components.DaggerStaticLeagueComponent;
+import bgroseclose.leagueofyou.Components.StaticLeagueComponent;
 import bgroseclose.leagueofyou.LeagueOfYouSingleton;
 import bgroseclose.leagueofyou.Models.ChampionModels.ChampionsModel;
 import bgroseclose.leagueofyou.Modules.ContextModule;
@@ -44,7 +44,7 @@ public class ChampionListFragment extends Fragment implements ChampionListPresen
 
     private LinkedHashMap<String, ChampionsModel> championList = null;
     private ChampionListPresenter presenter;
-    private IStaticLeagueComponent staticLeagueComponent;
+    private StaticLeagueComponent staticLeagueComponent;
 
     @Nullable
     @Override
@@ -55,7 +55,7 @@ public class ChampionListFragment extends Fragment implements ChampionListPresen
         Toolbar toolbar = Objects.requireNonNull(getActivity()).findViewById(R.id.dashboard_toolbar);
         toolbar.setTitle(getString(R.string.champions));
 
-        staticLeagueComponent = DaggerIStaticLeagueComponent.builder()
+        staticLeagueComponent = DaggerStaticLeagueComponent.builder()
                 .contextModule(new ContextModule(getContext()))
                 .build();
 

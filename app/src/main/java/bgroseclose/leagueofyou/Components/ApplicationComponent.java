@@ -10,7 +10,7 @@ import bgroseclose.leagueofyou.Retrofit.IStaticLeagueClient;
 import dagger.Component;
 
 @Component(modules = {RiotServiceModule.class, PicassoModule.class})
-public interface IApplicationComponent {
+public interface ApplicationComponent {
 
     IRiotClient getRiotClient();
 

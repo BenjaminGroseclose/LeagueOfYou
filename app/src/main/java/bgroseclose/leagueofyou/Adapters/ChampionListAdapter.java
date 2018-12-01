@@ -19,8 +19,6 @@ import com.squareup.picasso.Picasso;
 import java.util.LinkedHashMap;
 
 import bgroseclose.leagueofyou.Activites.DashboardActivity;
-import bgroseclose.leagueofyou.Fragments.ChampionFragment;
-import bgroseclose.leagueofyou.Fragments.SupportFragment;
 import bgroseclose.leagueofyou.LeagueOfYouSingleton;
 import bgroseclose.leagueofyou.Models.ChampionModels.ChampionsModel;
 import bgroseclose.leagueofyou.R;
@@ -65,15 +63,7 @@ public class ChampionListAdapter extends RecyclerView.Adapter<ChampionListAdapte
     }
 
     private void openChampion(String name) {
-        Fragment championFragment = new ChampionFragment();
-        Bundle bundle = new Bundle();
-        bundle.putString(context.getString(R.string.champion_name_bundle), name);
-        championFragment.setArguments(bundle);
-
-        FragmentTransaction fragmentTransaction = ((DashboardActivity)context).getSupportFragmentManager().beginTransaction();
-        fragmentTransaction.replace(R.id.dashboard_container, championFragment);
-        fragmentTransaction.addToBackStack(null);
-        fragmentTransaction.commit();
+        //todp: Refactor to open Champion Activity
     }
 
     @Override
