@@ -3,6 +3,8 @@ package bgroseclose.leagueofyou;
 import android.content.Context;
 import android.net.ConnectivityManager;
 
+import java.util.Objects;
+
 import bgroseclose.leagueofyou.Models.LeagueOfYouAccount;
 import bgroseclose.leagueofyou.Models.SummonerRankInfo;
 
@@ -52,8 +54,8 @@ public class LeagueOfYouSingleton {
     }
 
     public static boolean checkConnection(Context context) {
-        ConnectivityManager cm = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
-        return cm.getActiveNetworkInfo() != null;
+        ConnectivityManager contextSystemService = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
+        return Objects.requireNonNull(contextSystemService).getActiveNetworkInfo() != null;
     }
 
     public static int getSoloQueue() {
@@ -75,6 +77,7 @@ public class LeagueOfYouSingleton {
     public class Constants {
         // Extras
         public static final String CHAMPION_NAME_EXTRA = "CHAMPION_NAME_EXTRA";
+        public static final int CHAMPION_PAGE_COUNT = 3;
     }
 
 

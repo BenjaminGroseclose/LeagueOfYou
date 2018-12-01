@@ -1,26 +1,34 @@
 package bgroseclose.leagueofyou.Activites
 
 import android.os.Bundle
-import android.support.v7.app.AlertDialog
-import android.support.v7.app.AppCompatActivity
+import android.support.v4.app.Fragment
+import android.support.v4.app.FragmentActivity
+import android.support.v4.app.FragmentManager
+import android.support.v4.app.FragmentStatePagerAdapter
 import android.view.View
+
 import bgroseclose.leagueofyou.Components.DaggerChampionComponent
+import bgroseclose.leagueofyou.Fragments.ChampionBuildFragment
+import bgroseclose.leagueofyou.Fragments.ChampionOverviewFragment
+import bgroseclose.leagueofyou.Fragments.ChampionSpellsFragment
 import bgroseclose.leagueofyou.Models.ChampionModels.Champion
 import bgroseclose.leagueofyou.Modules.ChampionModule
 import bgroseclose.leagueofyou.Presenters.Activities.ChampionPresenter
 import bgroseclose.leagueofyou.R
+
 import butterknife.ButterKnife
+
 import kotlinx.android.synthetic.main.activity_champion.*
+
 import javax.inject.Inject
 
 import bgroseclose.leagueofyou.LeagueOfYouSingleton.Constants as Constants
 
-
-
-class ChampionActivity: AppCompatActivity(), ChampionPresenter.ChampionView {
+class ChampionActivity: FragmentActivity(), ChampionPresenter.ChampionView {
 
     companion object {
-        var champion: Champion? = null
+        lateinit var champion: Champion
+
     }
 
     lateinit var presenter: ChampionPresenter
@@ -39,7 +47,7 @@ class ChampionActivity: AppCompatActivity(), ChampionPresenter.ChampionView {
         val championName = intent.getStringExtra(Constants.CHAMPION_NAME_EXTRA)
 
         presenter.getChampion(championName)
-
+        champion_view_pager.adapter = ScreenSlidePagerAdapter(supportFragmentManager)
     }
 
     private fun displayAlertDialog(title: String, message: String) {
@@ -65,6 +73,20 @@ class ChampionActivity: AppCompatActivity(), ChampionPresenter.ChampionView {
                 getString(R.string.server_error_title),
                 getString(R.string.server_error_message)
         )
+    }
+
+    private inner class ScreenSlidePagerAdapter(fragmentManager: FragmentManager): FragmentStatePagerAdapter(fragmentManager) {
+        override fun getItem(position: Int): Fragment {
+            lateinit var fragment: Fragment
+            when(position) {
+                0 -> fragment = ChampionOverviewFragment()
+                1 -> fragment = ChampionBuildFragment()
+                2 -> fragment = ChampionSpellsFragment()
+
+            }
+            return fragment
+        }
+        override fun getCount(): Int = Constants.CHAMPION_PAGE_COUNT
     }
 
 }

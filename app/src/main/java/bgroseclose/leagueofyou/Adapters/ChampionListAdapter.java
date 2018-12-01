@@ -1,27 +1,25 @@
 package bgroseclose.leagueofyou.Adapters;
 
 import android.content.Context;
-import android.os.Bundle;
+import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.constraint.ConstraintLayout;
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentTransaction;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.squareup.picasso.Picasso;
 
 import java.util.LinkedHashMap;
 
-import bgroseclose.leagueofyou.Activites.DashboardActivity;
+import bgroseclose.leagueofyou.Activites.ChampionActivity;
 import bgroseclose.leagueofyou.LeagueOfYouSingleton;
 import bgroseclose.leagueofyou.Models.ChampionModels.ChampionsModel;
 import bgroseclose.leagueofyou.R;
+import bgroseclose.leagueofyou.LeagueOfYouSingleton.Constants;
 
 public class ChampionListAdapter extends RecyclerView.Adapter<ChampionListAdapter.ViewHolder> {
 
@@ -63,7 +61,9 @@ public class ChampionListAdapter extends RecyclerView.Adapter<ChampionListAdapte
     }
 
     private void openChampion(String name) {
-        //todp: Refactor to open Champion Activity
+        Intent intent = new Intent(context, ChampionActivity.class);
+        intent.putExtra(Constants.CHAMPION_NAME_EXTRA, name);
+        context.startActivity(intent);
     }
 
     @Override
