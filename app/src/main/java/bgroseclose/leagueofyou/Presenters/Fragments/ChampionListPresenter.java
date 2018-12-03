@@ -31,7 +31,7 @@ public class ChampionListPresenter implements IDatabaseListener {
     public void onSuccess(DataSnapshot snapshot) {
         LinkedHashMap championList = new LinkedHashMap<>();
         for(DataSnapshot dataSnapshot: snapshot.getChildren()) {
-            championList.put(dataSnapshot.getKey(), dataSnapshot.getValue(Champions.class));
+            championList.put(dataSnapshot.getKey(), dataSnapshot.getValue(ChampionsModel.class));
             view.loadChampions(false);
         }
         view.setAdapter(championList);

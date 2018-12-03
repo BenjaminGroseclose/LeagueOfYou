@@ -85,5 +85,8 @@
     <!-- Champion Page -->
     <string name="champion_name_bundle">CHAMPION_NAME</string>
     <string name="champion_mastery">Mastery</string>
+    <string name="overview">Overview</string>
+    <string name="builds">Builds</string>
+    <string name="spells">Abilities</string>
 
 </resources>

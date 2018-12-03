@@ -46,8 +46,9 @@ public class ChampionListAdapter extends RecyclerView.Adapter<ChampionListAdapte
     @Override
     public void onBindViewHolder(@NonNull ViewHolder viewHolder, int i) {
         final String name = String.valueOf(names[i]);
-        viewHolder.championNameText.setText(championList.get(name).getName());
-        viewHolder.championFlavorText.setText(championList.get(name).getTitle());
+        ChampionsModel champion = championList.get(name);
+        viewHolder.championNameText.setText(champion.getName());
+        viewHolder.championFlavorText.setText(champion.getTitle());
         picasso.load(LeagueOfYouSingleton.getChampionIcon(name)).into(viewHolder.championImage);
 
         viewHolder.championWinRateText.setText("50%");
@@ -57,7 +58,6 @@ public class ChampionListAdapter extends RecyclerView.Adapter<ChampionListAdapte
                openChampion(name);
             }
         });
-
     }
 
     private void openChampion(String name) {

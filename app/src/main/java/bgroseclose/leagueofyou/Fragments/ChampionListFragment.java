@@ -16,6 +16,7 @@ import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ProgressBar;
+import android.widget.Toast;
 
 import java.util.LinkedHashMap;
 import java.util.Objects;
@@ -93,13 +94,17 @@ public class ChampionListFragment extends Fragment implements ChampionListPresen
     }
 
     private void searchChampionList(String text) {
-        LinkedHashMap<String, ChampionsModel> tempChampions = new LinkedHashMap<>();
-        for(ChampionsModel championModel : championList.values()) {
-            if(championModel.getName().contains(text)) {
-                tempChampions.put(championModel.getId(), championModel);
+        if(!text.equals("")) {
+            LinkedHashMap<String, ChampionsModel> tempChampions = new LinkedHashMap<>();
+            for (ChampionsModel championModel : championList.values()) {
+                if (championModel.getName().contains(text)) {
+                    tempChampions.put(championModel.getKey(), championModel);
+                }
             }
+            setAdapter(tempChampions);
+        } else {
+            Toast.makeText(getContext(), "Please enter text before you search.", Toast.LENGTH_SHORT).show();
         }
-        setAdapter(tempChampions);
     }
 
     private void displayAlertDialog(String title, String message) {

@@ -4,5 +4,5 @@ import java.util.HashMap
 
 class Champions {
 
-    var championList: HashMap<String, ChampionsModel>? = null
+    var championList: LinkedHashMap<String, ChampionsModel>? = null
 }

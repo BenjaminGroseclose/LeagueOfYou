@@ -24,7 +24,6 @@ import com.squareup.picasso.Picasso;
 
 import bgroseclose.leagueofyou.Components.DaggerApplicationComponent;
 import bgroseclose.leagueofyou.Components.ApplicationComponent;
-import bgroseclose.leagueofyou.Fragments.BuildFragment;
 import bgroseclose.leagueofyou.Fragments.ChampionListFragment;
 import bgroseclose.leagueofyou.Fragments.DashboardFragment;
 import bgroseclose.leagueofyou.LeagueOfYouSingleton;
@@ -231,13 +230,6 @@ public class DashboardActivity extends AppCompatActivity implements DashboardPre
 
     @Override
     public void openBuildFragment() {
-        if(existingFragment !=  new BuildFragment()) {
-            FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
-            fragmentTransaction.replace(R.id.dashboard_container, new BuildFragment());
-            fragmentTransaction.addToBackStack(null);
-            fragmentTransaction.commit();
-        }
-        drawer.closeDrawers();
     }
 
     @Override
