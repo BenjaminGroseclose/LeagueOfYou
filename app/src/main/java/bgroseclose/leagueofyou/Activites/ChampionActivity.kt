@@ -12,7 +12,6 @@ import bgroseclose.leagueofyou.Components.DaggerChampionComponent
 import bgroseclose.leagueofyou.Fragments.ChampionBuildFragment
 import bgroseclose.leagueofyou.Fragments.ChampionOverviewFragment
 import bgroseclose.leagueofyou.Fragments.ChampionSpellsFragment
-import bgroseclose.leagueofyou.Fragments.LoginFragment
 import bgroseclose.leagueofyou.Models.ChampionModels.Champion
 import bgroseclose.leagueofyou.Modules.ChampionModule
 import bgroseclose.leagueofyou.Presenters.Activities.ChampionPresenter
@@ -50,7 +49,7 @@ class ChampionActivity: FragmentActivity(), ChampionPresenter.ChampionView {
 
         presenter.getChampion(championName)
         champion_view_pager.adapter = ScreenSlidePagerAdapter(supportFragmentManager)
-        val tabLayout = findViewById<TabLayout>(R.id.champion_sliding_tabs)
+        val tabLayout: TabLayout = findViewById(R.id.champion_sliding_tabs)
         tabLayout.setupWithViewPager(champion_view_pager)
     }
 
@@ -89,29 +88,25 @@ class ChampionActivity: FragmentActivity(), ChampionPresenter.ChampionView {
 
     private inner class ScreenSlidePagerAdapter(fragmentManager: FragmentManager): FragmentStatePagerAdapter(fragmentManager) {
         override fun getItem(position: Int): Fragment {
-            lateinit var fragment: Fragment
-            when(position) {
-                0 -> fragment = ChampionOverviewFragment()
-                1 -> fragment = ChampionBuildFragment()
-                2 -> fragment = ChampionSpellsFragment()
+            return when(position) {
+                0 -> ChampionOverviewFragment()
+                1 -> ChampionBuildFragment()
+                2 -> ChampionSpellsFragment()
                 else -> {
-                    fragment = ChampionOverviewFragment()
+                    ChampionOverviewFragment()
                 }
             }
-            return fragment
         }
 
         override fun getPageTitle(position: Int): CharSequence? {
-            val title: String
-            when(position) {
-                0 -> title = getString(R.string.overview)
-                1 -> title = getString(R.string.builds)
-                2 -> title = getString(R.string.spells)
+            return when(position) {
+                0 -> getString(R.string.overview)
+                1 -> getString(R.string.builds)
+                2 -> getString(R.string.spells)
                 else -> {
-                    title = getString(R.string.overview)
+                    getString(R.string.overview)
                 }
             }
-            return title
         }
 
         override fun getCount(): Int = Constants.CHAMPION_PAGE_COUNT
