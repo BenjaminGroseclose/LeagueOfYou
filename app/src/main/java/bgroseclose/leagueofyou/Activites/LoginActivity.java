@@ -15,6 +15,8 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.widget.Toast;
 
+import java.util.Objects;
+
 import bgroseclose.leagueofyou.Fragments.LoginFragment;
 import bgroseclose.leagueofyou.Fragments.NewAccountFragment;
 import bgroseclose.leagueofyou.Fragments.SupportFragment;
@@ -53,7 +55,7 @@ public class LoginActivity extends AppCompatActivity implements LoginPresenter.V
     private void initDrawerAndToolbar() {
         toolbar = findViewById(R.id.login_toolbar);
         setSupportActionBar(toolbar);
-        getSupportActionBar().setDisplayShowTitleEnabled(false);
+        Objects.requireNonNull(getSupportActionBar()).setDisplayShowTitleEnabled(false);
 
         toolbar.setNavigationIcon(R.drawable.ic_drawer);
 

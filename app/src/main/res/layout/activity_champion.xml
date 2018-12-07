@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout
+<RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
     <include
-        android:id="@+id/include"
+        android:id="@+id/champion_toolbar"
         layout="@layout/main_toolbar" />
 
     <ProgressBar
@@ -17,22 +17,20 @@
         android:layout_marginTop="8dp"
         android:layout_marginEnd="8dp"
         android:layout_marginBottom="8dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        android:visibility="invisible"/>
+        android:layout_centerInParent="true"
+        android:visibility="gone"/>
 
     <android.support.design.widget.TabLayout
         android:id="@+id/champion_sliding_tabs"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:tabMode="fixed"
-        app:layout_constraintBottom_toBottomOf="@id/include"/>
+        android:layout_below="@id/champion_toolbar"
+        app:tabMode="fixed"/>
 
     <android.support.v4.view.ViewPager
         android:id="@+id/champion_view_pager"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"/>
+        android:layout_height="match_parent"
+        android:layout_below="@id/champion_sliding_tabs"/>
     
-</android.support.constraint.ConstraintLayout>
+</RelativeLayout>

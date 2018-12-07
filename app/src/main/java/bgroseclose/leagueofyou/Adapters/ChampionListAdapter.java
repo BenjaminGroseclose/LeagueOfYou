@@ -55,15 +55,9 @@ public class ChampionListAdapter extends RecyclerView.Adapter<ChampionListAdapte
         viewHolder.championLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-               openChampion(name);
+               context.startActivity(ChampionActivity.Companion.openChampionActivity(context, name));
             }
         });
-    }
-
-    private void openChampion(String name) {
-        Intent intent = new Intent(context, ChampionActivity.class);
-        intent.putExtra(Constants.CHAMPION_NAME_EXTRA, name);
-        context.startActivity(intent);
     }
 
     @Override

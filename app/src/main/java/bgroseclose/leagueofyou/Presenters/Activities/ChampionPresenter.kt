@@ -34,6 +34,7 @@ class ChampionPresenter(val view: ChampionView, private val staticClient: IStati
 
     interface ChampionView {
         fun loadChampion(isVisible: Boolean)
+        fun setViewPager()
         fun displayServerError()
     }
 }
