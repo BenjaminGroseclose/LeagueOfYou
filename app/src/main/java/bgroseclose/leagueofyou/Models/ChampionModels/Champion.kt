@@ -1,8 +1,9 @@
 package bgroseclose.leagueofyou.Models.ChampionModels
 
 import com.google.gson.annotations.SerializedName
+import java.io.Serializable
 
-class Champion {
+class Champion : Serializable{
 
     @SerializedName("type")
     var type: String? = null

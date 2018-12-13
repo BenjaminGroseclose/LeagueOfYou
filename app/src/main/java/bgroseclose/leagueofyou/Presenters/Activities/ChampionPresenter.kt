@@ -20,10 +20,7 @@ class ChampionPresenter(val view: ChampionView, private val staticClient: IStati
         val call = staticClient.getChampion(LeagueOfYouSingleton.getCurrentVersionNumber(), championName)
         call.enqueue(object: Callback<Champion> {
             override fun onResponse(call: Call<Champion>, response: Response<Champion>) {
-                response.body()?.let {
-                    ChampionActivity.champion = it
-                }
-                view.setViewPager()
+                response.body()?.let { view.setViewPager(it) }
                 view.loadChampion(false)
             }
             override fun onFailure(call: Call<Champion>, t: Throwable) {
@@ -35,7 +32,7 @@ class ChampionPresenter(val view: ChampionView, private val staticClient: IStati
 
     interface ChampionView {
         fun loadChampion(isVisible: Boolean)
-        fun setViewPager()
+        fun setViewPager(champion: Champion)
         fun displayServerError()
     }
 }

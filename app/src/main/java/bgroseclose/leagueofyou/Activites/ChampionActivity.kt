@@ -37,8 +37,9 @@ fun Context.championActivityIntent(championName: String) : Intent {
 
 class ChampionActivity: AppCompatActivity(), ChampionPresenter.ChampionView {
 
+    lateinit var champion: Champion
+
     companion object {
-        lateinit var champion: Champion
 
         fun openChampionActivity(context: Context, championName: String) : Intent{
             return context.championActivityIntent(championName)
@@ -105,7 +106,8 @@ class ChampionActivity: AppCompatActivity(), ChampionPresenter.ChampionView {
         )
     }
 
-    override fun setViewPager() {
+    override fun setViewPager(champion: Champion) {
+        this.champion = champion
         champion_view_pager.adapter = ScreenSlidePagerAdapter(supportFragmentManager)
         val tabLayout = findViewById<TabLayout>(R.id.champion_sliding_tabs)
         tabLayout.post { tabLayout.setupWithViewPager(champion_view_pager) }
@@ -123,11 +125,11 @@ class ChampionActivity: AppCompatActivity(), ChampionPresenter.ChampionView {
         override fun getItem(position: Int): Fragment {
             lateinit var fragment: Fragment
             when(position) {
-                0 -> fragment = ChampionOverviewFragment()
-                1 -> fragment = ChampionBuildFragment()
-                2 -> fragment = ChampionSpellsFragment()
+                0 -> fragment = ChampionOverviewFragment.newInstance(champion)
+                1 -> fragment = ChampionBuildFragment.newInstance(champion)
+                2 -> fragment = ChampionSpellsFragment.newInstance(champion)
                 else -> {
-                    fragment = ChampionOverviewFragment()
+                    fragment = ChampionOverviewFragment.newInstance(champion)
                 }
             }
             return fragment

@@ -7,25 +7,49 @@ import android.view.View
 import android.view.ViewGroup
 import bgroseclose.leagueofyou.Activites.ChampionActivity
 import bgroseclose.leagueofyou.Models.ChampionModels.Champion
+import bgroseclose.leagueofyou.Models.ChampionModels.ChampionInfo
 import bgroseclose.leagueofyou.R
 import kotlinx.android.synthetic.main.fragment_champion_overview.view.*
+import java.lang.UnsupportedOperationException
 
 /**
  * Will display basic champion data. Also will show good and bad matchups
  * The matchup data will be gathered over time and saved in Firebase Database (async update)
  */
 
+const val CHAMPION_EXTRA = "champion_extra"
+
 class ChampionOverviewFragment : Fragment() {
 
-    val currentChampion = ChampionActivity.champion.wrapper?.champion ?:
-        throw RuntimeException("Was not able to retrieve champion data correctly. ")
+    companion object {
+        fun newInstance(champion: Champion) : Fragment {
+            val fragment = ChampionOverviewFragment()
+
+            val args = Bundle()
+            args.putSerializable(CHAMPION_EXTRA, champion)
+
+            fragment.arguments = args
+            return fragment
+        }
+    }
+
+    lateinit var currentChampion: Champion
+    lateinit var championInfo: ChampionInfo
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val rootView = inflater.inflate(R.layout.fragment_champion_overview, container, false);
 
-        rootView.champion_title.text = currentChampion.name
+        if(arguments == null) {
+            throw UnsupportedOperationException("Must pass a champion in the arguments.")
+        }
 
-        for(tag in currentChampion.tags!!) {
+        currentChampion = arguments!!.getSerializable(CHAMPION_EXTRA) as Champion
+
+        championInfo = currentChampion.wrapper?.champion!!
+
+        rootView.champion_title.text = championInfo.name
+
+        for(tag in championInfo.name!!) {
             val string = rootView.champion_tags.text.toString() + tag + " "
             rootView.champion_tags.text = string
         }
