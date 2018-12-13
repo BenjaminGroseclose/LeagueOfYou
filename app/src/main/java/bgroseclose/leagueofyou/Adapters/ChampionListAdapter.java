@@ -1,7 +1,6 @@
 package bgroseclose.leagueofyou.Adapters;
 
 import android.content.Context;
-import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.constraint.ConstraintLayout;
 import android.support.v7.widget.RecyclerView;
@@ -19,7 +18,6 @@ import bgroseclose.leagueofyou.Activites.ChampionActivity;
 import bgroseclose.leagueofyou.LeagueOfYouSingleton;
 import bgroseclose.leagueofyou.Models.ChampionModels.ChampionsModel;
 import bgroseclose.leagueofyou.R;
-import bgroseclose.leagueofyou.LeagueOfYouSingleton.Constants;
 
 public class ChampionListAdapter extends RecyclerView.Adapter<ChampionListAdapter.ViewHolder> {
 

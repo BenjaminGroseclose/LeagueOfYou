@@ -1,5 +1,6 @@
 package bgroseclose.leagueofyou.Activites
 
+import android.annotation.SuppressLint
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
@@ -9,6 +10,7 @@ import android.support.v7.app.AppCompatActivity
 import android.view.MenuItem
 import android.view.View
 import android.widget.Toolbar
+import bgroseclose.leagueofyou.Components.ChampionComponent
 
 import bgroseclose.leagueofyou.Components.DaggerChampionComponent
 import bgroseclose.leagueofyou.Fragments.ChampionBuildFragment
@@ -20,6 +22,7 @@ import bgroseclose.leagueofyou.Presenters.Activities.ChampionPresenter
 import bgroseclose.leagueofyou.R
 
 import butterknife.ButterKnife
+import com.squareup.picasso.Picasso
 
 import kotlinx.android.synthetic.main.activity_champion.*
 
@@ -66,6 +69,7 @@ class ChampionActivity: AppCompatActivity(), ChampionPresenter.ChampionView {
             throw RuntimeException("Champion Activity needs a champion name passed in the arguments")
         }
 
+        loadChampion(true)
         presenter.getChampion(championName)
     }
 

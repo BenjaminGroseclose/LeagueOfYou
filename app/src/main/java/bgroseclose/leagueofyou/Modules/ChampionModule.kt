@@ -2,6 +2,7 @@ package bgroseclose.leagueofyou.Modules
 
 import bgroseclose.leagueofyou.Presenters.Activities.ChampionPresenter
 import bgroseclose.leagueofyou.Retrofit.IStaticLeagueClient
+import com.squareup.picasso.Picasso
 import dagger.Module
 import dagger.Provides
 

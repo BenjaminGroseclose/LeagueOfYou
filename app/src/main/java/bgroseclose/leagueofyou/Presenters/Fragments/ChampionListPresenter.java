@@ -5,7 +5,6 @@ import java.util.LinkedHashMap;
 
 import bgroseclose.leagueofyou.Database.DatabaseClient;
 import bgroseclose.leagueofyou.Database.IDatabaseListener;
-import bgroseclose.leagueofyou.Models.ChampionModels.Champions;
 import bgroseclose.leagueofyou.Models.ChampionModels.ChampionsModel;
 
 public class ChampionListPresenter implements IDatabaseListener {

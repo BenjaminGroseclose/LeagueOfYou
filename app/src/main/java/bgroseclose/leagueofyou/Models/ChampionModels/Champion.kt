@@ -10,8 +10,8 @@ class Champion {
     var format: String? = null
     @SerializedName("versino")
     var version: String? = null
-    @SerializedName("", alternate = [])
-    var championInfo: ChampionInfo? = null
+    @SerializedName("data")
+    var wrapper: ChampionWrapper? = null
 
 }
 

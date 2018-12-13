@@ -23,6 +23,7 @@ class ChampionPresenter(val view: ChampionView, private val staticClient: IStati
                 response.body()?.let {
                     ChampionActivity.champion = it
                 }
+                view.setViewPager()
                 view.loadChampion(false)
             }
             override fun onFailure(call: Call<Champion>, t: Throwable) {
