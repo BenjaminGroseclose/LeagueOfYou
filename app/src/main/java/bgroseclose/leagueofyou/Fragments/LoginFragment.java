@@ -9,6 +9,7 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -16,8 +17,10 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Switch;
+import android.widget.TextView;
 
 import bgroseclose.leagueofyou.Activites.DashboardActivity;
+import bgroseclose.leagueofyou.Activites.LoginActivity;
 import bgroseclose.leagueofyou.Components.DaggerStaticLeagueComponent;
 import bgroseclose.leagueofyou.Components.StaticLeagueComponent;
 import bgroseclose.leagueofyou.Modules.ContextModule;
@@ -33,6 +36,7 @@ public class LoginFragment extends Fragment implements LoginPresenter.View {
     @BindView(R.id.login_password) EditText mPasswordEditText;
     @BindView(R.id.login_save_username_toggle) Switch mSaveUsernameToggle;
     @BindView(R.id.login_button) Button mLogin;
+    @BindView(R.id.new_account_text) TextView mNewAccountTextView;
     private boolean isSavedUsernameToggled;
     private String username, password;
     private LoginPresenter presenter;
@@ -67,6 +71,17 @@ public class LoginFragment extends Fragment implements LoginPresenter.View {
                 username = mUsernameEditText.getText().toString();
                 password = mPasswordEditText.getText().toString();
                 presenter.loginUser(username, password, mSaveUsernameToggle.isChecked());
+            }
+        });
+
+        mNewAccountTextView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                LoginActivity.existingFragment = new NewAccountFragment();
+                getActivity().getSupportFragmentManager().beginTransaction()
+                        .replace(R.id.login_container, LoginActivity.existingFragment)
+                        .addToBackStack(null)
+                        .commit();
             }
         });
 

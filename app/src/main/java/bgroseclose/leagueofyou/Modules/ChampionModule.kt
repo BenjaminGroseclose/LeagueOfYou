@@ -10,7 +10,7 @@ import dagger.Provides
 class ChampionModule(val view: ChampionPresenter.ChampionView) {
 
     @Provides
-    fun championPresnter(staticClient: IStaticLeagueClient): ChampionPresenter {
+    fun championPresenter(staticClient: IStaticLeagueClient): ChampionPresenter {
         return ChampionPresenter(view, staticClient)
     }
 

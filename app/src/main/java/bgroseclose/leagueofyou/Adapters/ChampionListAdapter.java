@@ -72,7 +72,7 @@ public class ChampionListAdapter extends RecyclerView.Adapter<ChampionListAdapte
         TextView championWinRateText;
 
 
-        public ViewHolder(@NonNull View itemView) {
+        ViewHolder(@NonNull View itemView) {
             super(itemView);
 
             championLayout = itemView.findViewById(R.id.champion_list_item_layout);

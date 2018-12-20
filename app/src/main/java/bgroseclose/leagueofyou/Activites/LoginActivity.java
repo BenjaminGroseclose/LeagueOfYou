@@ -25,10 +25,12 @@ import bgroseclose.leagueofyou.R;
 
 public class LoginActivity extends AppCompatActivity implements LoginPresenter.View {
 
+
+    public static Fragment existingFragment;
+
     private LoginPresenter presenter;
     private DrawerLayout drawer;
     private NavigationView navigationView;
-    private Fragment existingFragment;
     private Toolbar toolbar;
 
     @Override
@@ -115,8 +117,9 @@ public class LoginActivity extends AppCompatActivity implements LoginPresenter.V
     @Override
     public void openLoginFragment() {
         if(existingFragment != new LoginFragment()) {
+            existingFragment = new LoginFragment();
             FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
-            fragmentTransaction.replace(R.id.login_container, new LoginFragment());
+            fragmentTransaction.replace(R.id.login_container, existingFragment);
             fragmentTransaction.addToBackStack(null);
             fragmentTransaction.commit();
         }
@@ -126,8 +129,9 @@ public class LoginActivity extends AppCompatActivity implements LoginPresenter.V
     @Override
     public void openNewAccountFragment() {
         if(existingFragment != new NewAccountFragment()) {
+            existingFragment = new NewAccountFragment();
             FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
-            fragmentTransaction.replace(R.id.login_container, new NewAccountFragment());
+            fragmentTransaction.replace(R.id.login_container, existingFragment);
             fragmentTransaction.addToBackStack(null);
             fragmentTransaction.commit();
         }
@@ -137,8 +141,9 @@ public class LoginActivity extends AppCompatActivity implements LoginPresenter.V
     @Override
     public void openSupportFragment() {
         if(existingFragment != new SupportFragment()) {
+            existingFragment = new SupportFragment();
             FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
-            fragmentTransaction.replace(R.id.login_container, new SupportFragment());
+            fragmentTransaction.replace(R.id.login_container, existingFragment);
             fragmentTransaction.addToBackStack(null);
             fragmentTransaction.commit();
         }

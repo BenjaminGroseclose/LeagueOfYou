@@ -119,25 +119,28 @@ public class DashboardActivity extends AppCompatActivity implements DashboardPre
         }
         switch (rankLocation) {
             case 0:
-                retval = getDrawable(R.drawable.bronze);
+                retval = getDrawable(R.drawable.iron_emblem);
                 break;
             case 1:
-                retval = getDrawable(R.drawable.silver);
+                retval = getDrawable(R.drawable.bronze_emblem);
                 break;
             case 2:
-                retval = getDrawable(R.drawable.gold);
+                retval = getDrawable(R.drawable.silver_emblem);
                 break;
             case 3:
-                retval = getDrawable(R.drawable.platinum);
+                retval = getDrawable(R.drawable.gold_emblem);
                 break;
             case 4:
-                retval = getDrawable(R.drawable.diamond);
+                retval = getDrawable(R.drawable.diamond_emblem);
                 break;
             case 5:
-                retval = getDrawable(R.drawable.master);
+                retval = getDrawable(R.drawable.master_emblem);
                 break;
             case 6:
-                retval = getDrawable(R.drawable.challenger);
+                retval = getDrawable(R.drawable.grandmaster_emblem);
+                break;
+            case 7:
+                retval = getDrawable(R.drawable.challenger_emblem);
                 break;
             default:
                 retval = getDrawable(R.drawable.provisional);

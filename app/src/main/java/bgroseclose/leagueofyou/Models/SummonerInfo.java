@@ -11,8 +11,8 @@ public class SummonerInfo {
     private long summonerLevel;
     private long revisionDate;
     @SerializedName("id")
-    private long summonerId;
-    private long accountId;
+    private String summonerId;
+    private String accountId;
     private List<SummonerRankInfo> summonerRankedInfo;
 
     public SummonerInfo() {
@@ -51,19 +51,19 @@ public class SummonerInfo {
         this.revisionDate = revisionDate;
     }
 
-    public long getSummonerId() {
+    public String getSummonerId() {
         return summonerId;
     }
 
-    public void setSummonerId(long summonerId) {
+    public void setSummonerId(String summonerId) {
         this.summonerId = summonerId;
     }
 
-    public long getAccountId() {
+    public String getAccountId() {
         return accountId;
     }
 
-    public void setAccountId(long accountId) {
+    public void setAccountId(String accountId) {
         this.accountId = accountId;
     }
 

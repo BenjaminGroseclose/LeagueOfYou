@@ -1,6 +1,5 @@
 package bgroseclose.leagueofyou.Activites
 
-import android.annotation.SuppressLint
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
@@ -9,8 +8,6 @@ import android.support.v4.app.*
 import android.support.v7.app.AppCompatActivity
 import android.view.MenuItem
 import android.view.View
-import android.widget.Toolbar
-import bgroseclose.leagueofyou.Components.ChampionComponent
 
 import bgroseclose.leagueofyou.Components.DaggerChampionComponent
 import bgroseclose.leagueofyou.Fragments.ChampionBuildFragment
@@ -22,7 +19,6 @@ import bgroseclose.leagueofyou.Presenters.Activities.ChampionPresenter
 import bgroseclose.leagueofyou.R
 
 import butterknife.ButterKnife
-import com.squareup.picasso.Picasso
 
 import kotlinx.android.synthetic.main.activity_champion.*
 
@@ -40,7 +36,6 @@ class ChampionActivity: AppCompatActivity(), ChampionPresenter.ChampionView {
     lateinit var champion: Champion
 
     companion object {
-
         fun openChampionActivity(context: Context, championName: String) : Intent{
             return context.championActivityIntent(championName)
         }
@@ -121,31 +116,27 @@ class ChampionActivity: AppCompatActivity(), ChampionPresenter.ChampionView {
         }
     }
 
-    private inner class ScreenSlidePagerAdapter(fragmentManager: FragmentManager): FragmentPagerAdapter(fragmentManager) {
+    private inner class ScreenSlidePagerAdapter(fm: FragmentManager): FragmentPagerAdapter(fm) {
         override fun getItem(position: Int): Fragment {
-            lateinit var fragment: Fragment
-            when(position) {
-                0 -> fragment = ChampionOverviewFragment.newInstance(champion)
-                1 -> fragment = ChampionBuildFragment.newInstance(champion)
-                2 -> fragment = ChampionSpellsFragment.newInstance(champion)
+            return when(position) {
+                0 -> ChampionOverviewFragment.newInstance(champion)
+                1 -> ChampionBuildFragment.newInstance(champion)
+                2 -> ChampionSpellsFragment.newInstance(champion)
                 else -> {
-                    fragment = ChampionOverviewFragment.newInstance(champion)
+                    ChampionOverviewFragment.newInstance(champion)
                 }
             }
-            return fragment
         }
 
         override fun getPageTitle(position: Int): CharSequence? {
-            val title: String
-            when(position) {
-                0 -> title = getString(R.string.overview)
-                1 -> title = getString(R.string.builds)
-                2 -> title = getString(R.string.spells)
+            return when(position) {
+                0 -> getString(R.string.overview)
+                1 -> getString(R.string.builds)
+                2 -> getString(R.string.spells)
                 else -> {
-                    title = getString(R.string.overview)
+                    getString(R.string.overview)
                 }
             }
-            return title
         }
 
         override fun getCount(): Int = Constants.CHAMPION_PAGE_COUNT

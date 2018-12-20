@@ -5,12 +5,16 @@ import android.support.v4.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import bgroseclose.leagueofyou.Activites.ChampionActivity
+import bgroseclose.leagueofyou.Components.DaggerChampionOverviewComponent
 import bgroseclose.leagueofyou.Models.ChampionModels.Champion
 import bgroseclose.leagueofyou.Models.ChampionModels.ChampionInfo
+import bgroseclose.leagueofyou.Presenters.Fragments.ChampionOverviewPresenter
 import bgroseclose.leagueofyou.R
+import com.squareup.picasso.Picasso
+import kotlinx.android.synthetic.main.fragment_champion_overview.*
 import kotlinx.android.synthetic.main.fragment_champion_overview.view.*
 import java.lang.UnsupportedOperationException
+import javax.inject.Inject
 
 /**
  * Will display basic champion data. Also will show good and bad matchups
@@ -19,7 +23,7 @@ import java.lang.UnsupportedOperationException
 
 const val CHAMPION_EXTRA = "champion_extra"
 
-class ChampionOverviewFragment : Fragment() {
+class ChampionOverviewFragment : Fragment(), ChampionOverviewPresenter.View {
 
     companion object {
         fun newInstance(champion: Champion) : Fragment {
@@ -33,8 +37,13 @@ class ChampionOverviewFragment : Fragment() {
         }
     }
 
-    lateinit var currentChampion: Champion
-    lateinit var championInfo: ChampionInfo
+    lateinit var picasso: Picasso
+    @Inject set
+    lateinit var presenter: ChampionOverviewPresenter
+    @Inject set
+
+    private lateinit var currentChampion: Champion
+    lateinit var champion: ChampionInfo
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val rootView = inflater.inflate(R.layout.fragment_champion_overview, container, false);
@@ -43,18 +52,26 @@ class ChampionOverviewFragment : Fragment() {
             throw UnsupportedOperationException("Must pass a champion in the arguments.")
         }
 
+        DaggerChampionOverviewComponent.builder().build()
+
         currentChampion = arguments!!.getSerializable(CHAMPION_EXTRA) as Champion
+        champion = currentChampion.wrapper?.champion!!
 
-        championInfo = currentChampion.wrapper?.champion!!
+        rootView.champion_title.text = champion.name
 
-        rootView.champion_title.text = championInfo.name
-
-        for(tag in championInfo.name!!) {
+        for(tag in champion.tags!!) {
             val string = rootView.champion_tags.text.toString() + tag + " "
             rootView.champion_tags.text = string
         }
 
+        progressBar(true)
+        presenter.getMatchupData()
+
         return rootView
+    }
+
+    override fun progressBar(isVisible: Boolean) {
+        champion_overview_progress_bar.visibility = if (isVisible) View.VISIBLE else View.GONE
     }
 
 }
