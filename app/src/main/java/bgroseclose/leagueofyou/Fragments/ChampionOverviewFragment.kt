@@ -52,7 +52,8 @@ class ChampionOverviewFragment : Fragment(), ChampionOverviewPresenter.View {
             throw UnsupportedOperationException("Must pass a champion in the arguments.")
         }
 
-        DaggerChampionOverviewComponent.builder().build()
+        DaggerChampionOverviewComponent.builder().build().inject(this)
+        DaggerChampionOverviewComponent.builder().build().inject(picasso)
 
         currentChampion = arguments!!.getSerializable(CHAMPION_EXTRA) as Champion
         champion = currentChampion.wrapper?.champion!!
