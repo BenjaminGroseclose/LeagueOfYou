@@ -66,6 +66,8 @@
     <string name="drawer_lvl_text">Lvl</string>
     <string name="dashboard_load_profile_msg">Loading Profile...</string>
 
+    <!-- Dashboard Fragment -->
+
     <!-- Champion List -->
     <string name="search">Search</string>
 
@@ -90,5 +92,6 @@
     <string name="overview">Overview</string>
     <string name="builds">Builds</string>
     <string name="spells">Abilities</string>
+    <string name="in_game_analysis">In Game Analysis</string>
 
 </resources>

@@ -163,7 +163,7 @@ public class DashboardActivity extends AppCompatActivity implements DashboardPre
     private void initDashboardFragment() {
         if (findViewById(R.id.dashboard_container) != null) {
             FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
-            fragmentTransaction.add(R.id.dashboard_container, new DashboardFragment());
+            fragmentTransaction.add(R.id.dashboard_container, DashboardFragment.Companion.newInstance(leagueOfYouAccount.getSummonerInfo().getAccountId()));
             fragmentTransaction.commit();
             existingFragment = new DashboardFragment();
         }

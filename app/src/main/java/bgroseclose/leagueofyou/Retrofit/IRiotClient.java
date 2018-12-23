@@ -3,6 +3,7 @@ package bgroseclose.leagueofyou.Retrofit;
 import java.util.List;
 
 import bgroseclose.leagueofyou.LeagueOfYouSingleton;
+import bgroseclose.leagueofyou.Models.MatchupModels.MatchupList;
 import bgroseclose.leagueofyou.Models.SummonerInfo;
 import bgroseclose.leagueofyou.Models.SummonerRankInfo;
 import retrofit2.Call;
@@ -25,6 +26,12 @@ public interface IRiotClient {
     @GET("league/v4/positions/by-summoner/{summonerId}?api_key=" + LeagueOfYouSingleton.riotKet)
     Call<List<SummonerRankInfo>> getSummonerRankInfo (
             @Path("summonerId") String summonerId
+    );
+
+    //https://na1.api.riotgames.com/lol/match/v4/matchlists/by-account/{accountId}?endIndex=20
+    @GET("match/v4/matchlists/by-account/{accountId}?endIndex=20")
+    Call<MatchupList> getMatchupsDashboard(
+            @Path("accountId") String accountId
     );
 
 }
