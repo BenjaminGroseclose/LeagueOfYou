@@ -13,7 +13,7 @@ import bgroseclose.leagueofyou.Models.ChampionModels.MatchupChampion
 import bgroseclose.leagueofyou.R
 import com.squareup.picasso.Picasso
 
-class ChampionMatchupAdapter(val matchupChampions: List<MatchupChampion>, val picasso: Picasso) : RecyclerView.Adapter<ChampionMatchupAdapter.ViewHolder>() {
+class ChampionCounterAdapter(val matchupChampions: List<MatchupChampion>, val picasso: Picasso) : RecyclerView.Adapter<ChampionCounterAdapter.ViewHolder>() {
 
     override fun onCreateViewHolder(viewGroup: ViewGroup, position: Int): ViewHolder {
         val inflater = LayoutInflater.from(viewGroup.context)

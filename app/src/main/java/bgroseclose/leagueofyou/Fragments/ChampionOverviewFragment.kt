@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import bgroseclose.leagueofyou.Components.DaggerChampionOverviewComponent
 import bgroseclose.leagueofyou.Models.ChampionModels.Champion
 import bgroseclose.leagueofyou.Models.ChampionModels.ChampionInfo
+import bgroseclose.leagueofyou.Models.CounterChampion
 import bgroseclose.leagueofyou.Presenters.Fragments.ChampionOverviewPresenter
 import bgroseclose.leagueofyou.R
 import com.squareup.picasso.Picasso
@@ -73,6 +74,10 @@ class ChampionOverviewFragment : Fragment(), ChampionOverviewPresenter.View {
 
     override fun progressBar(isVisible: Boolean) {
         champion_overview_progress_bar.visibility = if (isVisible) View.VISIBLE else View.GONE
+    }
+
+    override fun setCounterAdapter(counterChampions: List<CounterChampion>) {
+        TODO("not implemented -> completed after API is done.")
     }
 
 }
