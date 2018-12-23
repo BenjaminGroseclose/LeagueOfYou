@@ -1,6 +1,7 @@
 package bgroseclose.leagueofyou.Presenters.Fragments
 
 import bgroseclose.leagueofyou.Models.CounterChampion
+import bgroseclose.leagueofyou.Models.CounterData
 
 class ChampionOverviewPresenter() {
 
@@ -10,7 +11,7 @@ class ChampionOverviewPresenter() {
 
     interface View {
         fun progressBar(isVisible: Boolean)
-        fun setCounterAdapter(counterChampions: List<CounterChampion>)
+        fun setCounterAdapter(counterChampions: CounterData)
     }
 
 }

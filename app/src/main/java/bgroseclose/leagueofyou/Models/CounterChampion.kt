@@ -12,3 +12,10 @@ class CounterChampion {
     @SerializedName("version")
     var version: String? = null
 }
+
+class CounterData {
+    @SerializedName("strong")
+    var strong: List<CounterChampion>? = null
+    @SerializedName("weak")
+    var weak: List<CounterChampion>? = null
+}

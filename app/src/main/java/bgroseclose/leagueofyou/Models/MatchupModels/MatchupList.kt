@@ -11,5 +11,4 @@ class MatchupList {
     var startIndex: Int? = null
     @SerializedName("totalGames")
     var totalGames: Int? = null
-
 }

@@ -9,24 +9,24 @@ import android.widget.LinearLayout
 import android.widget.TextView
 import bgroseclose.leagueofyou.Helpers.convertToPercent
 import bgroseclose.leagueofyou.LeagueOfYouSingleton
-import bgroseclose.leagueofyou.Models.ChampionModels.MatchupChampion
+import bgroseclose.leagueofyou.Models.CounterChampion
 import bgroseclose.leagueofyou.R
 import com.squareup.picasso.Picasso
 
-class ChampionCounterAdapter(val matchupChampions: List<MatchupChampion>, val picasso: Picasso) : RecyclerView.Adapter<ChampionCounterAdapter.ViewHolder>() {
+class ChampionCounterAdapter(val counterChampions: List<CounterChampion>, val picasso: Picasso) : RecyclerView.Adapter<ChampionCounterAdapter.ViewHolder>() {
 
     override fun onCreateViewHolder(viewGroup: ViewGroup, position: Int): ViewHolder {
         val inflater = LayoutInflater.from(viewGroup.context)
         return ViewHolder(inflater.inflate(R.layout.matchup_champion_list_item, viewGroup, false))
     }
 
-    override fun getItemCount(): Int = matchupChampions.size
+    override fun getItemCount(): Int = counterChampions.size
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        val matchupChampion = matchupChampions[position]
-        holder.matchupName.text = matchupChampion.championName
-        holder.matchupWinRate.text = matchupChampion.championWinRate?.convertToPercent()
-        picasso.load(LeagueOfYouSingleton.getChampionIcon(matchupChampion.championId)).into(holder.matchupImage)
+        val counterChampion = counterChampions[position]
+        holder.matchupName.text = counterChampion.name
+        holder.matchupWinRate.text = counterChampion.winRate?.convertToPercent()
+        picasso.load(LeagueOfYouSingleton.getChampionIcon(counterChampion.id)).into(holder.matchupImage)
 
 
     }
