@@ -8,4 +8,7 @@
     <color name="white">#FFF</color>
     <color name="black">#000</color>
 
+    <color name="matchup_victory">#ADD8E6</color>
+    <color name="mathcup_defeat">#FF7F7F</color>
+
 </resources>

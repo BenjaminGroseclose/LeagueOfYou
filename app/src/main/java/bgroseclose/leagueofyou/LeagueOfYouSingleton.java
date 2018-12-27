@@ -79,10 +79,21 @@ public class LeagueOfYouSingleton {
         public static final String EMAIL_ALREADY_EXISTS = "The email address is already in use by another account.";
     }
 
+    public static String getChampionFromId(int championId) {
+
+    }
+
     public class Constants {
-        // Extras
         public static final String CHAMPION_NAME_EXTRA = "CHAMPION_NAME_EXTRA";
         public static final int CHAMPION_PAGE_COUNT = 3;
+
+        public static final String TOP = "TOP";
+        public static final String BOTTOM = "BOTTOM";
+        public static final String JUNGLE = "JUNGLE";
+        public static final String MID = "MID";
+        public static final String SUPPORT = "SUPPORT";
+
+        //
     }
 
 

@@ -17,7 +17,7 @@ class ChampionCounterAdapter(val counterChampions: List<CounterChampion>, val pi
 
     override fun onCreateViewHolder(viewGroup: ViewGroup, position: Int): ViewHolder {
         val inflater = LayoutInflater.from(viewGroup.context)
-        return ViewHolder(inflater.inflate(R.layout.matchup_champion_list_item, viewGroup, false))
+        return ViewHolder(inflater.inflate(R.layout.counter_champion_list_item, viewGroup, false))
     }
 
     override fun getItemCount(): Int = counterChampions.size
@@ -28,16 +28,15 @@ class ChampionCounterAdapter(val counterChampions: List<CounterChampion>, val pi
         holder.matchupWinRate.text = counterChampion.winRate?.convertToPercent()
         picasso.load(LeagueOfYouSingleton.getChampionIcon(counterChampion.id)).into(holder.matchupImage)
 
-
     }
 
 
     inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
-        val matchupLayout: LinearLayout = itemView.findViewById(R.id.match_up_layout)
-        val matchupImage: ImageView = itemView.findViewById(R.id.match_up_image)
-        val matchupName: TextView = itemView.findViewById(R.id.match_up_text)
-        val matchupWinRate: TextView = itemView.findViewById(R.id.match_up_win_rate)
+        val matchupLayout: LinearLayout = itemView.findViewById(R.id.counter_up_layout)
+        val matchupImage: ImageView = itemView.findViewById(R.id.counter_up_image)
+        val matchupName: TextView = itemView.findViewById(R.id.counter_up_text)
+        val matchupWinRate: TextView = itemView.findViewById(R.id.counter_up_win_rate)
 
     }
 }

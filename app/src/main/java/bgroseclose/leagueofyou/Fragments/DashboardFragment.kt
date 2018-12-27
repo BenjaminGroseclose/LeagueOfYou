@@ -6,10 +6,10 @@ import android.support.v4.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import bgroseclose.leagueofyou.Adapters.DashboardMatchupAdapter
+import bgroseclose.leagueofyou.Adapters.DashboardMatchHistoryAdapter
 import bgroseclose.leagueofyou.Components.DaggerDashboardFragmentComponent
-import bgroseclose.leagueofyou.Models.MatchupModels.MatchupList
-import bgroseclose.leagueofyou.Presenters.Fragments.DashboardFragPresenter
+import bgroseclose.leagueofyou.Models.MatchModels.Match
+import bgroseclose.leagueofyou.Presenters.Fragments.DashboardFragmentPresenter
 
 import bgroseclose.leagueofyou.R
 import butterknife.ButterKnife
@@ -20,7 +20,7 @@ import javax.inject.Inject
 
 const val ACCOUNT_ID_EXTRA = "account_id_extra"
 
-class DashboardFragment : Fragment(), DashboardFragPresenter.View {
+class DashboardFragment : Fragment(), DashboardFragmentPresenter.View {
 
     companion object {
         fun newInstance(accountId: String): Fragment {
@@ -34,7 +34,7 @@ class DashboardFragment : Fragment(), DashboardFragPresenter.View {
         }
     }
 
-    lateinit var presenter: DashboardFragPresenter
+    lateinit var presenter: DashboardFragmentPresenter
     @Inject set
     lateinit var picasso: Picasso
     @Inject set
@@ -53,7 +53,7 @@ class DashboardFragment : Fragment(), DashboardFragPresenter.View {
 
         val accountId = arguments!!.getString(ACCOUNT_ID_EXTRA)
 
-        presenter.getMatchups(accountId)
+        presenter.getMatchups(accountId = accountId)
 
         return rootView
     }
@@ -76,12 +76,11 @@ class DashboardFragment : Fragment(), DashboardFragPresenter.View {
         )
     }
 
-    override fun setMatchupAdapter(matchups: MatchupList) {
-        dashboard_match_up_recycler_view.adapter = DashboardMatchupAdapter(matchups, picasso)
+    override fun setMatchupAdapter(matches: List<Match>) {
+        dashboard_match_up_recycler_view.adapter = DashboardMatchHistoryAdapter(matches, picasso)
     }
 
     override fun loadMatchup(isVisible: Boolean) {
         TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
-
 }
