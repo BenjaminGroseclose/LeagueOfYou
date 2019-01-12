@@ -10,4 +10,6 @@ class ChampionsModel {
     var name: String? = null
     @SerializedName("title")
     var title: String? = null
+    @SerializedName("id")
+    var id: Int? = null
 }

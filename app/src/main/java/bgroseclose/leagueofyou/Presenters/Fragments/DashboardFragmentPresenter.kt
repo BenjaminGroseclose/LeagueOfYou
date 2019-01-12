@@ -48,7 +48,6 @@ class DashboardFragmentPresenter(val view: View, val riotClient: IRiotClient) {
                         view.displayError()
                     }
                 }
-
             })
         }
         if(matches.size == 0) {

@@ -3,8 +3,10 @@ package bgroseclose.leagueofyou;
 import android.content.Context;
 import android.net.ConnectivityManager;
 
+import java.util.List;
 import java.util.Objects;
 
+import bgroseclose.leagueofyou.Models.ChampionModels.ChampionsModel;
 import bgroseclose.leagueofyou.Models.LeagueOfYouAccount;
 import bgroseclose.leagueofyou.Models.SummonerRankInfo;
 
@@ -15,6 +17,7 @@ public class LeagueOfYouSingleton {
     public static final String riotBaseUrl = "https://na1.api.riotgames.com/lol/";
     public static final String riotStaticBaseUrl = "https://ddragon.leagueoflegends.com/";
     private static LeagueOfYouAccount leagueOfYouAccount;
+    private static List<ChampionsModel> champions;
 
     public static String getCurrentVersionNumber() {
         return currentVersionNumber;
@@ -40,7 +43,6 @@ public class LeagueOfYouSingleton {
                                 .concat(".png");
     }
 
-    //http://ddragon.leagueoflegends.com/cdn/img/champion/loading/Aatrox_0.jpg
     public static String getSpellIcon(String name) {
         return riotStaticBaseUrl.concat("cdn/")
                                 .concat("img/champion/loading/")
@@ -49,6 +51,14 @@ public class LeagueOfYouSingleton {
     }
 
     private static String currentVersionNumber;
+
+    public static List<ChampionsModel> getChampions() {
+        return champions;
+    }
+
+    public static void setChampions(List<ChampionsModel> champions) {
+        LeagueOfYouSingleton.champions = champions;
+    }
 
     public static LeagueOfYouAccount getLeagueOfYouAccount() {
         return leagueOfYouAccount;
@@ -79,10 +89,6 @@ public class LeagueOfYouSingleton {
         public static final String EMAIL_ALREADY_EXISTS = "The email address is already in use by another account.";
     }
 
-    public static String getChampionFromId(int championId) {
-
-    }
-
     public class Constants {
         public static final String CHAMPION_NAME_EXTRA = "CHAMPION_NAME_EXTRA";
         public static final int CHAMPION_PAGE_COUNT = 3;
@@ -93,7 +99,6 @@ public class LeagueOfYouSingleton {
         public static final String MID = "MID";
         public static final String SUPPORT = "SUPPORT";
 
-        //
     }
 
 

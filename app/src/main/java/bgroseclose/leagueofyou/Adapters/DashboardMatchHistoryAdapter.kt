@@ -4,9 +4,8 @@ import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import bgroseclose.leagueofyou.LeagueOfYouSingleton
 import bgroseclose.leagueofyou.Models.MatchModels.Match
-import bgroseclose.leagueofyou.Models.MatchModels.Participants
+import bgroseclose.leagueofyou.Models.MatchModels.Participant
 import bgroseclose.leagueofyou.R
 import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.match_history_list_item.view.*
@@ -24,11 +23,15 @@ class DashboardMatchHistoryAdapter(val matches: List<Match>, val picasso: Picass
     override fun onBindViewHolder(viewHolder: ViewHolder, position: Int) {
         val currentMatch = matches[position]
         val participants = getAccountParticipant(currentMatch)
-        viewHolder.championNameText = LeagueOfYouSingleton.getChampionFromId(participants.championId)
+        viewHolder.championNameText.text = participants.getChampionName()
     }
 
-    private fun getAccountParticipant(match: Match) : Participants {
-
+    private fun getAccountParticipant(match: Match) : Participant {
+        var returnParticipant: Participant? = null
+        for (participant: Participant in match.participants!!) {
+            returnParticipant = participant
+        }
+        return returnParticipant!!
     }
 
     inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {

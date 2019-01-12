@@ -24,7 +24,7 @@ class Match {
     @SerializedName("teams")
     var teams: List<Teams>? = null
     @SerializedName("participants")
-    var participants: List<Participants>? = null
+    var participants: List<Participant>? = null
     @SerializedName("gameDuration")
     var gameDuration: Long? = null
     @SerializedName("gameCreation")
