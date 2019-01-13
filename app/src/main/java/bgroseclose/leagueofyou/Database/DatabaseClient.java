@@ -1,6 +1,5 @@
 package bgroseclose.leagueofyou.Database;
 
-import android.support.annotation.NonNull;
 import android.util.Log;
 
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -12,7 +11,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 
-import bgroseclose.leagueofyou.LeagueOfYouSingleton;
+import androidx.annotation.NonNull;
 import bgroseclose.leagueofyou.Models.LeagueOfYouAccount;
 
 public class DatabaseClient {

@@ -1,5 +1,7 @@
 package bgroseclose.leagueofyou.Presenters.Fragments
 
+import android.content.Context
+import bgroseclose.leagueofyou.Activites.GameAnalysisActivityIntent
 import bgroseclose.leagueofyou.Models.MatchModels.Match
 import bgroseclose.leagueofyou.Models.MatchupModels.Matchup
 import bgroseclose.leagueofyou.Models.MatchupModels.MatchupList
@@ -28,6 +30,10 @@ class DashboardFragmentPresenter(val view: View, val riotClient: IRiotClient) {
                 }
             }
         })
+    }
+
+    fun openAnaylis(context: Context) {
+        context.startActivity(context.GameAnalysisActivityIntent())
     }
 
     private fun getMatchupDetails(matchups: MatchupList) {

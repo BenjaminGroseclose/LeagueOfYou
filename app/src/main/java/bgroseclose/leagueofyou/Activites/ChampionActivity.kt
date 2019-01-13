@@ -3,11 +3,13 @@ package bgroseclose.leagueofyou.Activites
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
-import android.support.design.widget.TabLayout
-import android.support.v4.app.*
-import android.support.v7.app.AppCompatActivity
 import android.view.MenuItem
 import android.view.View
+import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.widget.Toolbar
+import androidx.fragment.app.Fragment
+import androidx.fragment.app.FragmentManager
+import androidx.fragment.app.FragmentPagerAdapter
 
 import bgroseclose.leagueofyou.Components.DaggerChampionComponent
 import bgroseclose.leagueofyou.Fragments.ChampionBuildFragment
@@ -19,6 +21,7 @@ import bgroseclose.leagueofyou.Presenters.Activities.ChampionPresenter
 import bgroseclose.leagueofyou.R
 
 import butterknife.ButterKnife
+import com.google.android.material.tabs.TabLayout
 
 import kotlinx.android.synthetic.main.activity_champion.*
 
@@ -51,7 +54,7 @@ class ChampionActivity: AppCompatActivity(), ChampionPresenter.ChampionView {
 
         val championName = intent.getStringExtra(Constants.CHAMPION_NAME_EXTRA)
 
-        setSupportActionBar(champion_toolbar as android.support.v7.widget.Toolbar)
+        setSupportActionBar(champion_toolbar as Toolbar)
         supportActionBar?.setDisplayShowTitleEnabled(true)
         supportActionBar?.title = championName
         supportActionBar?.setDisplayHomeAsUpEnabled(true)

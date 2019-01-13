@@ -1,9 +1,6 @@
 package bgroseclose.leagueofyou.Adapters;
 
 import android.content.Context;
-import android.support.annotation.NonNull;
-import android.support.constraint.ConstraintLayout;
-import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,6 +11,9 @@ import com.squareup.picasso.Picasso;
 
 import java.util.LinkedHashMap;
 
+import androidx.annotation.NonNull;
+import androidx.constraintlayout.widget.ConstraintLayout;
+import androidx.recyclerview.widget.RecyclerView;
 import bgroseclose.leagueofyou.Activites.ChampionActivity;
 import bgroseclose.leagueofyou.LeagueOfYouSingleton;
 import bgroseclose.leagueofyou.Models.ChampionModels.ChampionsModel;

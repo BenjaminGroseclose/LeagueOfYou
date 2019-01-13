@@ -6,11 +6,6 @@ import android.app.ProgressDialog;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentTransaction;
-import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,10 +13,15 @@ import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toolbar;
 
 import java.util.Calendar;
 import java.util.Objects;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
 import bgroseclose.leagueofyou.Components.ApplicationComponent;
 import bgroseclose.leagueofyou.Components.DaggerApplicationComponent;
 import bgroseclose.leagueofyou.LeagueOfYouSingleton;
@@ -34,12 +34,12 @@ import butterknife.ButterKnife;
 
 public class NewAccountFragment extends Fragment implements NewAccountPresenter.View {
 
-    @BindView(R.id.new_account_summoners_name) EditText mSummoners;
-    @BindView(R.id.new_account_username) EditText mUsername;
-    @BindView(R.id.new_account_password) EditText mPassword;
-    @BindView(R.id.new_account_password_confirm) EditText mConfirmPassword;
-    @BindView(R.id.create_new_account) Button mCreateNewAccount;
-    @BindView(R.id.new_account_dob) TextView mDateOfBirth;
+    @BindView(R.id.new_account_summoners_name) protected EditText mSummoners;
+    @BindView(R.id.new_account_username) protected EditText mUsername;
+    @BindView(R.id.new_account_password) protected EditText mPassword;
+    @BindView(R.id.new_account_password_confirm) protected EditText mConfirmPassword;
+    @BindView(R.id.create_new_account) protected Button mCreateNewAccount;
+    @BindView(R.id.new_account_dob) protected TextView mDateOfBirth;
     private NewAccountPresenter presenter;
     private ProgressDialog progressDialog;
     private String summonersName, username, password, confirmPasword, dateOfBirth;

@@ -1,7 +1,5 @@
 package bgroseclose.leagueofyou.Presenters.Activities;
 
-import android.support.v4.app.Fragment;
-
 import bgroseclose.leagueofyou.R;
 
 public class LoginPresenter {

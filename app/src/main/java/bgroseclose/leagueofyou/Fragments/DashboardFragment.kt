@@ -2,10 +2,10 @@ package bgroseclose.leagueofyou.Fragments
 
 import android.app.AlertDialog
 import android.os.Bundle
-import android.support.v4.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.Fragment
 import bgroseclose.leagueofyou.Adapters.DashboardMatchHistoryAdapter
 import bgroseclose.leagueofyou.Components.DaggerDashboardFragmentComponent
 import bgroseclose.leagueofyou.Models.MatchModels.Match
@@ -54,6 +54,10 @@ class DashboardFragment : Fragment(), DashboardFragmentPresenter.View {
         val accountId = arguments!!.getString(ACCOUNT_ID_EXTRA)
 
         presenter.getMatchups(accountId = accountId)
+
+        dashboard_analysis.setOnClickListener {
+            presenter.openAnaylis(context!!)
+        }
 
         return rootView
     }

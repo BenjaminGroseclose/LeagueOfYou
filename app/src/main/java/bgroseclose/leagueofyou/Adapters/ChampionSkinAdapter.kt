@@ -2,11 +2,11 @@ package bgroseclose.leagueofyou.Adapters
 
 import android.app.Activity
 import android.content.Context
-import android.support.v4.view.PagerAdapter
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
+import androidx.viewpager.widget.PagerAdapter
 import bgroseclose.leagueofyou.R
 import com.squareup.picasso.Picasso
 

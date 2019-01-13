@@ -1,6 +1,5 @@
 package bgroseclose.leagueofyou.Presenters.Fragments;
 
-import android.support.annotation.NonNull;
 import android.util.Patterns;
 
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -12,6 +11,7 @@ import com.google.firebase.auth.FirebaseUser;
 import java.util.Calendar;
 import java.util.regex.Pattern;
 
+import androidx.annotation.NonNull;
 import bgroseclose.leagueofyou.Database.DatabaseClient;
 import bgroseclose.leagueofyou.LeagueOfYouSingleton;
 import bgroseclose.leagueofyou.Models.LeagueOfYouAccount;

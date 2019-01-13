@@ -1,19 +1,18 @@
 package bgroseclose.leagueofyou.Fragments
 
 import android.os.Bundle
-import android.support.v4.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ProgressBar
+import androidx.fragment.app.Fragment
 import bgroseclose.leagueofyou.Components.DaggerChampionOverviewComponent
 import bgroseclose.leagueofyou.Models.ChampionModels.Champion
 import bgroseclose.leagueofyou.Models.ChampionModels.ChampionInfo
-import bgroseclose.leagueofyou.Models.CounterChampion
 import bgroseclose.leagueofyou.Models.CounterData
 import bgroseclose.leagueofyou.Presenters.Fragments.ChampionOverviewPresenter
 import bgroseclose.leagueofyou.R
 import com.squareup.picasso.Picasso
-import kotlinx.android.synthetic.main.fragment_champion_overview.*
 import kotlinx.android.synthetic.main.fragment_champion_overview.view.*
 import java.lang.UnsupportedOperationException
 import javax.inject.Inject
@@ -44,6 +43,7 @@ class ChampionOverviewFragment : Fragment(), ChampionOverviewPresenter.View {
     lateinit var presenter: ChampionOverviewPresenter
     @Inject set
 
+    private lateinit var progressBar : ProgressBar
     private lateinit var currentChampion: Champion
     lateinit var champion: ChampionInfo
 
@@ -53,6 +53,8 @@ class ChampionOverviewFragment : Fragment(), ChampionOverviewPresenter.View {
         if(arguments == null) {
             throw UnsupportedOperationException("Must pass a champion in the arguments.")
         }
+
+        progressBar = activity!!.findViewById(R.id.champion_overview_progress_bar)
 
         DaggerChampionOverviewComponent.builder().build().inject(this)
         DaggerChampionOverviewComponent.builder().build().inject(picasso)
@@ -74,7 +76,7 @@ class ChampionOverviewFragment : Fragment(), ChampionOverviewPresenter.View {
     }
 
     override fun progressBar(isVisible: Boolean) {
-        champion_overview_progress_bar.visibility = if (isVisible) View.VISIBLE else View.GONE
+        progressBar.visibility = if (isVisible) View.VISIBLE else View.GONE
     }
 
     override fun setCounterAdapter(counterChampions: CounterData) {

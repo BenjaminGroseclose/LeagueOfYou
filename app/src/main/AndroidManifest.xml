@@ -28,6 +28,7 @@
             android:screenOrientation="portrait"></activity>
         <activity android:name=".Activites.ChampionActivity"
             android:screenOrientation="portrait"/>
+        <activity android:name=".Activites.GameAnalysisActivity" />
     </application>
 
 </manifest>

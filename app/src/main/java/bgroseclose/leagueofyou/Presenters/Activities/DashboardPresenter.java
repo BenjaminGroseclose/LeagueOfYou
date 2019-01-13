@@ -1,9 +1,8 @@
 package bgroseclose.leagueofyou.Presenters.Activities;
 
-import android.support.annotation.NonNull;
-
 import java.util.List;
 
+import androidx.annotation.NonNull;
 import bgroseclose.leagueofyou.LeagueOfYouSingleton;
 import bgroseclose.leagueofyou.Models.LeagueOfYouAccount;
 import bgroseclose.leagueofyou.Models.SummonerRankInfo;

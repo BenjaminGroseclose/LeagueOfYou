@@ -1,7 +1,6 @@
 package bgroseclose.leagueofyou.Presenters.Fragments;
 
 import android.app.Activity;
-import android.support.annotation.NonNull;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -12,6 +11,7 @@ import com.google.firebase.database.DataSnapshot;
 
 import java.util.ArrayList;
 
+import androidx.annotation.NonNull;
 import bgroseclose.leagueofyou.Database.DatabaseClient;
 import bgroseclose.leagueofyou.Database.IDatabaseListener;
 import bgroseclose.leagueofyou.LeagueOfYouSingleton;
